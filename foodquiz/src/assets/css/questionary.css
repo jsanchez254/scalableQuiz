@@ -1,0 +1,62 @@
+.questionary{
+    padding-top: 110px;
+}
+
+.arrows{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.questionBox{
+    padding-top: 20px;
+}
+
+.options{
+    background-color: rgb(35, 92, 199);
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 30px;
+    border: black solid 1px;
+    margin: 30px;
+}
+
+.options:hover{
+    color: rgb(35, 92, 199);
+    background-color: white;
+    cursor: pointer;
+}
+
+.question{
+    font-size: 26px;
+}
+
+#question1{
+    display: block;
+}
+
+#question2{
+    display: none;
+}
+
+#finalResult{
+    display: none;
+}
+
+#imagen{
+    width: 670px;
+    height: 500px;
+}
+
+#again{
+    display: none;
+}
+
+#done{
+    display:none;
+}
+
+#temp{
+    display: block;
+}
