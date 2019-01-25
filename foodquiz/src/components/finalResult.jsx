@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import majoras from "../assets/img/burrito.jpg";
 
 class finalResult extends Component {
-    state = {  }
+    state = {
+        img: majoras
+      }
     render() { 
         return (  
             <React.Fragment>
-                <img id = "imagen" src = "majoras"/>
+                <img id = "imagen" src = {this.state.img}/>
+                TESTTEST
             </React.Fragment>
         );
     }
 }
- 
 export default finalResult;

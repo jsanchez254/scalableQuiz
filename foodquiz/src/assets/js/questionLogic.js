@@ -29,11 +29,12 @@ export function finalResults(){
         finalResult += arr[i];
     }
     document.getElementById("temp").style.display = "none";
-    // document.getElementById("question1").style.display = "none";
     document.getElementById("done").style.display = "none";
     document.getElementById("finalResult").style.display = "block";
+    // document.getElementById("finalResult").innerHTML = "TESTING!!!!!";
     if(finalResult === "12"){
         document.getElementById("imagen").src = burrito;
+        console.log("okay");
     }
     else if(finalResult === "23"){
         document.getElementById("imagen").src = double;
@@ -72,41 +73,7 @@ export function finalResults(){
 //handle next when answering
 export function optionHandler(answer){
     arr.push(answer);
-    // counter1("NEXT");
 }
-
-//handle counter to see which question will be rendered
-export function counter1(position){
-    if(position === "NEXT"){
-        counter++;
-    }
-    if(position === "PREVIOUS"){
-        counter--;
-    }
-
-    if(counter > 1){
-        counter = 1;
-        document.getElementById("done").style.display = "block";
-    }
-    else if(counter < 0){
-        counter = 0;
-    }
-    // currentQuestion();
-}
-
-//render question depending on current position
-// export function currentQuestion(){
-//     if(counter === 0){
-//         document.getElementById("question1").style.display = "block";
-//         document.getElementById("question2").style.display = "none";
-//     }
-//     else if (counter === 1){
-//         document.getElementById("question2").style.display = "block";
-//         document.getElementById("question1").style.display = "none";
-//     }
-
-//     console.log(counter);
-// }
 
 export function donefunc(){
     document.getElementById("done").style.display = "block";
