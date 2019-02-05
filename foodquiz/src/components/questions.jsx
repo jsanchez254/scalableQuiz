@@ -100,16 +100,6 @@ class questions extends Component {
     render() { 
         return ( 
             <React.Fragment>
-              {/* <div className = "questionary">
-              <div className = "columns">
-                <div className = "column is-8 is-offset-2">
-                  <div className = "box has-text-centered">
-                        <Questions handleOption = {this.handleOption}/>
-                        <div id = "finalResult"><FinalResult/></div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
                 <center><h1 className = "title">ANSWER THIS QUIZ FIND WHAT KIND OF FOOD YOU FEEL 
                 LIKE EATING <br/>BASED ON JESUS' RECOMMENDATION</h1></center>
                 <div className = "questionary">

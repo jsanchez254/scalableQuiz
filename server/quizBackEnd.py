@@ -6,6 +6,47 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
+#NOTE add new question
+@app.route("/postQuestion",  methods = ["GET", "POST"])
+def postQuestion():
+        if request.method == "POST":
+                check = request.data    
+                parse = json.loads(check)
+                parse = parse["newQuestion"]
+                question = parse["postQuestion"]
+                answer1 = parse["answer1"]
+                answer2 = parse["answer2"]
+                answer3 = parse["answer3"]
+
+                insertNewQuestion(question, answer1, answer2, answer3)
+
+                return "cool"
+
+def insertNewQuestion(question, answer1, answer2, answer3):
+        connect = sql.connect("quiz.db")
+        cursor  = connect.cursor()
+
+        # get question id
+        cursor.execute("SELECT MAX(q_id) FROM questions");
+        questionID = cursor.fetchall()
+        questionID = questionID[0][0] + 1
+
+        print question
+
+        cursor.execute('''INSERT INTO  questions (question) VALUES (?)''' , (question,))
+
+        cursor.execute('''INSERT INTO answers (q_id, answer)
+                        VALUES(?,?)''', (questionID, answer1))
+        cursor.execute('''INSERT INTO answers (q_id, answer)
+                        VALUES(?,?)''', (questionID, answer2))
+        cursor.execute('''INSERT INTO answers (q_id, answer)
+                        VALUES(?,?)''', (questionID, answer3))
+
+        connect.commit()
+
+        return "popo"
+
 #NOTE fetch all answers
 @app.route("/fetchEverything")
 def fetchEverything():
