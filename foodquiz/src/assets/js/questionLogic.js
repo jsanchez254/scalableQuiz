@@ -73,6 +73,7 @@ export function finalResults(){
 //handle next when answering
 export function optionHandler(answer){
     arr.push(answer);
+    console.log(arr);
 }
 
 export function donefunc(){

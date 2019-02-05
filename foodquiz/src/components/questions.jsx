@@ -13,7 +13,7 @@ class questions extends Component {
     state = {
         question: "",
         answers: [],
-        counter: 0
+        counter1: 1
       }
     ///********MOUNT YET AGAIN************/
   moungAgain = () => {
@@ -54,11 +54,12 @@ class questions extends Component {
     }
 
     handleNextCounter = (value) =>{
-        this.handleOption(value)
-        this.setState({counter: this.state.counter++})
-        console.log("HELLO", this.state.counter);
+        this.handleOption(value);
+        const counter1 = this.state.counter1 + 1;
+        this.setState({counter1})
+        console.log("HELLO", this.state.counter1);
         const counter = {
-        counter : this.state.counter
+        counter : this.state.counter1
         };
         axios.post("http://localhost:5000/fetchQuestion", {counter})
         .then(res => {
@@ -76,7 +77,7 @@ class questions extends Component {
         this.setState({answers});
         })
 
-        if(this.state.counter === 1){
+        if(this.state.counter1 === 1){
         donefunc();
         }
 
@@ -90,6 +91,9 @@ class questions extends Component {
   }
 
   handleRestart = () =>{
+    //SET COUNTER EQUAL TO WHAT IT USED TO BE
+    const counter1 = 1;
+    this.setState({counter1});
     restart();
   }
 

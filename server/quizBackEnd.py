@@ -102,6 +102,8 @@ def fetchQuestionInfo():
         value = parse = json.loads(value)
         value =  value["counter"] 
         value =  value["counter"] + 1
+
+        print value
         
         connect = sql.connect("quiz.db")
         #control database
