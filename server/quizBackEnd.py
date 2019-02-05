@@ -6,19 +6,33 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-#NOTE fetch all questions and answers
+#NOTE fetch all answers
 @app.route("/fetchEverything")
 def fetchEverything():
-    connect = sql.connect("quiz.db")
-    #control database
-    cursor  = connect.cursor()
-    query = '''select distinct question, answer from questions, answers where 
-    questions.q_id = answers.q_id;'''
-    cursor.execute(query)
-    store = cursor.fetchall()
-    store = json.dumps(store)
-    print store[0]
-    return store
+        connect = sql.connect("quiz.db")
+        #control database
+        cursor  = connect.cursor()
+        query = '''select distinct question, answer from questions, answers where 
+        questions.q_id = answers.q_id;'''
+        cursor.execute(query)
+        store = cursor.fetchall()
+
+        everything = fixFormat(store)
+        store = json.dumps(everything)
+        return store
+
+def fixFormat(arr):
+        questions = []
+        answers = []
+        everything = []
+        for x in arr:
+                if(x[0] not in questions):
+                        questions.append(x[0])
+                answers.append(x[1])
+        everything.append(questions)
+        everything.append(answers)
+
+        return everything
 
 
 #test
