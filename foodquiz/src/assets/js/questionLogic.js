@@ -28,6 +28,7 @@ export function finalResults(){
     for(var i = 0; i < arr.length; i++){
         finalResult += arr[i];
     }
+    console.log("FINAL RESULT IS !! ", finalResult);
     document.getElementById("temp").style.display = "none";
     document.getElementById("done").style.display = "none";
     document.getElementById("finalResult").style.display = "block";

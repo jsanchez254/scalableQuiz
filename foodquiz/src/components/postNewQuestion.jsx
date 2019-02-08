@@ -8,6 +8,7 @@ import {increment , getAnswer1} from "../assets/js/incrementByThree.js";
 class newQuestion extends Component {
     state = {
         path: "",
+        outcome: "",
         keepTrackAnswer: -1,
         questions: [],
         answers: [],
@@ -23,6 +24,23 @@ class newQuestion extends Component {
         console.log(event.target.value);
     }
 
+
+    //handle submit for creating a new path with outcome
+    handleSubmit1 = (event) =>{
+        event.preventDefault();
+
+        const newPath = {
+            path: this.state.path,
+            outcome: this.state.outcome
+        }
+
+        axios.post("http://localhost:5000/postPath" , {newPath})
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
+    // handle submit for creating a new question
     handleSubmit = (event) =>{
         event.preventDefault();
         
@@ -59,87 +77,119 @@ class newQuestion extends Component {
 
     getAnswer = () =>{
         let po = getAnswer1();
-        console.log("HU ", po);
         return po;
+    }
+
+    giveMeSpace = (index) =>{
+        if(index % 3 === 0){
+            return (<br/>);
+        }
+        return;
     }
 
     render() { 
         return (
             <React.Fragment>
-                <div>
-                    <h1 className = "title">CURRENT QUESTIONS AND ANSWERS: </h1>
+                <div className = "columns">
+                    <div className = "column is-6">
+                        <h1 className = "title">CURRENT QUESTIONS AND ANSWERS: </h1>
+                        <table className = "table">
+                            <thead>
+                                <tr>
+                                    <th>QUESTIONS</th>
+                                    <th>ANSWERS</th>
+                                </tr>
 
-                    <table className = "table">
-                        <thead>
-                            <tr>
-                                <th>QUESTIONS</th>
-                                <th>ANSWERS</th>
-                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {this.state.questions.map((question, index) => {
+                                    
+                                        return (<React.Fragment>
+                                                {index + 1} .- {question} <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                </React.Fragment>);
+                                            }
+                                        )}
+                                    </td>
+                                    <td>
+                                        {this.state.answers.map((answer, index) => {
+                                            return(<React.Fragment>
+                                                {answer}
+                                                {this.giveMeSpace(index + 1)}
+                                                <br/>
+                                            </React.Fragment>)
+                                            }
+                                        )}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {this.state.questions.map((question, index) => {
-                                
-                                    return (<React.Fragment>
-                                            {question} <br/>
-                                            <br/>
-                                            <br/>
-                                            </React.Fragment>);
-                                        }
-                                    )}
-                                </td>
-                                <td>
-                                    {this.state.answers.map((answer, index) => {
-                                        return(<React.Fragment>
-                                            {answer} <br/>
-                                        </React.Fragment>)
-                                        }
-                                    )}
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
                 <br/>
-                <h1 className = "title">POST NEW QUESTION: </h1>
-                <form onSubmit = {this.handleSubmit} className = "box">
-                <div className = "field ">
-                    <label className = "label"> Question </label>
-                    
-                    <input name = "postQuestion" className = "input" 
-                    onChange = {this.handleChange
-                    } placeholder = "Enter new Question"/>
+                <div className = "column is-6">  
+                        <h1 className = "title">POST NEW QUESTION: </h1>                                        
+                        <form onSubmit = {this.handleSubmit} className = "box">
+                            <div className = "field ">
+                                <label className = "label"> Question </label>
+                                
+                                <input name = "postQuestion" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter new Question"/>
 
-                    <label className = "label"> Answer 1 </label>
-                    
-                    <input name = "answer1" className = "input" 
-                    onChange = {this.handleChange
-                    } placeholder = "Enter new Answer"/>
+                                <label className = "label"> Answer 1 </label>
+                                
+                                <input name = "answer1" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter new Answer"/>
 
-                    <label className = "label"> Answer 2 </label>
-                    
-                    <input name = "answer2" className = "input" 
-                    onChange = {this.handleChange
-                    } placeholder = "Enter new Answer"/>
+                                <label className = "label"> Answer 2 </label>
+                                
+                                <input name = "answer2" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter new Answer"/>
 
-                    <label className = "label"> Answer 3 </label>
+                                <label className = "label"> Answer 3 </label>
+                                
+                                <input name = "answer3" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter new Answer"/>
                     
-                    <input name = "answer3" className = "input" 
-                    onChange = {this.handleChange
-                    } placeholder = "Enter new Answer"/>
-        
+                            </div>
+                        
+                            <div className = "field">
+                                <button type = "submit" value = "Submit" className = "button is-success">
+                                    CREATE QUESTION
+                                </button>
+                            </div>
+                        </form>
+
+                        <br/>
+                        <h1 className = "title">CREATE NEW PATH AND OUTCOME: </h1>   
+                        <form onSubmit = {this.handleSubmit1} className = "box">
+                            <div className = "field">
+                                <label className = "label"> Path </label>
+                                <input name = "path" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Path"/>
+
+                                <label className = "label"> Outcome </label>
+                                <input name = "outcome" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                            </div>
+                            <div className = "field">
+
+                            <button type = "submit" value = "Submit" className = "button is-warning">
+                                    CREATE NEW PATH
+                            </button>
+                            </div>
+                        </form>
+                        <br/>
+                    </div>
                 </div>
-                
-                <div className = "field">
-                    <button type = "submit" value = "Submit" className = "button is-success">
-                        CREATE QUESTION
-                    </button>
-                </div>
-
-                </form>
             </React.Fragment>
           );
     }

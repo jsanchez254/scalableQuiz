@@ -7,6 +7,30 @@ app = Flask(__name__)
 CORS(app)
 
 
+#post new path and outcome
+@app.route("/postPath", methods = ["GET", "POST"])
+def postPath():
+        if request.method == "POST":
+                check = request.data
+                parse = json.loads(check)
+                parse = parse["newPath"]
+
+                outcome = parse["outcome"]
+                path = parse["path"]
+
+                insertNewPath(outcome, path)
+        return "cool"
+
+def insertNewPath(outcome, path):
+        connect = sql.connect("quiz.db")
+        cursor  = connect.cursor()
+
+        cursor.execute('''INSERT INTO paths(p_path, p_output)
+                        VALUES (?, ?)''', (path, outcome))
+        connect.commit()
+
+        return "cool"
+
 #NOTE add new question
 @app.route("/postQuestion",  methods = ["GET", "POST"])
 def postQuestion():
@@ -102,12 +126,20 @@ def fetchQuestionInfo():
         value = parse = json.loads(value)
         value =  value["counter"] 
         value =  value["counter"] + 1
-
-        print value
         
         connect = sql.connect("quiz.db")
         #control database
         cursor  = connect.cursor()
+
+        #get id value to be compared to
+        cursor.execute("SELECT MAX(q_id) FROM questions")
+        valueToCompare = cursor.fetchall()
+
+        if(value > valueToCompare[0][0]):
+                value = valueToCompare[0][0]
+
+        print "VALUE1: ", value
+
         query = '''select question from questions where q_id =''' + str(value) + ''';'''
         print query
         cursor.execute(query)
@@ -132,21 +164,31 @@ def fetchAnswersInfo():
 
 #NOTE AFTER FETCHING FIRST ANSWER. PROGRAM GETS FOLLOWING ANSWERS VIA POSTS
         if request.method == "POST":
-            value =  request.data
-            value = parse = json.loads(value)
-            value =  value["counter"] 
-            value =  value["counter"] + 1
-            
-            connect = sql.connect("quiz.db")
-            #control database
-            cursor  = connect.cursor()
-            query = '''select answer from answers where q_id =''' + str(value) + ''';'''
-            print query
-            cursor.execute(query)
-            store = cursor.fetchall()
-            store = json.dumps(store)
-            print store
-            return store
+                value =  request.data
+                value = parse = json.loads(value)
+                value =  value["counter"] 
+                value =  value["counter"] + 1
+
+                connect = sql.connect("quiz.db")
+                #control database
+                cursor  = connect.cursor()
+
+                #get id value to be compared to
+                cursor.execute("SELECT MAX(q_id) FROM questions")
+                valueToCompare = cursor.fetchall()
+
+                if(value > valueToCompare[0][0]):
+                        value = valueToCompare[0][0]
+        
+                print "VALUE: ", value
+        
+                query = '''select answer from answers where q_id =''' + str(value) + ''';'''
+                print query
+                cursor.execute(query)
+                store = cursor.fetchall()
+                store = json.dumps(store)
+                print store
+                return store
 
 
 if __name__ == '__main__':
