@@ -13,7 +13,8 @@ class questions extends Component {
     state = {
         question: "",
         answers: [],
-        counter1: 1
+        counter1: 1,
+        path: ""
       }
     ///********MOUNT YET AGAIN************/
   moungAgain = () => {
@@ -54,6 +55,12 @@ class questions extends Component {
     }
 
     handleNextCounter = (value) =>{
+        //UPDATE PATH
+        const path = this.state.path + value;
+        this.setState({path});
+
+        console.log("THIS PATH WORKS!! ", path);
+
         this.handleOption(value);
         const counter1 = this.state.counter1 + 1;
         this.setState({counter1})
@@ -87,7 +94,13 @@ class questions extends Component {
     const counter = 0;
     this.setState({counter})
     this.moungAgain();
-    finalResults();
+
+    const path = this.state.path;
+
+    axios.post("http://localhost:5000/returnOutcome", {path})
+    .then(res => {
+      finalResults(res.data);
+    })
   }
 
   handleRestart = () =>{

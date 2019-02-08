@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import FetchQ from "./fetchQuestions.jsx";
 
 //IMPORT JS FILES
 import {increment , getAnswer1} from "../assets/js/incrementByThree.js";

@@ -15,6 +15,7 @@ import { Container, Icon } from 'semantic-ui-react'
 import Questions from "./components/questions";
 import postNewQuestion from "./components/postNewQuestion";
 import NavBar from './components/navbar';
+import EditQuestion from "./components/editQuestion";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
               <Container>
                 <Route path  = "/quizQuestions" component = {Questions}/>
                 <Route path = "/postNewQuestion" component = {postNewQuestion} />
+                <Route path = "/manageQuestion" component = {EditQuestion} />
               </Container>
             </div>
           </Router>

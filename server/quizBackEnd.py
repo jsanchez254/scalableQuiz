@@ -6,6 +6,33 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+#check path and give back outcome
+@app.route("/returnOutcome", methods = ["GET", "POST"])
+def returnOutcome():
+        if request.method == "POST":
+                check = request.data
+                parse = json.loads(check)
+
+                path = parse["path"]
+                print path
+
+                outcome = getOutcome(path)
+                print outcome
+                return outcome
+
+def getOutcome(path):
+        connect = sql.connect("quiz.db")
+        cursor  = connect.cursor()
+
+        cursor.execute("SELECT p_output FROM paths where p_path = ?", (path,))
+
+        outcome = cursor.fetchall()
+        try:
+                outcome = outcome[0][0]
+        except IndexError:
+                return "PATH DOES NOT EXITS, SORRY :("
+
+        return outcome
 
 #post new path and outcome
 @app.route("/postPath", methods = ["GET", "POST"])

@@ -23,7 +23,7 @@ export function restart(){
 
 
 //display outcomes based on user's answers
-export function finalResults(){
+export function finalResults(output){
     let finalResult = "";
     for(var i = 0; i < arr.length; i++){
         finalResult += arr[i];
@@ -32,7 +32,8 @@ export function finalResults(){
     document.getElementById("temp").style.display = "none";
     document.getElementById("done").style.display = "none";
     document.getElementById("finalResult").style.display = "block";
-    // document.getElementById("finalResult").innerHTML = "TESTING!!!!!";
+    //LINE THAT WILL EVENTUALLY REPLACE ALL BELOW
+    // document.getElementById("finalResult").innerHTML = output;
     if(finalResult === "12"){
         document.getElementById("imagen").src = burrito;
         console.log("okay");

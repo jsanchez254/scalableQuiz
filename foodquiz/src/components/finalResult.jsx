@@ -9,7 +9,6 @@ class finalResult extends Component {
         return (  
             <React.Fragment>
                 <img id = "imagen" src = {this.state.img}/>
-                TESTTEST
             </React.Fragment>
         );
     }
