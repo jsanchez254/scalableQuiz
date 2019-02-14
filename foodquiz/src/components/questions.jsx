@@ -34,7 +34,7 @@ class questions extends Component {
     })
   }
   ///********************************/
-
+  //fetch first set of questions and answers
   componentDidMount(){
     axios.get("http://localhost:5000/fetchQuestion")
       .then(res => {
@@ -54,6 +54,8 @@ class questions extends Component {
 
     }
 
+    //every time an answer gets clicked, this function will be called
+    //and then the next set of questions and answers will be displayed
     handleNextCounter = (value) =>{
         //UPDATE PATH
         const path = this.state.path + value;
@@ -90,6 +92,9 @@ class questions extends Component {
 
     }
 
+//Function that will be called when the DONE button is clicked. 
+//It is in charge of restarting quiz and submitting path to backend to get outcome
+//It will then send outcome response to a handler function in questionLogic which prints this on the DOM
   handleFinalResults = () =>{
     const counter = 0;
     this.setState({counter})
@@ -99,6 +104,11 @@ class questions extends Component {
 
     axios.post("http://localhost:5000/returnOutcome", {path})
     .then(res => {
+      console.log(res.data);
+      //RESTART PATH TO EMPTY STRING SINCE PATH WAS SUBMITTED
+      const path = "";
+      this.setState({path});
+      //PRINT ON DOM
       finalResults(res.data);
     })
   }
