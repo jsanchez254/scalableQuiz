@@ -25,7 +25,7 @@ class App extends Component {
             <div>
               <Route path = "/" component = {NavBar}/>
               <Container>
-                <Route path  = "/quizQuestions" component = {Questions}/>
+                <Route exact path  = {["/quizQuestions", "/"]} component = {Questions}/>
                 <Route path = "/postNewQuestion" component = {postNewQuestion} />
                 <Route path = "/manageQuestion" component = {EditQuestion} />
               </Container>

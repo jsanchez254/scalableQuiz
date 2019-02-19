@@ -54,6 +54,7 @@ class questions extends Component {
 
     }
 
+    //will be triggered everytime we click next
     handleNextCounter = (value) =>{
         //UPDATE PATH
         const path = this.state.path + value;
@@ -90,6 +91,7 @@ class questions extends Component {
 
     }
 
+  //will be triggered when we call submit!
   handleFinalResults = () =>{
     const counter = 0;
     this.setState({counter})
@@ -100,9 +102,11 @@ class questions extends Component {
     axios.post("http://localhost:5000/returnOutcome", {path})
     .then(res => {
       finalResults(res.data);
+      console.log(res.data);
     })
   }
 
+  //will be triggered when we click again
   handleRestart = () =>{
     //SET COUNTER EQUAL TO WHAT IT USED TO BE
     const counter1 = 1;
