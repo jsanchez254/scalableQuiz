@@ -3,9 +3,6 @@ import axios from "axios";
 
 import {donefunc, finalResults, restart} from "../assets/js/questionLogic.js"
 
-//IMPORT COMPONENTS
-import FinalResult from "./finalResult";
-
 //IMPORT JS FILES
 import {optionHandler} from "../assets/js/questionLogic.js"
 
@@ -100,7 +97,8 @@ class questions extends Component {
     axios.post("http://localhost:5000/returnOutcome", {path})
     .then(res => {
       finalResults(res.data);
-      console.log(res.data);
+      //RESTART PATH VALUE
+      this.setState({path: ""});
     })
   }
 
@@ -119,8 +117,7 @@ class questions extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <center><h1 className = "title">ANSWER THIS QUIZ FIND WHAT KIND OF FOOD YOU FEEL 
-                LIKE EATING <br/>BASED ON JESUS' RECOMMENDATION</h1></center>
+                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS</h1></center>
                 <div className = "questionary">
                   <div className = "columns">
                       <div className = "column is-8 is-offset-2">
@@ -133,7 +130,7 @@ class questions extends Component {
                                   <div key = {index} className = "options" onClick = {()=>this.handleNextCounter(index + 1)}>{msg[0]}</div>)}
                               </div>
                               {/* OUTPUT OF PATH  */}
-                              <div id = "finalResult"><FinalResult/></div>
+                              <div id = "finalResult"></div>
                           </div>
                           <div className = "column is-2 is-offset-10">
                               <div id = "again">                   

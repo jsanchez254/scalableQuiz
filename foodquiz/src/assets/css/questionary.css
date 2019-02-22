@@ -42,6 +42,9 @@
 
 #finalResult{
     display: none;
+    font-size: 33px;
+    font-weight: bold;
+    color: rgb(233, 49, 17);
 }
 
 #imagen{
@@ -59,4 +62,9 @@
 
 #temp{
     display: block;
+}
+
+.navbar-item:hover{
+    color: black !important;
+    background-color:white !important;
 }
