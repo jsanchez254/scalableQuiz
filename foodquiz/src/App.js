@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 import {
   BrowserRouter as Router,
-  Route, Redirect
+  Route
 } from 'react-router-dom';
 
 //IMPORT CSS
 import "./assets/css/questionary.css";
 
 //IMPORT SEMANTIC UI
-import { Container, Icon } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 
 //IMPORT COMPONENTS
 import Questions from "./components/questions";
@@ -25,7 +25,7 @@ class App extends Component {
             <div>
               <Route path = "/" component = {NavBar}/>
               <Container>
-                <Route exact path  = {["/quizQuestions", "/"]} component = {Questions}/>
+                <Route exact path  = {['/quizQuestions', '/']} component = {Questions}/>
                 <Route path = "/postNewQuestion" component = {postNewQuestion} />
                 <Route path = "/manageQuestion" component = {EditQuestion} />
               </Container>

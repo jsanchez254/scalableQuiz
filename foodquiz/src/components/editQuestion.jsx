@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+//#NOTE WRITE HERE !
+
 class EditQuestion extends Component {
     state = {  }
     render() { 

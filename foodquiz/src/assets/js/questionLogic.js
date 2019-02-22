@@ -8,13 +8,11 @@ import cake from "../img/cake.jpg";
 import california from "../img/california.jpg";
 import pizza from "../img/pizza.jpg";
 
-var counter = 0;
 var arr = [];
 
 //restart questionary by clearing array and displaying only first question again!
 export function restart(){
     arr = [];
-    counter = 0;
     document.getElementById("finalResult").style.display = "none";
     document.getElementById("again").style.display = "none";
     document.getElementById("done").style.display = "none";

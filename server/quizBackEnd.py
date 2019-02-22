@@ -45,8 +45,16 @@ def postPath():
                 outcome = parse["outcome"]
                 path = parse["path"]
 
+                #CHECK FORMAT IS CORRECT FOR PATH, ONLY NUMBERS ALLOWED
+                #MODIFY HERE :D
+                # checkFormat(path)
+                
                 insertNewPath(outcome, path)
         return "cool"
+
+#MODIFY FUNCTION HERE :D
+# def checkFormat(path):
+
 
 def insertNewPath(outcome, path):
         connect = sql.connect("quiz.db")

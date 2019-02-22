@@ -72,8 +72,6 @@ class questions extends Component {
         axios.post("http://localhost:5000/fetchQuestion", {counter})
         .then(res => {
             let temp = res.data;
-            temp = temp[0];
-            temp = temp[0];
             const question = temp;
             this.setState({question});
         })
@@ -132,7 +130,7 @@ class questions extends Component {
                               <div id = "temp">
                                   <span className = "question">{this.state.question}</span>
                                   {this.state.answers.map((msg, index) => 
-                                  <div className = "options" onClick = {()=>this.handleNextCounter(index + 1)}>{msg[0]}</div>)}
+                                  <div key = {index} className = "options" onClick = {()=>this.handleNextCounter(index + 1)}>{msg[0]}</div>)}
                               </div>
                               {/* OUTPUT OF PATH  */}
                               <div id = "finalResult"><FinalResult/></div>

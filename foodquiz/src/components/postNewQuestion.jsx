@@ -39,6 +39,8 @@ class newQuestion extends Component {
         })
     }
 
+
+
     // handle submit for creating a new question
     handleSubmit = (event) =>{
         event.preventDefault();
@@ -69,8 +71,6 @@ class newQuestion extends Component {
     }
 
     handleAnswer = () =>{
-        let po = increment();
-        // console.log("PO", po);
         return increment();
     }
 
@@ -85,6 +85,8 @@ class newQuestion extends Component {
         }
         return;
     }
+
+    //CREATE FUNCTION MODIFY HERE :D
 
     render() { 
         return (

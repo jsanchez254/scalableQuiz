@@ -8,7 +8,7 @@ class finalResult extends Component {
     render() { 
         return (  
             <React.Fragment>
-                <img id = "imagen" src = {this.state.img}/>
+                <img alt = "" id = "imagen" src = {this.state.img}/>
             </React.Fragment>
         );
     }
