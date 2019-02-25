@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-//IMPORT JS FILES
-import {increment , getAnswer1} from "../assets/js/incrementByThree.js";
+//IMPORT SEMANTIC
+import {Icon} from "semantic-ui-react";
+
+//IMPORT JS
+import {addMoreAnswers} from "../assets/js/addMoreAnswers.js";
 
 class newQuestion extends Component {
     state = {
@@ -14,7 +17,8 @@ class newQuestion extends Component {
         postQuestion: "",
         answer1: "",
         answer2: "",
-        answer3: ""
+        answer3: "",
+        indexAnswer: 1
       }
 
 
@@ -69,16 +73,6 @@ class newQuestion extends Component {
             this.setState({answers});
         })
     }
-
-    handleAnswer = () =>{
-        return increment();
-    }
-
-    getAnswer = () =>{
-        let po = getAnswer1();
-        return po;
-    }
-
     giveMeSpace = (index) =>{
         if(index % 3 === 0){
             return (<br/>);
@@ -108,7 +102,7 @@ class newQuestion extends Component {
                                         {this.state.questions.map((question, index) => {
                                     
                                         return (<React.Fragment>
-                                                {index + 1} .- {question} <br/>
+                                                {question} <br/>
                                                 <br/>
                                                 <br/>
                                                 <br/>
@@ -135,7 +129,7 @@ class newQuestion extends Component {
                 <div className = "column is-6">  
                         <h1 className = "title">POST NEW QUESTION: </h1>                                        
                         <form onSubmit = {this.handleSubmit} className = "box">
-                            <div className = "field ">
+                            <div className = "field " id = "parentAnswer">
                                 <label className = "label"> Question </label>
                                 
                                 <input name = "postQuestion" className = "input" 
@@ -159,11 +153,15 @@ class newQuestion extends Component {
                                 <input name = "answer3" className = "input" 
                                 onChange = {this.handleChange
                                 } placeholder = "Enter new Answer"/>
-                    
+                            </div>
+                            <div className = "field">
+                                    <button onClick = {() => addMoreAnswers()} className = "addMoreAnswers">
+                                        Add More Answers <Icon name = "plus square"/>
+                                    </button>
                             </div>
                         
                             <div className = "field">
-                                <button type = "submit" value = "Submit" className = "button is-success">
+                                <button type = "submit" value = "Submit" className = "button is-info">
                                     CREATE QUESTION
                                 </button>
                             </div>
@@ -182,8 +180,7 @@ class newQuestion extends Component {
                                 onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
                             </div>
                             <div className = "field">
-
-                            <button type = "submit" value = "Submit" className = "button is-warning">
+                            <button type = "submit" value = "Submit" className = "button is-info">
                                     CREATE NEW PATH
                             </button>
                             </div>

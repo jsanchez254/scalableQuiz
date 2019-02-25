@@ -22,6 +22,7 @@ export function finalResults(output){
     document.getElementById("finalResult").style.display = "block";
     //LINE THAT WILL EVENTUALLY REPLACE ALL BELOW
     document.getElementById("finalResult").innerHTML = output;
+    document.getElementById("finalResult").href = output;
     document.getElementById("again").style.display = "block";
 }
 

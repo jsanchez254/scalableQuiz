@@ -130,7 +130,7 @@ class questions extends Component {
                                   <div key = {index} className = "options" onClick = {()=>this.handleNextCounter(index + 1)}>{msg[0]}</div>)}
                               </div>
                               {/* OUTPUT OF PATH  */}
-                              <div id = "finalResult"></div>
+                              <a href = "" id = "finalResult"></a>
                           </div>
                           <div className = "column is-2 is-offset-10">
                               <div id = "again">                   

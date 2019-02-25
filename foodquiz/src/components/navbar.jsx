@@ -8,7 +8,7 @@ class NavBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <nav className = "navbar is-dark">
+                <nav className = "navbar is-success">
                     <div className = "navbar-end">
                         <Link  className = "navbar-item" to = "/quizQuestions">
                             <Icon name='question circle'  size = "large"/> <span>Answer Quiz</span>

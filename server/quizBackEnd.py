@@ -6,6 +6,56 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+#fetch answers when a question is posted
+@app.route("/editAnswersFetch" , methods = ["GET", "POST"])
+def editAnswersFetch():
+        if request.method == "POST":
+                store = request.data
+                parse = json.loads(store)
+                question = parse["question1"]
+                
+                questionId = getQuestionId(question["question1"])
+                return fetchAnswers(questionId)
+        return "cool1"
+
+def getQuestionId(question):
+        connect = sql.connect("quiz.db")
+        cursor = connect.cursor()
+        print question
+        cursor.execute("SELECT q_id FROM questions WHERE question = ?;", (question,))
+        questionId = cursor.fetchall()
+        return questionId [0][0]
+
+def fetchAnswers(questionId):
+        connect = sql.connect("quiz.db")
+        cursor  = connect.cursor()
+        cursor.execute("SELECT answer FROM answers WHERE q_id = ?;", (questionId,))
+        answers = cursor.fetchall()
+        answers = json.dumps(answers)
+        print ("ANSWERS" , answers)
+        return answers
+
+#update question
+@app.route("/updateQuestion", methods = ["GET", "POST"])
+def updateQuestion():
+        if request.method == "POST":
+                store = request.data
+                parse = json.loads(store)
+                print parse
+
+        return "cool"
+
+#get all questions
+@app.route("/getAllQuestions",  methods = ["GET", "POST"])
+def getAllQuestions():
+        connect = sql.connect("quiz.db")
+        cursor  = connect.cursor()
+        cursor.execute('''SELECT question from questions;''')
+        store = cursor.fetchall()
+        store = json.dumps(store)
+        print store
+        return store
+
 #check path and give back outcome
 @app.route("/returnOutcome", methods = ["GET", "POST"])
 def returnOutcome():
