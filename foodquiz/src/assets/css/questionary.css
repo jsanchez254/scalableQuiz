@@ -81,6 +81,8 @@
     background-color: rgb(53, 124, 12);
     color: rgb(219, 231, 40);
     font-weight: bold;
+    text-align: center;
+    vertical-align: center;
 }
 
 .addMoreAnswers:hover{

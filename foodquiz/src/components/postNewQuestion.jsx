@@ -15,11 +15,13 @@ class newQuestion extends Component {
         questions: [],
         answers: [],
         postQuestion: "",
+        postQuestions: [], //array used to store answers that will be posted
         answer1: "",
         answer2: "",
         answer3: "",
-        indexAnswer: 1
-      }
+        indexAnswer: 1,
+        test: [1,2]
+    }
 
 
     handleChange = (event) => {
@@ -27,11 +29,9 @@ class newQuestion extends Component {
         console.log(event.target.value);
     }
 
-
     //handle submit for creating a new path with outcome
     handleSubmit1 = (event) =>{
         event.preventDefault();
-
         const newPath = {
             path: this.state.path,
             outcome: this.state.outcome
@@ -43,17 +43,15 @@ class newQuestion extends Component {
         })
     }
 
-
-
     // handle submit for creating a new question
     handleSubmit = (event) =>{
         event.preventDefault();
-        
         const newQuestion  = {
             postQuestion: this.state.postQuestion,
             answer1: this.state.answer1,
             answer2: this.state.answer2,
-            answer3: this.state.answer3
+            answer3: this.state.answer3,
+            test: this.state.test
         };
 
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
@@ -79,9 +77,6 @@ class newQuestion extends Component {
         }
         return;
     }
-
-    //CREATE FUNCTION MODIFY HERE :D
-
     render() { 
         return (
             <React.Fragment>
@@ -94,13 +89,11 @@ class newQuestion extends Component {
                                     <th>QUESTIONS</th>
                                     <th>ANSWERS</th>
                                 </tr>
-
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        {this.state.questions.map((question, index) => {
-                                    
+                                        {this.state.questions.map((question, index) => {                                    
                                         return (<React.Fragment>
                                                 {question} <br/>
                                                 <br/>
@@ -128,7 +121,7 @@ class newQuestion extends Component {
                 <br/>
                 <div className = "column is-6">  
                         <h1 className = "title">POST NEW QUESTION: </h1>                                        
-                        <form onSubmit = {this.handleSubmit} className = "box">
+                        <form className = "box">
                             <div className = "field " id = "parentAnswer">
                                 <label className = "label"> Question </label>
                                 
@@ -155,13 +148,14 @@ class newQuestion extends Component {
                                 } placeholder = "Enter new Answer"/>
                             </div>
                             <div className = "field">
-                                    <button onClick = {() => addMoreAnswers()} className = "addMoreAnswers">
+                                    {/* when clicked it will add input element */}
+                                    <div name = "addAnswer" onClick = {() => addMoreAnswers(this.handleChange)} className = "addMoreAnswers">
                                         Add More Answers <Icon name = "plus square"/>
-                                    </button>
+                                    </div>
                             </div>
                         
                             <div className = "field">
-                                <button type = "submit" value = "Submit" className = "button is-info">
+                                <button onClick = {this.handleSubmit} name = "submit" type = "submit" value = "Submit" className = "button is-info">
                                     CREATE QUESTION
                                 </button>
                             </div>

@@ -127,6 +127,8 @@ def postQuestion():
                 answer1 = parse["answer1"]
                 answer2 = parse["answer2"]
                 answer3 = parse["answer3"]
+                test = parse["test"]
+                print (test[1])
 
                 insertNewQuestion(question, answer1, answer2, answer3)
 
