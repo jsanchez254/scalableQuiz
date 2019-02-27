@@ -18,3 +18,27 @@ export function addMoreAnswers(handleChange){
     parent.append(label);
     parent.append(input);
 }
+
+export function createAnswerBoxes(boxes){
+    let length = boxes.length;
+    let answerBox = document.getElementById("answerBox");
+    //KILL children if there is any DIEEE!!!!
+    if(answerBox.childNodes.length > 0){
+        while(answerBox.childNodes.length){
+            answerBox.removeChild(answerBox.childNodes[0]);
+        }
+    }
+    for(let i = 0; i < length; i++){
+        let newBox = document.createElement("input");
+        newBox.className = "input";
+        newBox.value = boxes[i];
+
+        let newLabel = document.createElement("label");
+        newLabel.className = "label";
+        newLabel.innerHTML = "Answer " + (i + 1) + ":";
+
+        answerBox.append(newLabel);
+        answerBox.append(newBox);
+    }
+}
+                        

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
+//IMPORT JS
+import {createAnswerBoxes} from "../assets/js/addMoreAnswers";
+
 class EditQuestion extends Component {
     state = {
         questions: [],
         answers: [],
         actualQuestion: ""
       }
-
 
     handleChange = (event) =>{
         this.setState({[event.target.name] : event.target.value});
@@ -28,7 +30,8 @@ class EditQuestion extends Component {
             .then(res =>{
                 const answers = res.data;
                 this.setState({answers});
-                console.log(res.data);
+                //CREATE NECESSARY ANSWER BOXES FOR QUESTIONS THAT HAVE MORE THAN 3 OPTIONS
+                createAnswerBoxes(answers);
             })
     }
 
@@ -72,21 +75,13 @@ class EditQuestion extends Component {
                         <label className = "label">Question:</label>
                         <input value = {this.state.actualQuestion} className = "input"/> 
                     </div>
-                    <div className = "field">
-                        <label className = "label">Answer 1:</label>
-                        <input value = {this.state.answers[0]} className = "input"/> 
+                    <center><h1>ANSWERS...</h1></center>
+                    <div id = "answerBox" className = "field">
+                        {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
                     </div>
                     <div className = "field">
-                        <label className = "label">Answer 2:</label>
-                        <input value = {this.state.answers[1]} className = "input"/> 
-                    </div>
-                    <div className = "field">
-                        <label className = "label">Answer 3:</label>
-                        <input value = {this.state.answers[2]} className = "input"/> 
-                    </div>
-                    <field>
                         <button className = "button is-success">EDIT!</button>
-                    </field>
+                    </div>
                 </form>
             </React.Fragment>
           );

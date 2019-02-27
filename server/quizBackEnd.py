@@ -31,7 +31,10 @@ def fetchAnswers(questionId):
         cursor  = connect.cursor()
         cursor.execute("SELECT answer FROM answers WHERE q_id = ?;", (questionId,))
         answers = cursor.fetchall()
-        answers = json.dumps(answers)
+        answersList = []
+        for i in range(len(answers)):
+                answersList.append(answers[i][0])
+        answers = json.dumps(answersList)
         print ("ANSWERS" , answers)
         return answers
 

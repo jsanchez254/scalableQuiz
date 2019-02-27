@@ -19,7 +19,6 @@ class newQuestion extends Component {
         indexAnswer: 1
     }
 
-
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
         //POST ANSWERS
@@ -73,6 +72,7 @@ class newQuestion extends Component {
             this.setState({answers});
         })
     }
+    
     giveMeSpace = (index) =>{
         if(index % 3 === 0){
             return (<br/>);
