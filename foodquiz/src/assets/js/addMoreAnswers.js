@@ -12,7 +12,7 @@ export function addMoreAnswers(handleChange){
     input.id = "input1";
     //add event listener to save state of value in new created input elements
     input.addEventListener("change", handleChange);
-    input.name = "answer" + x;
+    input.name = "answer" + (x-1);
     input.placeholder = "Enter new Answer";
     label.innerHTML = "Answer " + x;
     parent.append(label);

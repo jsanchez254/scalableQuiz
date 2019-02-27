@@ -73,7 +73,6 @@ def returnOutcome():
 def getOutcome(path):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
-
         cursor.execute("SELECT p_output FROM paths where p_path = ?", (path,))
 
         outcome = cursor.fetchall()
@@ -116,7 +115,7 @@ def insertNewPath(outcome, path):
 
         return "cool"
 
-#NOTE add new question
+#NOTE ADD A NEW QUESTION WITH ANSWERS
 @app.route("/postQuestion",  methods = ["GET", "POST"])
 def postQuestion():
         if request.method == "POST":
@@ -124,17 +123,11 @@ def postQuestion():
                 parse = json.loads(check)
                 parse = parse["newQuestion"]
                 question = parse["postQuestion"]
-                answer1 = parse["answer1"]
-                answer2 = parse["answer2"]
-                answer3 = parse["answer3"]
-                test = parse["test"]
-                print (test[1])
-
-                insertNewQuestion(question, answer1, answer2, answer3)
-
+                answers = parse["postAnswers"]
+                insertNewQuestion(question, answers)
                 return "cool"
 
-def insertNewQuestion(question, answer1, answer2, answer3):
+def insertNewQuestion(question, answers):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
 
@@ -143,17 +136,12 @@ def insertNewQuestion(question, answer1, answer2, answer3):
         questionID = cursor.fetchall()
         questionID = questionID[0][0] + 1
 
-        print question
-
         cursor.execute('''INSERT INTO  questions (question) VALUES (?)''' , (question,))
 
-        cursor.execute('''INSERT INTO answers (q_id, answer)
-                        VALUES(?,?)''', (questionID, answer1))
-        cursor.execute('''INSERT INTO answers (q_id, answer)
-                        VALUES(?,?)''', (questionID, answer2))
-        cursor.execute('''INSERT INTO answers (q_id, answer)
-                        VALUES(?,?)''', (questionID, answer3))
-
+        #insert all answers from answers array posted by front end
+        for i in range(len(answers)):
+                cursor.execute('''INSERT INTO answers (q_id, answer)
+                                VALUES(?,?)''', (questionID, answers[i]))
         connect.commit()
 
         return "popo"

@@ -15,18 +15,25 @@ class newQuestion extends Component {
         questions: [],
         answers: [],
         postQuestion: "",
-        postQuestions: [], //array used to store answers that will be posted
-        answer1: "",
-        answer2: "",
-        answer3: "",
-        indexAnswer: 1,
-        test: [1,2]
+        postAnswers: [], //array used to store answers that will be posted
+        indexAnswer: 1
     }
 
 
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
-        console.log(event.target.value);
+        //POST ANSWERS
+        const postAnswers = this.state.postAnswers;
+        let index = event.target.name[6]; //get index of answer updated
+        //if answer index does not exist then push it into the array
+        if(typeof postAnswers[index] == "undefined" && event.target.name != "postQuestion"){
+            postAnswers.push(event.target.value);
+        }
+        else{
+            postAnswers[index] = event.target.value;
+        }
+        //update state of answers array
+        this.setState({postAnswers});
     }
 
     //handle submit for creating a new path with outcome
@@ -36,24 +43,19 @@ class newQuestion extends Component {
             path: this.state.path,
             outcome: this.state.outcome
         }
-
         axios.post("http://localhost:5000/postPath" , {newPath})
         .then(res => {
             console.log(res.data);
         })
     }
 
-    // handle submit for creating a new question
+    // handle submit for creating a new question with answers
     handleSubmit = (event) =>{
         event.preventDefault();
         const newQuestion  = {
             postQuestion: this.state.postQuestion,
-            answer1: this.state.answer1,
-            answer2: this.state.answer2,
-            answer3: this.state.answer3,
-            test: this.state.test
+            postAnswers: this.state.postAnswers
         };
-
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
         .then(res => {
             console.log(res.data)
@@ -96,9 +98,7 @@ class newQuestion extends Component {
                                         {this.state.questions.map((question, index) => {                                    
                                         return (<React.Fragment>
                                                 {question} <br/>
-                                                <br/>
-                                                <br/>
-                                                <br/>
+                                                <br/><br/><br/>
                                                 </React.Fragment>);
                                             }
                                         )}
@@ -131,19 +131,19 @@ class newQuestion extends Component {
 
                                 <label className = "label"> Answer 1 </label>
                                 
-                                <input name = "answer1" className = "input" 
+                                <input name = "answer0" className = "input" 
                                 onChange = {this.handleChange
                                 } placeholder = "Enter new Answer"/>
 
                                 <label className = "label"> Answer 2 </label>
                                 
-                                <input name = "answer2" className = "input" 
+                                <input name = "answer1" className = "input" 
                                 onChange = {this.handleChange
                                 } placeholder = "Enter new Answer"/>
 
                                 <label className = "label"> Answer 3 </label>
                                 
-                                <input name = "answer3" className = "input" 
+                                <input name = "answer2" className = "input" 
                                 onChange = {this.handleChange
                                 } placeholder = "Enter new Answer"/>
                             </div>
