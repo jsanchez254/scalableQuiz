@@ -34,6 +34,7 @@ def fetchAnswers(questionId):
         answersList = []
         for i in range(len(answers)):
                 answersList.append(answers[i][0])
+        answersList.append(questionId)
         answers = json.dumps(answersList)
         print ("ANSWERS" , answers)
         return answers
@@ -44,9 +45,24 @@ def updateQuestion():
         if request.method == "POST":
                 store = request.data
                 parse = json.loads(store)
-                print parse
+                parse = parse["post"]
+                answers = parse["answers"]
+                question = parse["actualQuestion"]
+                q_id = parse["q_id"]
+                update(question, answers, q_id)
 
         return "cool"
+
+def update(question, answers, q_id):
+        connect = sql.connect("quiz.db")
+        cursor = connect.cursor()
+        print(answers)
+        cursor.execute("UPDATE questions SET question = ? WHERE q_id = ?", (question, q_id))
+        for i in range(len(answers)):
+                print answers[i]
+                cursor.execute("UPDATE answers SET answer = ? WHERE q_id = ? AND a_id = ?", (answers[i], q_id, i+1))
+        connect.commit()
+
 
 #get all questions
 @app.route("/getAllQuestions",  methods = ["GET", "POST"])

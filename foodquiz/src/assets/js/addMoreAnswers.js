@@ -19,7 +19,7 @@ export function addMoreAnswers(handleChange){
     parent.append(input);
 }
 
-export function createAnswerBoxes(boxes){
+export function createAnswerBoxes(boxes, handleChange){
     let length = boxes.length;
     let answerBox = document.getElementById("answerBox");
     //KILL children if there is any DIEEE!!!!
@@ -32,6 +32,8 @@ export function createAnswerBoxes(boxes){
         let newBox = document.createElement("input");
         newBox.className = "input";
         newBox.value = boxes[i];
+        newBox.name = "answer" + i;
+        newBox.addEventListener("change", handleChange);
 
         let newLabel = document.createElement("label");
         newLabel.className = "label";
