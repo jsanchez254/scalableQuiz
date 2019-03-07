@@ -107,7 +107,6 @@ class EditQuestion extends Component {
                         <label className = "label">Question:</label>
                         <input name = "actualQuestion" value = {this.state.actualQuestion} 
                         onChange = {this.handleChange} className = "input"/> 
-
                         
                     </div>
                     <center><h1>ANSWERS...</h1></center>

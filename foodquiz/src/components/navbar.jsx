@@ -13,6 +13,9 @@ class NavBar extends Component {
                         <Link  className = "navbar-item" to = "/quizQuestions">
                             <Icon name='question circle'  size = "large"/> <span>Answer Quiz</span>
                         </Link>
+                        <Link  className = "navbar-item" to = "/currentInfo">
+                            <Icon name='info circle'  size = "large"/> <span>Current Info</span>
+                        </Link>
                         <Link  className = "navbar-item" to = "/postNewQuestion">
                             <Icon name='plus circle'  size = "large"/><span>Post Question/Path</span>
                         </Link>

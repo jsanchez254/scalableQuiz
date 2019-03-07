@@ -6,24 +6,24 @@ insert into questions (question)
 VALUES("What proportion of this do you want?");
 
 -- ANSWERS TABLE INSERTIONS
-insert into answers (q_id, answer)
-VALUES(1, "SALTY");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(1, "SALTY", 1);
 
-insert into answers (q_id, answer)
-VALUES(1, "GREASY");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(1, "GREASY", 2);
 
-insert into answers (q_id, answer)
-VALUES(1, "SWEET");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(1, "SWEET", 3);
 
-insert into answers (q_id, answer)
-VALUES(2, "SMALL");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(2, "SMALL", 1);
 
-insert into answers (q_id, answer)
-VALUES(2, "BIG");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(2, "BIG", 2);
 
-insert into answers (q_id, answer)
-VALUES(2, "HUGE");
+insert into answers (q_id, answer, a_answerNumbers)
+VALUES(2, "HUGE", 3);
 
 -- PATH TABLE INSERTIONS
-insert into 
+-- insert into 
 

@@ -67,7 +67,7 @@ class newQuestion extends Component {
             let temp = res.data;
             const questions = temp[0];
             const answers = temp[1];
-            console.log(questions);
+            console.log(answers);
             this.setState({questions});
             this.setState({answers});
         })
@@ -79,46 +79,11 @@ class newQuestion extends Component {
         }
         return;
     }
+    
     render() { 
         return (
             <React.Fragment>
                 <div className = "columns">
-                    <div className = "column is-6">
-                        <h1 className = "title">CURRENT QUESTIONS AND ANSWERS: </h1>
-                        <table className = "table">
-                            <thead>
-                                <tr>
-                                    <th>QUESTIONS</th>
-                                    <th>ANSWERS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        {this.state.questions.map((question, index) => {                                    
-                                        return (<React.Fragment>
-                                                {question} <br/>
-                                                <br/><br/><br/>
-                                                </React.Fragment>);
-                                            }
-                                        )}
-                                    </td>
-                                    <td>
-                                        {this.state.answers.map((answer, index) => {
-                                            return(<React.Fragment>
-                                                {answer}
-                                                {this.giveMeSpace(index + 1)}
-                                                <br/>
-                                            </React.Fragment>)
-                                            }
-                                        )}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                <br/>
                 <div className = "column is-6">  
                         <h1 className = "title">POST NEW QUESTION: </h1>                                        
                         <form className = "box">
@@ -162,6 +127,8 @@ class newQuestion extends Component {
                         </form>
 
                         <br/>
+                    </div>
+                    <div className = "column is-6">
                         <h1 className = "title">CREATE NEW PATH AND OUTCOME: </h1>   
                         <form onSubmit = {this.handleSubmit1} className = "box">
                             <div className = "field">

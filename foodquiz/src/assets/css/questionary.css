@@ -9,6 +9,9 @@
 
 .questionBox{
     padding-top: 20px;
+    max-height: 400px !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .options{
@@ -89,4 +92,31 @@
     color: rgb(53, 124, 12);
     background-color: rgb(219, 231, 40);
     cursor: pointer;
+}
+
+#parentAnswer{
+    max-height: 290px !important;
+    overflow-y: scroll;
+    overflow-x : hidden;
+}
+
+/* CURRENT QUESTION */
+.title1{
+    font-size: 30px;
+}
+
+.answers1{
+    font-size:22px;
+    color: rgb(233, 35, 35);
+    font-weight: bold;
+}
+
+.questions1{
+    font-size:22px;
+    color: rgb(83, 14, 243);
+    font-weight: bold;
+}
+
+.index1{
+    font-size: 24px;
 }

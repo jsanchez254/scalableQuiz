@@ -16,6 +16,8 @@ import Questions from "./components/questions";
 import postNewQuestion from "./components/postNewQuestion";
 import NavBar from './components/navbar';
 import EditQuestion from "./components/editQuestion";
+import CurrentQuestion from "./components/currentInfo";
+import currentInfo from './components/currentInfo';
 
 class App extends Component {
   render() {
@@ -25,9 +27,11 @@ class App extends Component {
             <div>
               <Route path = "/" component = {NavBar}/>
               <Container>
+                <br/>
                 <Route exact path  = {['/quizQuestions', '/']} component = {Questions}/>
                 <Route path = "/postNewQuestion" component = {postNewQuestion} />
                 <Route path = "/manageQuestion" component = {EditQuestion} />
+                <Route path = "/currentInfo" component = {currentInfo} />
               </Container>
             </div>
           </Router>

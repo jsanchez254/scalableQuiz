@@ -60,7 +60,7 @@ def update(question, answers, q_id):
         cursor.execute("UPDATE questions SET question = ? WHERE q_id = ?", (question, q_id))
         for i in range(len(answers)):
                 print answers[i]
-                cursor.execute("UPDATE answers SET answer = ? WHERE q_id = ? AND a_id = ?", (answers[i], q_id, i+1))
+                cursor.execute("UPDATE answers SET answer = ? WHERE q_id = ? AND a_answerNumbers = ?", (answers[i], q_id, i+1))
         connect.commit()
 
 
@@ -159,8 +159,8 @@ def insertNewQuestion(question, answers):
 
         #insert all answers from answers array posted by front end
         for i in range(len(answers)):
-                cursor.execute('''INSERT INTO answers (q_id, answer)
-                                VALUES(?,?)''', (questionID, answers[i]))
+                cursor.execute('''INSERT INTO answers (q_id, answer, a_answerNumbers)
+                                VALUES(?,?,?)''', (questionID, answers[i], i + 1))
         connect.commit()
 
         return "popo"
@@ -171,23 +171,40 @@ def fetchEverything():
         connect = sql.connect("quiz.db")
         #control database
         cursor  = connect.cursor()
+        #COUNT ANSWERS PER QUESTION
+        cursor.execute("SELECT MAX(a_answerNumbers) FROM ANSWERS GROUP BY q_id;")
+        answersPerQuestion = cursor.fetchall()
         query = '''select distinct question, answer from questions, answers where 
         questions.q_id = answers.q_id;'''
         cursor.execute(query)
         store = cursor.fetchall()
 
-        everything = fixFormat(store)
+        everything = fixFormat(store, answersPerQuestion)
         store = json.dumps(everything)
         return store
 
-def fixFormat(arr):
+def fixFormat(arr, answersPerQuestion):
         questions = []
         answers = []
         everything = []
+        temp = []
+        moveNextSet = 0
+        startNewSet = 0
+        count = 0
         for x in arr:
                 if(x[0] not in questions):
                         questions.append(x[0])
-                answers.append(x[1])
+                if(startNewSet < answersPerQuestion[moveNextSet][0]):
+                        temp.append(x[1])
+                        startNewSet += 1
+                else:
+                        answers.append(temp)
+                        print answers
+                        temp = []
+                        temp.append(x[1])
+                        startNewSet = 1
+                        moveNextSet +=1
+        answers.append(temp)
         everything.append(questions)
         everything.append(answers)
 
