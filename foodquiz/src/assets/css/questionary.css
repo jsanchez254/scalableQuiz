@@ -95,7 +95,7 @@
 }
 
 #parentAnswer{
-    max-height: 290px !important;
+    max-height: 400px !important;
     overflow-y: scroll;
     overflow-x : hidden;
 }
@@ -119,4 +119,10 @@
 
 .index1{
     font-size: 24px;
+}
+
+#answerBox{
+    max-height: 500px;
+    overflow-y: scroll;
+    border: inset rgb(73, 209, 32) 5px;
 }
