@@ -90,7 +90,7 @@ class EditQuestion extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 className = "title">MANAGE QUESTION/PATH</h1>
+                <h1 className = "title">EDIT QUESTION:</h1>
                 <form onSubmit = {this.handleSubmit} className = "box">  
                     <div className = "field">            
                         <label className = "label">Pick Question to Edit: </label>
@@ -117,6 +117,7 @@ class EditQuestion extends Component {
                         <button className = "button is-success">EDIT!</button>
                     </div>
                 </form>
+                <h1 className = "title">DELETE QUESTION:</h1>
             </React.Fragment>
           );
     }

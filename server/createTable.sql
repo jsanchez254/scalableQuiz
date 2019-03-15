@@ -15,3 +15,9 @@ CREATE TABLE paths(
     p_path INTEGER,
     p_output varchar(2000)
 );
+
+CREATE TABLE arrange(
+    arr_id INTEGER PRIMARY KEY,
+    arr_name varchar(300),
+    arr_arrange varchar(800)
+);
