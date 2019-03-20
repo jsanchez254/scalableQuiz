@@ -64,7 +64,8 @@ class questions extends Component {
         this.setState({counter1})
         console.log("HELLO", this.state.counter1);
         const counter = {
-        counter : this.state.counter1
+          counter : this.state.counter1,
+          answerNum : value
         };
         axios.post("http://localhost:5000/fetchQuestion", {counter})
         .then(res => {

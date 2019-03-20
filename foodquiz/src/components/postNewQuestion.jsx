@@ -16,23 +16,51 @@ class newQuestion extends Component {
         answers: [],
         postQuestion: "",
         postAnswers: [], //array used to store answers that will be posted
+        postAnswersToQuestion: [], //array used to store direct to quetion ID
         indexAnswer: 1
+    }
+
+    handleAnswersAndDirect = (name, value) =>{
+        //handle whether we are talking about direct to input or answer input
+        var option = 1;
+        if(name[0] == 'o'){
+            option = 0;
+        }
+            const postAnswers = this.state.postAnswers;
+            const postAnswersToQuestion = this.state.postAnswersToQuestion;
+            let index = name[6]; //get index of answer updated
+            //FOR ANSWER ARRAY THAT WILL BE POSTED
+            //if answer index does not exist then push it into the array
+            if(typeof postAnswers[index] == "undefined" && name != "postQuestion"){
+                if(option == 1){
+                    postAnswers.push(value);
+                }
+                else{
+                    postAnswersToQuestion.push(value);
+                }
+            }
+            else{
+                if(option == 1){
+                    postAnswers[index] = value;
+                }
+                else{
+                    postAnswersToQuestion[index] = value;
+                }
+            }
+            this.setState({postAnswers});
+            this.setState({postAnswersToQuestion});
+            
+            // if(option == 1){
+            //     console.log("ANSWERS:\n", this.state.postAnswers);
+            // }
+            // else{
+            //     console.log("DIRECT T0:\n", this.state.postAnswersToQuestion);
+            // }
     }
 
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
-        //POST ANSWERS
-        const postAnswers = this.state.postAnswers;
-        let index = event.target.name[6]; //get index of answer updated
-        //if answer index does not exist then push it into the array
-        if(typeof postAnswers[index] == "undefined" && event.target.name != "postQuestion"){
-            postAnswers.push(event.target.value);
-        }
-        else{
-            postAnswers[index] = event.target.value;
-        }
-        //update state of answers array
-        this.setState({postAnswers});
+        this.handleAnswersAndDirect(event.target.name, event.target.value);
     }
 
     //handle submit for creating a new path with outcome
@@ -73,20 +101,13 @@ class newQuestion extends Component {
         })
     }
     
-    giveMeSpace = (index) =>{
-        if(index % 3 === 0){
-            return (<br/>);
-        }
-        return;
-    }
-    
     render() { 
         return (
             <React.Fragment>
-                <div className = "columns">
-                <div className = "column is-6">  
-                        <h1 className = "title">POST NEW QUESTION: </h1>                                        
-                        <form className = "box">
+                <h1 className = "title">POST NEW QUESTION: </h1>                                        
+                <form className = "box">
+                    <div className = "columns" id = "postQuestion">
+                        <div className = "column is-6">
                             <div className = "field " id = "parentAnswer">
                                 <label className = "label"> Question </label>
                                 
@@ -112,43 +133,64 @@ class newQuestion extends Component {
                                 onChange = {this.handleChange
                                 } placeholder = "Enter new Answer"/>
                             </div>
-                            <div className = "field">
-                                    {/* when clicked it will add input element */}
-                                    <div name = "addAnswer" onClick = {() => addMoreAnswers(this.handleChange)} className = "addMoreAnswers">
-                                        Add More Answers <Icon name = "plus square"/>
-                                    </div>
-                            </div>
-                        
-                            <div className = "field">
-                                <button onClick = {this.handleSubmit} name = "submit" type = "submit" value = "Submit" className = "button is-info">
-                                    CREATE QUESTION
-                                </button>
-                            </div>
-                        </form>
+                        </div>
+                        <div className = "column is-6">
+                            <div className = "field " id = "directTo">
+                                
+                                <label className = "label"> Direct To: </label>
+                                
+                                <input name = "onswer0" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter Question Number to be Directed to"/>
 
-                        <br/>
-                    </div>
-                    <div className = "column is-6">
-                        <h1 className = "title">CREATE NEW PATH AND OUTCOME: </h1>   
-                        <form onSubmit = {this.handleSubmit1} className = "box">
-                            <div className = "field">
-                                <label className = "label"> Path </label>
-                                <input name = "path" className = "input"
-                                onChange = {this.handleChange} placeholder = "Enter Path"/>
+                                <label className = "label"> Direct To: </label>
+                                
+                                <input name = "onswer1" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter Question Number to be Directed to"/>
 
-                                <label className = "label"> Outcome </label>
-                                <input name = "outcome" className = "input"
-                                onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                                <label className = "label"> Direct To: </label>
+                                
+                                <input name = "onswer2" className = "input" 
+                                onChange = {this.handleChange
+                                } placeholder = "Enter Question Number to be Directed to"/> 
                             </div>
-                            <div className = "field">
-                            <button type = "submit" value = "Submit" className = "button is-info">
-                                    CREATE NEW PATH
-                            </button>
-                            </div>
-                        </form>
-                        <br/>
+                        </div>
                     </div>
-                </div>
+                    
+                    <div className = "field">
+                            {/* when clicked it will add input element */}
+                            <div name = "addAnswer" onClick = {() => addMoreAnswers(this.handleChange)} className = "addMoreAnswers">
+                                Add More Answers <Icon name = "plus square"/>
+                            </div>
+                    </div>
+                
+                    <div className = "field">
+                        <button onClick = {this.handleSubmit} name = "submit" type = "submit" value = "Submit" className = "button is-info">
+                            CREATE QUESTION
+                        </button>
+                    </div>
+                </form>
+
+                <br/>
+                <h1 className = "title">CREATE NEW PATH AND OUTCOME: </h1>   
+                <form onSubmit = {this.handleSubmit1} className = "box">
+                    <div className = "field">
+                        <label className = "label"> Path </label>
+                        <input name = "path" className = "input"
+                        onChange = {this.handleChange} placeholder = "Enter Path"/>
+
+                        <label className = "label"> Outcome </label>
+                        <input name = "outcome" className = "input"
+                        onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                    </div>
+                    <div className = "field">
+                    <button type = "submit" value = "Submit" className = "button is-info">
+                            CREATE NEW PATH
+                    </button>
+                    </div>
+                </form>
+                <br/>
             </React.Fragment>
           );
     }

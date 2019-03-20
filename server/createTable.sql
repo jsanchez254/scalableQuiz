@@ -7,7 +7,8 @@ CREATE TABLE answers(
     a_id INTEGER PRIMARY KEY,
     a_answerNumbers INTEGER,
     q_id int NOT NULL,
-    answer varchar(800)
+    answer varchar(800),
+    a_directTo INTEGER
 );
 
 CREATE TABLE paths(

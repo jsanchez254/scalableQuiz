@@ -22,7 +22,7 @@ class currentInfo extends Component {
             const info =  this.state.questions.map((msg, index) => 
                 <React.Fragment>
                     <tr>
-                        <td><span className = "questions1">{msg}</span></td>
+                        <td><span className = "questions1"><span className = "index1">{index + 1} -</span>{msg}</span></td>
                         <td>
                             {this.state.answers[index].map((answer, index) =>
                                 <React.Fragment>

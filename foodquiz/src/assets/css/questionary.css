@@ -94,7 +94,11 @@
     cursor: pointer;
 }
 
-#parentAnswer{
+#directTo{
+    padding-top: 68px;
+}
+
+#postQuestion{
     max-height: 400px !important;
     overflow-y: scroll;
     overflow-x : hidden;

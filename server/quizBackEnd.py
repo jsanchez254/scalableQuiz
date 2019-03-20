@@ -292,7 +292,10 @@ def fetchQuestionInfo():
         value =  request.data
         value = parse = json.loads(value)
         value =  value["counter"] 
+        answerNum = value["answerNum"]
         value =  value["counter"] + 1
+
+        print "ANSWER NUMBER ", answerNum
         
         index = int(value)
 

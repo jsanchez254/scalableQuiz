@@ -17,6 +17,21 @@ export function addMoreAnswers(handleChange){
     label.innerHTML = "Answer " + x;
     parent.append(label);
     parent.append(input);
+
+    //CREATE DIRECT TO QUESTION ELEMENTS
+    var parent1 = document.getElementById("directTo");
+    var input1 = document.createElement("input");
+    var label1 = document.createElement("label");
+    label1.className = "label";
+    input1.className = "input";
+    input1.id = "input1";
+    //add event listener to save state of value in new created input elements
+    input1.addEventListener("change", handleChange);
+    input1.name = "onswer" + (x-1);
+    input1.placeholder = "Enter Question Number to be Directed to";
+    label1.innerHTML = "Direct To ";
+    parent1.append(label1);
+    parent1.append(input1);
 }
 
 export function createAnswerBoxes(boxes, handleChange){
