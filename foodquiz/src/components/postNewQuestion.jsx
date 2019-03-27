@@ -81,8 +81,10 @@ class newQuestion extends Component {
         event.preventDefault();
         const newQuestion  = {
             postQuestion: this.state.postQuestion,
-            postAnswers: this.state.postAnswers
+            postAnswers: this.state.postAnswers,
+            postDirection: this.state.postAnswersToQuestion
         };
+        console.log("HERE FRIENDO", newQuestion.postDirection);
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
         .then(res => {
             console.log(res.data)

@@ -29,4 +29,4 @@ VALUES(2, "HUGE", 3);
 
 -- ARRANGEMENT 
 insert into arrange (arr_name, arr_arrange)
-VALUES("TEST", "1 , 2");
+VALUES("TEST", "1;2");

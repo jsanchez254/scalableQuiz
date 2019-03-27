@@ -105,7 +105,7 @@ class questions extends Component {
 
   //will be triggered when we click again
   handleRestart = () =>{
-    //SET COUNTER EQUAL TO WHAT IT USED TO BE
+    //SET COUNTER EQUAL TO WHAT IT USED TO BE 
     const counter1 = 1;
     this.setState({counter1});
     restart();
@@ -118,7 +118,7 @@ class questions extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS</h1></center>
+                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS {this.props.id}</h1></center>
                 <div className = "questionary">
                   <div className = "columns">
                       <div className = "column is-8 is-offset-2">

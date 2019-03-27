@@ -16,9 +16,9 @@ import Questions from "./components/questions";
 import postNewQuestion from "./components/postNewQuestion";
 import NavBar from './components/navbar';
 import EditQuestion from "./components/editQuestion";
-import CurrentQuestion from "./components/currentInfo";
 import currentInfo from './components/currentInfo';
 import QuestionOrder from "./components/arrangeQuestions";
+import Sections from "./components/sections";
 
 class App extends Component {
   render() {
@@ -29,7 +29,7 @@ class App extends Component {
               <Route path = "/" component = {NavBar}/>
               <Container>
                 <br/>
-                <Route exact path  = {['/quizQuestions', '/']} component = {Questions}/>
+                <Route exact path  = {['/quizQuestions', '/']} component = {Sections}/>
                 <Route path = "/postNewQuestion" component = {postNewQuestion} />
                 <Route path = "/questionOrder" component = {QuestionOrder} />
                 <Route path = "/manageQuestion" component = {EditQuestion} />

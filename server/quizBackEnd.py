@@ -189,11 +189,12 @@ def postQuestion():
                 parse = json.loads(check)
                 parse = parse["newQuestion"]
                 question = parse["postQuestion"]
+                directTo = parse["postDirection"]
                 answers = parse["postAnswers"]
-                insertNewQuestion(question, answers)
-                return "cool"
+                insertNewQuestion(question, answers, directTo)
+                return "INSERTED SUCCESSFULLY"
 
-def insertNewQuestion(question, answers):
+def insertNewQuestion(question, answers, directTo):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
 
@@ -206,8 +207,8 @@ def insertNewQuestion(question, answers):
 
         #insert all answers from answers array posted by front end
         for i in range(len(answers)):
-                cursor.execute('''INSERT INTO answers (q_id, answer, a_answerNumbers)
-                                VALUES(?,?,?)''', (questionID, answers[i], i + 1))
+                cursor.execute('''INSERT INTO answers (q_id, answer, a_answerNumbers, a_directTo)
+                                VALUES(?,?,?,?)''', (questionID, answers[i], i + 1, directTo[i]))
         connect.commit()
 
         return "popo"
