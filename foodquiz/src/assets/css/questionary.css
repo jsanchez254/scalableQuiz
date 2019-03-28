@@ -130,3 +130,19 @@
     overflow-y: scroll;
     border: inset rgb(73, 209, 32) 5px;
 }
+
+/* sections css!! */
+.sections{
+    background-color: rgb(52, 52, 151);
+    color:white;
+    width: 200px;
+    font-size: 30px;
+    height: 200px;
+    border:none;
+}
+
+.sections:hover{
+    cursor: pointer;
+    background-color: rgb(53, 221, 221);
+    color: rgb(52, 52, 151);
+}

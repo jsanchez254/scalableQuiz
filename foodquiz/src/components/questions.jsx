@@ -118,7 +118,7 @@ class questions extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS {this.props.id}</h1></center>
+                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS {this.props.secID}</h1></center>
                 <div className = "questionary">
                   <div className = "columns">
                       <div className = "column is-8 is-offset-2">

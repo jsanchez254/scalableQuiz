@@ -7,6 +7,19 @@ app = Flask(__name__)
 CORS(app)
 
 
+#variables that will be used to make sure we fetch Q/A from section
+arrangeID = 0
+
+@app.route("/postArrangeID", methods = ["GET", "POST"])
+def updateArrID():
+        if(request.method == "POST"):
+                parse = json.loads(request.data)
+                parse = parse["secID"]
+                secID = parse["secID"]
+                global arrangeID
+                arrangeID = int(secID)
+                return "ARRANGE ID SET!"
+
 #FETCH SECTIONS
 @app.route("/fetchSectionNames")
 def fetchSectionNames():
@@ -272,8 +285,9 @@ def fetchQuestionInfo():
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
 
+        print "ARRANGE: ", arrangeID
         #FETCH ORDER PATH AND MAKE IT INTO ARRAY
-        cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = 1")
+        cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = ?", (arrangeID,))
         order = cursor.fetchall()
         order = order[0][0]
         index = ""
