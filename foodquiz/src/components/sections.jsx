@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Section from "./questions";
 import axios from 'axios';
 
-import {restart} from "../assets/js/questionLogic.js"
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 class Sections extends Component {
     state = {

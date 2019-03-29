@@ -5,7 +5,7 @@ import axios from "axios";
 import {Icon} from "semantic-ui-react";
 
 //IMPORT JS
-import {addMoreAnswers} from "../assets/js/addMoreAnswers.js";
+import {addMoreAnswers, deleteAnswer} from "../assets/js/addMoreAnswers.js";
 
 class newQuestion extends Component {
     state = {
@@ -23,7 +23,7 @@ class newQuestion extends Component {
     handleAnswersAndDirect = (name, value) =>{
         //handle whether we are talking about direct to input or answer input
         var option = 1;
-        if(name[0] == 'o'){
+        if(name[0] === 'o'){
             option = 0;
         }
             const postAnswers = this.state.postAnswers;
@@ -31,8 +31,8 @@ class newQuestion extends Component {
             let index = name[6]; //get index of answer updated
             //FOR ANSWER ARRAY THAT WILL BE POSTED
             //if answer index does not exist then push it into the array
-            if(typeof postAnswers[index] == "undefined" && name != "postQuestion"){
-                if(option == 1){
+            if(typeof postAnswers[index] === "undefined" && name !== "postQuestion"){
+                if(option === 1){
                     postAnswers.push(value);
                 }
                 else{
@@ -40,7 +40,7 @@ class newQuestion extends Component {
                 }
             }
             else{
-                if(option == 1){
+                if(option === 1){
                     postAnswers[index] = value;
                 }
                 else{
@@ -162,8 +162,17 @@ class newQuestion extends Component {
                     
                     <div className = "field">
                             {/* when clicked it will add input element */}
-                            <div name = "addAnswer" onClick = {() => addMoreAnswers(this.handleChange)} className = "addMoreAnswers">
-                                Add More Answers <Icon name = "plus square"/>
+                            <div className = "columns">
+                                <div className = "column is-6">
+                                    <div name = "addAnswer" onClick = {() => addMoreAnswers(this.handleChange)} className = "addMoreAnswers">
+                                        Add More Answers <Icon name = "plus square"/>
+                                    </div>
+                                </div>
+                                <div className = "column is-6">
+                                    <div onClick = {() => deleteAnswer()} className = "deleteAnswer">
+                                        Delete Answer <Icon name = "minus square"/>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                 

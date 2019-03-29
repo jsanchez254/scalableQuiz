@@ -89,12 +89,19 @@ def fetchAnswers(questionId):
         cursor  = connect.cursor()
         cursor.execute("SELECT answer FROM answers WHERE q_id = ?;", (questionId,))
         answers = cursor.fetchall()
+        directTo1 = cursor.execute("SELECT a_directTo FROM answers WHERE q_id = ?;", (questionId,)).fetchall()
+        data = []
         answersList = []
+        directTo = []
         for i in range(len(answers)):
                 answersList.append(answers[i][0])
+                directTo.append(directTo1[i][0])
         answersList.append(questionId)
-        answers = json.dumps(answersList)
-        return answers
+        data.append(answersList)
+        data.append(questionId)
+        data.append(directTo)
+        data = json.dumps(data)
+        return data
 
 #update question
 @app.route("/updateQuestion", methods = ["GET", "POST"])
@@ -106,17 +113,18 @@ def updateQuestion():
                 answers = parse["answers"]
                 question = parse["actualQuestion"]
                 q_id = parse["q_id"]
-                update(question, answers, q_id)
+                directTo = parse["directTo"]
+                update(question, answers, q_id, directTo)
 
         return "cool"
 
-def update(question, answers, q_id):
+def update(question, answers, q_id, directTo):
         connect = sql.connect("quiz.db")
         cursor = connect.cursor()
         print(answers)
         cursor.execute("UPDATE questions SET question = ? WHERE q_id = ?", (question, q_id))
         for i in range(len(answers)):
-                cursor.execute("UPDATE answers SET answer = ? WHERE q_id = ? AND a_answerNumbers = ?", (answers[i], q_id, i+1))
+                cursor.execute("UPDATE answers SET answer = ?, a_directTo = ? WHERE q_id = ? AND a_answerNumbers = ?", (answers[i], directTo[i], q_id, i+1))
         connect.commit()
 
 

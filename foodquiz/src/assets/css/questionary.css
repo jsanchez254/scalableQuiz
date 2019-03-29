@@ -80,17 +80,31 @@
     width: 100%;
     border: none;
     height: 40px;
-    border-radius: 15px;
     background-color: rgb(53, 124, 12);
-    color: rgb(219, 231, 40);
+    color: white;
     font-weight: bold;
     text-align: center;
     vertical-align: center;
 }
 
 .addMoreAnswers:hover{
-    color: rgb(53, 124, 12);
-    background-color: rgb(219, 231, 40);
+    background-color: rgb(94, 216, 23);
+    cursor: pointer;
+}
+
+.deleteAnswer{
+    width: 100%;
+    border: none;
+    height: 40px;
+    background-color: rgb(151, 62, 27);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: center;
+}
+
+.deleteAnswer:hover{
+    background-color: rgb(241, 44, 9);
     cursor: pointer;
 }
 
@@ -125,11 +139,12 @@
     font-size: 24px;
 }
 
-#answerBox{
+#editQuestion{
     max-height: 500px;
     overflow-y: scroll;
     border: inset rgb(73, 209, 32) 5px;
 }
+
 
 /* sections css!! */
 .sections{

@@ -8,16 +8,48 @@ class EditQuestion extends Component {
     state = {
         questions: [], // will store all questions that display on drop down menu
         answers: [],    //will store answers that are fetched when questions is selected
+        directTo: [], //will store directTo paths to be edited
         actualQuestion: "", //will store question selected from dropdown menu
         q_id: ""    //will store id of question selected
       }
+    
+    handleAnswersAndDirect = (name, value) =>{
+        //handle whether we are talking about direct to input or answer input
+        var option = 1;
+        if(name[0] === 'o'){
+            option = 0;
+        }
+            const answers = this.state.answers;
+            const directTo = this.state.directTo;
+            let index = name[6]; //get index of answer updated
+            //FOR ANSWER ARRAY THAT WILL BE POSTED
+            //if answer index does not exist then push it into the array
+            if(typeof answers[index] === "undefined" && name !== "postQuestion"){
+                if(option === 1){
+                    answers.push(value);
+                }
+                else{
+                    directTo.push(value);
+                }
+            }
+            else{
+                if(option === 1){
+                    answers[index] = value;
+                }
+                else{
+                    directTo[index] = value;
+                }
+            }
+            this.setState({answers});
+            this.setState({directTo});
+    }
 
     handleChange = (event) =>{
         this.setState({[event.target.name] : event.target.value});
 
         //HANDLES QUESTION UPDATE
         console.log(event.target.value);
-        if(event.target.name == "question"){
+        if(event.target.name === "question"){
             const actualQuestion = event.target.value;
             console.log(event.target.value);
             this.setState({actualQuestion});
@@ -25,25 +57,7 @@ class EditQuestion extends Component {
         }
         //HANDLE ANSWER UPDATE
         else{
-            let index;
-            //GET INDEX OF ANSWER TO BE STORED IN ARRAY
-            if(typeof event.target.name[7] != "undefined"){
-                index = event.target.name[6] + event.target.name[7]; 
-            }
-            else{
-                index = event.target.name[6]; //get index of answer updated
-            }
-            const answers = this.state.answers;
-            if(typeof answers[index] != "undefined"){
-                answers[index] = event.target.value;
-            }
-            else{
-                answers[index] = event.target.value;
-            }
-            console.log(answers[index]);
-            console.log(index);
-            //update state of answers array
-            this.setState({answers});
+            this.handleAnswersAndDirect(event.target.name, event.target.value);
         }
     }
 
@@ -54,13 +68,16 @@ class EditQuestion extends Component {
         axios.post("http://localhost:5000/editAnswersFetch", {question1})
             .then(res =>{
                 //FETCH Q_ID AND ANSWERS
-                const q_id = res.data[res.data.length - 1];
-                const answers = res.data;
+                const q_id = res.data[1];
+                const answers = res.data[0];
+                const directTo = res.data[2];
+                console.log(res.data);
                 answers.pop();
+                this.setState({directTo});
                 this.setState({answers});
                 this.setState({q_id});
                 //CREATE BOXES FOR ANSWERS DEPEDNING ON QUESTION SELECTED
-                createAnswerBoxes(answers, this.handleChange);
+                createAnswerBoxes(answers, this.handleChange, directTo);
             })
     }
 
@@ -68,6 +85,7 @@ class EditQuestion extends Component {
         event.preventDefault();
         const post = {
             answers : this.state.answers,
+            directTo : this.state.directTo,
             actualQuestion: this.state.actualQuestion,
             q_id : this.state.q_id
         }
@@ -109,9 +127,18 @@ class EditQuestion extends Component {
                         onChange = {this.handleChange} className = "input"/> 
                         
                     </div>
-                    <center><h1>ANSWERS...</h1></center>
-                    <div id = "answerBox" className = "field">
-                        {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                    <center><h1>ANSWERS...</h1></center><br/>
+                    <div className = "columns" id = "editQuestion">
+                        <div className = "column is-6">
+                            <div id = "answerBox" className = "field">
+                                {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                            </div>
+                        </div>
+                        <div className = "column is-6">
+                            <div id = "directToBox" className = "field">
+                                {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                            </div>           
+                        </div>
                     </div>
                     <div className = "field">
                         <button className = "button is-success">EDIT!</button>

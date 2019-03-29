@@ -53,13 +53,32 @@ class arrangeQuestion extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 className = "title">UPDATE SECTION ORDER: </h1> 
+                <h1 className = "title">CREATE NEW SECTION: </h1> 
+                <form className = "box">
+                    <div className = "field ">
+                        <label className = "label">Section Name: </label>
+                        
+                        <input name = "section" className = "input" 
+                        onChange = {this.handleChange
+                        } placeholder = "Enter New Section Name"/>
+
+                        <label className = "label">Starting Question: </label>
+                        
+                        <input name = "arrangement1" className = "input" 
+                        onChange = {this.handleChange
+                        } placeholder = "EX: 2;"/>
+                    </div>
+                    <button onClick = {this.handleSubmit1} name = "submit" type = "submit" value = "Submit" className = "button is-info">
+                            CREATE NEW SECTION
+                    </button>
+                </form>
+                <h1 className = "title">EDIT SECTION: </h1> 
                 <form className = "box">
                     <div className = "field">            
-                        <label className = "label">Pick Question to Edit: </label>
+                        <label className = "label">Pick Section to Edit: </label>
                         <div className = "select">
                             <select name = "setToUpdate" onChange = {this.handleChange}>
-                                <option>Edit Question</option>
+                                <option>Edit Section</option>
                                 {this.state.sets.map((msg, index) => 
                                     <option id = {index + 1} value = {msg[0]} key = {index}>{msg[0]}</option>  
                                 )}
@@ -67,37 +86,17 @@ class arrangeQuestion extends Component {
                         </div>   
                     </div>
                     <div className = "field ">
-                        <label className = "label">Question Order: </label>
+                        <label className = "label">Starting Question: </label>
                         
                         <input name = "arrangement" className = "input" 
                         onChange = {this.handleChange
-                        } placeholder = "Enter New Question Order"/>
+                        } placeholder = "EX: 2;"/>
                     </div>
                     <div className = "field">
                         <button onClick = {this.handleSubmit} name = "submit" type = "submit" value = "Submit" className = "button is-warning">
-                            ARRANGE QUESTIONS
+                            EDIT SECTION
                         </button>
                     </div>
-                </form>
-
-                <h1 className = "title">POST NEW SECTION WITH QUESTIONS: </h1> 
-                <form className = "box">
-                    <div className = "field ">
-                        <label className = "label">Section Name: </label>
-                        
-                        <input name = "section" className = "input" 
-                        onChange = {this.handleChange
-                        } placeholder = "Enter New Section"/>
-
-                        <label className = "label">Question Order: </label>
-                        
-                        <input name = "arrangement1" className = "input" 
-                        onChange = {this.handleChange
-                        } placeholder = "Enter New Question Order"/>
-                    </div>
-                    <button onClick = {this.handleSubmit1} name = "submit" type = "submit" value = "Submit" className = "button is-info">
-                            CREATE NEW SECTION
-                    </button>
                 </form>
             </React.Fragment>
           );

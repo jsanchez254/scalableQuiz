@@ -13,17 +13,17 @@ class NavBar extends Component {
                         <Link  className = "navbar-item" to = "/sections">
                             <Icon name='book'  size = "large"/> <span>Sections</span>
                         </Link>
-                        <Link  className = "navbar-item" to = "/currentInfo">
-                            <Icon name='info circle'  size = "large"/> <span>Current Info</span>
-                        </Link>
                         <Link  className = "navbar-item" to = "/questionOrder">
-                            <Icon name='exchange'  size = "large"/><span>Question Order</span>
+                            <Icon name='exchange'  size = "large"/><span>Manage Sections</span>
                         </Link>
                         <Link  className = "navbar-item" to = "/postNewQuestion">
                             <Icon name='plus circle'  size = "large"/><span>Post Question/Path</span>
                         </Link>
                         <Link  className = "navbar-item" to = "/manageQuestion">
                             <Icon name='edit'  size = "large"/><span>Manage Question/Path</span>
+                        </Link>
+                        <Link  className = "navbar-item" to = "/currentInfo">
+                            <Icon name='info circle'  size = "large"/> <span>Current Info</span>
                         </Link>
                     </div>
                 </nav>
