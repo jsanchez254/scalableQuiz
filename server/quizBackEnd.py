@@ -62,7 +62,6 @@ def arrange():
 def changeOrder(sets, order):
         connect = sql.connect("quiz.db")
         cursor = connect.cursor()
-        print order
         cursor.execute("UPDATE arrange SET arr_arrange = ? WHERE arr_name = ?", (order, sets))
         connect.commit()
 
@@ -81,7 +80,6 @@ def editAnswersFetch():
 def getQuestionId(question):
         connect = sql.connect("quiz.db")
         cursor = connect.cursor()
-        print question
         cursor.execute("SELECT q_id FROM questions WHERE question = ?;", (question,))
         questionId = cursor.fetchall()
         return questionId [0][0]
@@ -96,7 +94,6 @@ def fetchAnswers(questionId):
                 answersList.append(answers[i][0])
         answersList.append(questionId)
         answers = json.dumps(answersList)
-        print ("ANSWERS" , answers)
         return answers
 
 #update question
@@ -119,7 +116,6 @@ def update(question, answers, q_id):
         print(answers)
         cursor.execute("UPDATE questions SET question = ? WHERE q_id = ?", (question, q_id))
         for i in range(len(answers)):
-                print answers[i]
                 cursor.execute("UPDATE answers SET answer = ? WHERE q_id = ? AND a_answerNumbers = ?", (answers[i], q_id, i+1))
         connect.commit()
 
@@ -132,7 +128,6 @@ def getAllQuestions():
         cursor.execute('''SELECT question from questions;''')
         store = cursor.fetchall()
         store = json.dumps(store)
-        print store
         return store
 
 #check path and give back outcome
@@ -143,10 +138,8 @@ def returnOutcome():
                 parse = json.loads(check)
 
                 path = parse["path"]
-                print path
 
                 outcome = getOutcome(path)
-                print outcome
                 return outcome
 
 def getOutcome(path):
@@ -179,10 +172,6 @@ def postPath():
                 
                 insertNewPath(outcome, path)
         return "cool"
-
-#MODIFY FUNCTION HERE :D
-# def checkFormat(path):
-
 
 def insertNewPath(outcome, path):
         connect = sql.connect("quiz.db")
@@ -260,7 +249,6 @@ def fixFormat(arr, answersPerQuestion):
                         startNewSet += 1
                 else:
                         answers.append(temp)
-                        print answers
                         temp = []
                         temp.append(x[1])
                         startNewSet = 1
@@ -277,86 +265,20 @@ def fixFormat(arr, answersPerQuestion):
 def hello():
     return "HELLO THERE"
 
-#fetch questions and answers
-@app.route("/fetchQuestion" ,  methods = ["GET", "POST"])
-#NOTE AT FIRST THE FRONT END WILL FETCH FIRST QUESTION
-def fetchQuestionInfo():
-    if request.method == "GET":
-        connect = sql.connect("quiz.db")
-        cursor  = connect.cursor()
 
-        print "ARRANGE: ", arrangeID
-        #FETCH ORDER PATH AND MAKE IT INTO ARRAY
-        cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = ?", (arrangeID,))
-        order = cursor.fetchall()
-        order = order[0][0]
-        index = ""
-        if (order[1] != ';'):
-                index = order[0] + order[1]
-        else:
-                index = order[0]
+#NOTE VARIABLE TO STORE PREVIOUS Q_ID FOR QUESTION TO DIRECT TO
+questionID = ""
 
-        cursor.execute('''select question from questions where q_id = ?;''', (index,))
-        store = cursor.fetchall()
-        store = json.dumps(store)
-        print store[0]
-        return store
-
-#NOTE AFTER FETCHING FIRST QUESTION. PROGRAM GETS FOLLOWING QUESTIONS VIA POSTS
-    if request.method == "POST":
-        value =  request.data
-        value = parse = json.loads(value)
-        value =  value["counter"] 
-        answerNum = value["answerNum"]
-        value =  value["counter"] + 1
-
-        print "ANSWER NUMBER ", answerNum
-        
-        index = int(value)
-
-        connect = sql.connect("quiz.db")
-        cursor  = connect.cursor()
-
-        #get id value to be compared to
-        cursor.execute("SELECT MAX(q_id) FROM questions")
-        valueToCompare = cursor.fetchall()
-
-        #FETCH ORDER PATH AND MAKE IT INTO ARRAY
-        cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = 1")
-        order = cursor.fetchall()
-        order = order[0][0]
-        getOrder = []
-        x = 0
-        while(x + 1 < len(order)):
-                if (order[x] != ';' and order[x + 1] == ';' ):
-                        getOrder.append(int(order[x]))
-                elif(order[x] != ';' and order[x + 1] !=  ';'):
-                        temp = order[x] + order[x +1]
-                        getOrder.append(int(temp))
-                        x += 2
-                        continue
-                x+=1
-        getOrder.append(int(order[x]))
-        ############################################
-
-        if(value > valueToCompare[0][0]):
-                value = valueToCompare[0][0]
-
-        cursor.execute('''select question from questions where q_id = ?''', (getOrder[index-1],))
-        store = cursor.fetchall()
-        store = json.dumps(store)
-        print store
-        return store
-
-@app.route("/fetchAnswers" ,  methods = ["GET", "POST"])
-#NOTE AT FIRST THE FRONT END WILL FETCH FIRST ANSWER  
-def fetchAnswersInfo():
+#BETTER VERSION!!
+@app.route("/fetchAnswerAndQuestion", methods = ["GET", "POST"])
+def fetchAnswerAndQuestion():
         if request.method == "GET":
                 connect = sql.connect("quiz.db")
                 cursor  = connect.cursor()
 
-                #FETCH ORDER PATH
-                cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = 1")
+                print "ARRANGE: ", arrangeID
+                #FETCH ORDER PATH AND MAKE IT INTO ARRAY
+                cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = ?", (arrangeID,))
                 order = cursor.fetchall()
                 order = order[0][0]
                 index = ""
@@ -364,56 +286,47 @@ def fetchAnswersInfo():
                         index = order[0] + order[1]
                 else:
                         index = order[0]
-
-                cursor.execute('''select answer from answers where q_id = ?;''', (index,))
-                    
-                store = cursor.fetchall()
-                store = json.dumps(store)
+                #question ID saved here
+                global questionID
+                questionID = index
                 
-                return store
-
-#NOTE AFTER FETCHING FIRST ANSWER. PROGRAM GETS FOLLOWING ANSWERS VIA POSTS
+                data = []
+                tempAnswers = cursor.execute('''select answer from answers where q_id = ?;''', (index,)).fetchall()
+                tempQuestion = cursor.execute('''select question from questions where q_id = ?;''', (index,)).fetchall()
+                data.append(tempQuestion[0][0])
+                data.append(tempAnswers)
+                data = json.dumps(data)
+                return data
+                
         if request.method == "POST":
                 value =  request.data
                 value = parse = json.loads(value)
                 value =  value["counter"] 
-                value =  value["counter"] + 1
+                answerNum = value["answerNum"]
 
                 connect = sql.connect("quiz.db")
                 cursor  = connect.cursor()
+                data = []
 
-                index = int(value)
-                #FETCH ORDER PATH AND MAKE IT INTO ARRAY
-                cursor.execute("SELECT arr_arrange from arrange WHERE arr_id = 1")
-                order = cursor.fetchall()
-                order = order[0][0]
-                getOrder = []
-                x = 0
-                while(x + 1 < len(order)):
-                        if (order[x] != ';' and order[x + 1] == ';' ):
-                                print "COOL ", order[x]
-                                getOrder.append(int(order[x]))
-                        elif(order[x] != ';' and order[x + 1] !=  ';'):
-                                temp = order[x] + order[x +1]
-                                getOrder.append(int(temp))
-                                x += 2
-                                continue
-                        x+=1
-                getOrder.append(int(order[x]))
-                ############################################
+                tempAnswers = cursor.execute('''SELECT answer FROM answers
+                        WHERE q_id =  (SELECT a_directTo FROM answers WHERE a_answerNumbers = ?
+                        AND q_id = ?)''', (answerNum, questionID)).fetchall()
 
-                #get id value to be compared to
-                cursor.execute("SELECT MAX(q_id) FROM questions")
-                valueToCompare = cursor.fetchall()
+                tempQuestion = cursor.execute('''SELECT question, q_id FROM questions 
+                        WHERE q_id = (SELECT a_directTo FROM answers WHERE a_answerNumbers = ?
+                        AND q_id = ?)''', (answerNum, questionID)).fetchall()
+                
+                data.append(tempQuestion[0][0])
+                data.append(tempAnswers)
 
-                if(value > valueToCompare[0][0]):
-                        value = valueToCompare[0][0]
+                #UPDATE QUESTION ID HERE!!!
+                global questionID
+                questionID = tempQuestion[0][1]
 
-                cursor.execute('''select answer from answers where q_id = ?''', (getOrder[index-1],))
-                store = cursor.fetchall()
-                store = json.dumps(store)
-                print store
-                return store
+                data = json.dumps(data)
+
+                return data
+
 
 
 if __name__ == '__main__':

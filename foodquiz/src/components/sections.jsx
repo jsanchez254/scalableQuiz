@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Section from "./questions";
 import axios from 'axios';
+
+import {restart} from "../assets/js/questionLogic.js"
+import {Link, Redirect} from 'react-router-dom';
+
 class Sections extends Component {
     state = {
         section: "",
-        sections: []
+        sections: [],
+        Link: ""
       }
 
     componentDidMount (){
@@ -18,14 +23,16 @@ class Sections extends Component {
       
 
     handleSectionID = (index) =>{
-        console.log("INDEX: ", index);
+        // restart();
         const secID = {
             secID: index
         }
         axios.post("http://localhost:5000/postArrangeID", {secID})
         .then(res => {
-            const section = <Section secID = {index}/>
-            this.setState({section});
+            // const section = <Section secID = {index} secName = {this.state.sections[index-1]}/>
+            // this.setState({section});
+            const Link = (<Redirect to = "/quizQuestions"/>)
+            this.setState({Link});
             console.log(res.data);
         })
     }
@@ -44,7 +51,8 @@ class Sections extends Component {
                         )
                     }
                 </div>
-                {this.state.section}
+                {this.state.Link}
+                {/* {this.state.section} */}
             </React.Fragment>
           );
     }

@@ -15,39 +15,26 @@ class questions extends Component {
       }
     ///********MOUNT YET AGAIN************/
   moungAgain = () => {
-    axios.get("http://localhost:5000/fetchQuestion")
-    .then(res => {
-      let temp = res.data;
-      temp = temp[0];
-      temp = temp[0];
-      const question = temp;
-      this.setState({question});
-    })
-    axios.get("http://localhost:5000/fetchAnswers")
-    .then(res => {
-      let temp = res.data;
-      const answers = temp;
-      this.setState({answers});
-    })
+    axios.get("http://localhost:5000/fetchAnswerAndQuestion")
+      .then(res => {
+        console.log(res.data);
+        const answers = res.data[1];
+        this.setState({answers});
+        const question = res.data[0];
+        this.setState({question});
+      })
   }
   ///********************************/
 
   componentDidMount(){
-    axios.get("http://localhost:5000/fetchQuestion")
+      axios.get("http://localhost:5000/fetchAnswerAndQuestion")
       .then(res => {
-        let temp = res.data;
-        temp = temp[0];
-        temp = temp[0];
-        const question = temp;
+        console.log(res.data);
+        const answers = res.data[1];
+        this.setState({answers});
+        const question = res.data[0];
         this.setState({question});
       })
-
-    axios.get("http://localhost:5000/fetchAnswers")
-    .then(res => {
-      let temp = res.data;
-      const answers = temp;
-      this.setState({answers});
-    })
 
     }
 
@@ -62,23 +49,18 @@ class questions extends Component {
         this.handleOption(value);
         const counter1 = this.state.counter1 + 1;
         this.setState({counter1})
-        console.log("HELLO", this.state.counter1);
+       
         const counter = {
-          counter : this.state.counter1,
           answerNum : value
         };
-        axios.post("http://localhost:5000/fetchQuestion", {counter})
-        .then(res => {
-            let temp = res.data;
-            const question = temp;
-            this.setState({question});
-        })
 
-        axios.post("http://localhost:5000/fetchAnswers", {counter})
-        .then(res => {
-        let temp = res.data;
-        const answers = temp;
-        this.setState({answers});
+        axios.post("http://localhost:5000/fetchAnswerAndQuestion", {counter})
+        .then(res =>{
+          console.log(res.data);
+          const answers = res.data[1];
+          this.setState({answers});
+          const question = res.data[0];
+          this.setState({question});
         })
 
         if(this.state.counter1 === 1){
@@ -118,7 +100,7 @@ class questions extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <center><h1 className = "title">ANSWER QUESTIONS TO FIND RIGHT RESOURCE ON CAMPUS {this.props.secID}</h1></center>
+                <center><h1 className = "title">{this.props.secName}</h1></center>
                 <div className = "questionary">
                   <div className = "columns">
                       <div className = "column is-8 is-offset-2">

@@ -10,8 +10,8 @@ class NavBar extends Component {
             <React.Fragment>
                 <nav className = "navbar is-success">
                     <div className = "navbar-end">
-                        <Link  className = "navbar-item" to = "/quizQuestions">
-                            <Icon name='question circle'  size = "large"/> <span>Answer Quiz</span>
+                        <Link  className = "navbar-item" to = "/sections">
+                            <Icon name='book'  size = "large"/> <span>Sections</span>
                         </Link>
                         <Link  className = "navbar-item" to = "/currentInfo">
                             <Icon name='info circle'  size = "large"/> <span>Current Info</span>
