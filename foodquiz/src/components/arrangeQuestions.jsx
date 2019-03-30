@@ -87,7 +87,6 @@ class arrangeQuestion extends Component {
                     </div>
                     <div className = "field ">
                         <label className = "label">Starting Question: </label>
-                        
                         <input name = "arrangement" className = "input" 
                         onChange = {this.handleChange
                         } placeholder = "EX: 2;"/>

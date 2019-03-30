@@ -17,7 +17,9 @@ class newQuestion extends Component {
         postQuestion: "",
         postAnswers: [], //array used to store answers that will be posted
         postAnswersToQuestion: [], //array used to store direct to quetion ID
-        indexAnswer: 1
+        indexAnswer: 1,
+        sections: [], // SECTIONS TO BE DISPLAYED FOR PATHS
+        setToUpdate: "" //section to be updated for path
     }
 
     handleAnswersAndDirect = (name, value) =>{
@@ -68,7 +70,8 @@ class newQuestion extends Component {
         event.preventDefault();
         const newPath = {
             path: this.state.path,
-            outcome: this.state.outcome
+            outcome: this.state.outcome,
+            section: this.state.setToUpdate
         }
         axios.post("http://localhost:5000/postPath" , {newPath})
         .then(res => {
@@ -100,6 +103,12 @@ class newQuestion extends Component {
             console.log(answers);
             this.setState({questions});
             this.setState({answers});
+        })
+        axios.get("http://localhost:5000/fetchSectionNames")
+        .then(res =>{
+            const sections = res.data;
+            this.setState({sections});
+            console.log(this.state.sections);
         })
     }
     
@@ -184,12 +193,23 @@ class newQuestion extends Component {
                 </form>
 
                 <br/>
-                <h1 className = "title">CREATE NEW PATH AND OUTCOME: </h1>   
+                <h1 className = "title">POST NEW PATH AND OUTCOME: </h1>   
                 <form onSubmit = {this.handleSubmit1} className = "box">
+                    <div className = "field">            
+                        <label className = "label">Pick Section For Path: </label>
+                        <div className = "select">
+                            <select name = "setToUpdate" onChange = {this.handleChange}>
+                                <option>Pick Section</option>
+                                {this.state.sections.map((msg, index) => 
+                                    <option id = {index + 1} value = {msg[0]} key = {index}>{msg[0]}</option>  
+                                )}
+                            </select>
+                        </div>   
+                    </div>
                     <div className = "field">
                         <label className = "label"> Path </label>
                         <input name = "path" className = "input"
-                        onChange = {this.handleChange} placeholder = "Enter Path"/>
+                        onChange = {this.handleChange} placeholder = "Enter Path EX: 223"/>
 
                         <label className = "label"> Outcome </label>
                         <input name = "outcome" className = "input"

@@ -14,7 +14,8 @@ CREATE TABLE answers(
 CREATE TABLE paths(
     p_id INTEGER PRIMARY KEY,
     p_path INTEGER,
-    p_output varchar(2000)
+    p_output varchar(2000),
+    sec_id INTEGER
 );
 
 CREATE TABLE arrange(

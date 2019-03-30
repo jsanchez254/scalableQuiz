@@ -170,23 +170,19 @@ def postPath():
                 check = request.data
                 parse = json.loads(check)
                 parse = parse["newPath"]
-
                 outcome = parse["outcome"]
                 path = parse["path"]
-
-                #CHECK FORMAT IS CORRECT FOR PATH, ONLY NUMBERS ALLOWED
-                #MODIFY HERE :D
-                # checkFormat(path)
-                
-                insertNewPath(outcome, path)
+                section = parse["section"]
+           
+                insertNewPath(outcome, path, section)
         return "cool"
 
-def insertNewPath(outcome, path):
+def insertNewPath(outcome, path, section):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
 
-        cursor.execute('''INSERT INTO paths(p_path, p_output)
-                        VALUES (?, ?)''', (path, outcome))
+        cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id)
+                        VALUES (?, ?, ?)''', (path, outcome, section))
         connect.commit()
 
         return "cool"
@@ -232,7 +228,7 @@ def fetchEverything():
         #COUNT ANSWERS PER QUESTION
         cursor.execute("SELECT MAX(a_answerNumbers) FROM ANSWERS GROUP BY q_id;")
         answersPerQuestion = cursor.fetchall()
-        query = '''select distinct question, answer from questions, answers where 
+        query = '''select distinct question, answer, a_directTo from questions, answers where 
         questions.q_id = answers.q_id;'''
         cursor.execute(query)
         store = cursor.fetchall()
@@ -244,27 +240,36 @@ def fetchEverything():
 def fixFormat(arr, answersPerQuestion):
         questions = []
         answers = []
+        directTo = []
         everything = []
         temp = []
+        temp2 = []
         moveNextSet = 0
         startNewSet = 0
         count = 0
+        # print ("ANSWER PER QUESTION: ", arr)
         for x in arr:
                 if(x[0] not in questions):
                         questions.append(x[0])
                 if(startNewSet < answersPerQuestion[moveNextSet][0]):
                         temp.append(x[1])
+                        temp2.append(x[2])
                         startNewSet += 1
                 else:
                         answers.append(temp)
+                        directTo.append(temp2)
                         temp = []
+                        temp2 = []
                         temp.append(x[1])
+                        temp2.append(x[2])
                         startNewSet = 1
                         moveNextSet +=1
         answers.append(temp)
+        directTo.append(temp2)
         everything.append(questions)
         everything.append(answers)
-
+        everything.append(directTo)
+        print ("EVERYTHING: ", everything)
         return everything
 
 
