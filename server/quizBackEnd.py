@@ -153,7 +153,7 @@ def returnOutcome():
 def getOutcome(path):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
-        cursor.execute("SELECT p_output FROM paths where p_path = ?", (path,))
+        cursor.execute("SELECT p_output FROM paths WHERE p_path = ? AND sec_id = ?", (path, arrangeID))
 
         outcome = cursor.fetchall()
         try:
@@ -175,14 +175,15 @@ def postPath():
                 section = parse["section"]
            
                 insertNewPath(outcome, path, section)
-        return "cool"
+        return "POSTED PATH SUCCESSFULLY"
 
 def insertNewPath(outcome, path, section):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
-
+        #GET SECTION ID
+        secID = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (section,)).fetchall()
         cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id)
-                        VALUES (?, ?, ?)''', (path, outcome, section))
+                        VALUES (?, ?, ?)''', (path, outcome, secID[0][0]))
         connect.commit()
 
         return "cool"
