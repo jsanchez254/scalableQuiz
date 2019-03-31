@@ -7,6 +7,7 @@ import {
 
 //IMPORT CSS
 import "./assets/css/questionary.css";
+import "./assets/css/deleteQA.css";
 
 //IMPORT SEMANTIC UI
 import { Container } from 'semantic-ui-react'
@@ -19,6 +20,7 @@ import EditQuestion from "./components/editQuestion";
 import currentInfo from './components/currentInfo';
 import QuestionOrder from "./components/arrangeQuestions";
 import Sections from "./components/sections";
+import DeleteQuestion from "./components/deleteQuestion";
 
 class App extends Component {
   render() {
@@ -35,6 +37,7 @@ class App extends Component {
                 <Route path = "/questionOrder" component = {QuestionOrder} />
                 <Route path = "/manageQuestion" component = {EditQuestion} />
                 <Route path = "/currentInfo" component = {currentInfo} />
+                <Route path = "/deleteQuestion" component = {DeleteQuestion}/>
               </Container>
             </div>
           </Router>

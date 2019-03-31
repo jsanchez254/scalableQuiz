@@ -144,7 +144,7 @@ class EditQuestion extends Component {
                         <button className = "button is-success">EDIT!</button>
                     </div>
                 </form>
-                <h1 className = "title">DELETE QUESTION:</h1>
+                <h1 className = "title">EDIT PATH:</h1>
             </React.Fragment>
           );
     }

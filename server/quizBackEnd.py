@@ -10,6 +10,13 @@ CORS(app)
 #variables that will be used to make sure we fetch Q/A from section
 arrangeID = 0
 
+
+#NOTE Control DELETING OF ANSWERS, QUESTIONS, SECTIONS, AND PATHS!!
+@app.route("/deleteQA", methods = ["GET", "POST"])
+def deleteQA():
+        if(request.method == "POST"):
+                return "DELETED SUCCESSFULLY"
+
 @app.route("/postArrangeID", methods = ["GET", "POST"])
 def updateArrID():
         if(request.method == "POST"):
