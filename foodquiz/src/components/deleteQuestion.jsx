@@ -29,14 +29,14 @@ class DeleteQuestion extends Component {
                 console.log(questions);
                 const deleteSection = questions.map((value, index) => 
                     <div id = "deleteParent">
-                        <div className = "questionsParent" name = {"QContent" + index}>
+                        <div className = "questionsParent" name = {(index + 1)}>
                             {value} 
                             <Icon onClick = {(event) => accordion(event)}  className = "questionContent" name = "angle down"/>
                             <Icon onClick = {(event) => deleteQuestion(event)} value = {index} id = "deleteIcon" name = "close icon"/>
                         </div>
                         <ul className = "answersParent">
                             {answers[index].map((avalue, index) =>
-                               <li className = "childElement">
+                               <li className = "childElement" name = {index + 1}>
                                     {avalue} <Icon onClick = {(event) => deleteAnswer(event)} value = {index} id = "deleteIconAns" name = "close icon"/>
                                </li> 
                             )}
