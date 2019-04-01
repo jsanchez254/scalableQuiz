@@ -87,7 +87,6 @@ class newQuestion extends Component {
             postAnswers: this.state.postAnswers,
             postDirection: this.state.postAnswersToQuestion
         };
-        console.log("HERE FRIENDO", newQuestion.postDirection);
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
         .then(res => {
             console.log(res.data)

@@ -3,7 +3,7 @@ import axios from "axios";
 
 // import {deleteOptions} from "../assets/js/deleteQuestion";
 import {Icon} from "semantic-ui-react";
-import {deleteQuestion} from "../assets/js/deleteQuestion";
+import {deleteQuestion, deleteAnswer, accordion} from "../assets/js/deleteQuestion";
 class DeleteQuestion extends Component {
     state = {
         questions: [],
@@ -29,13 +29,15 @@ class DeleteQuestion extends Component {
                 console.log(questions);
                 const deleteSection = questions.map((value, index) => 
                     <div id = "deleteParent">
-                        <div className = "questionsParent">
-                            {value} <Icon onClick = {() => deleteQuestion(index)} value = {index} id = "deleteIcon" name = "close icon"/>
+                        <div className = "questionsParent" name = {"QContent" + index}>
+                            {value} 
+                            <Icon onClick = {(event) => accordion(event)}  className = "questionContent" name = "angle down"/>
+                            <Icon onClick = {(event) => deleteQuestion(event)} value = {index} id = "deleteIcon" name = "close icon"/>
                         </div>
                         <ul className = "answersParent">
                             {answers[index].map((avalue, index) =>
                                <li className = "childElement">
-                                    {avalue} <Icon value = {index} id = "deleteIconAns" name = "close icon"/>
+                                    {avalue} <Icon onClick = {(event) => deleteAnswer(event)} value = {index} id = "deleteIconAns" name = "close icon"/>
                                </li> 
                             )}
                         </ul>
