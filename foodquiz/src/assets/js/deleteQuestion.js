@@ -1,4 +1,4 @@
-//ACCORDION CODE, TO BE CONTINUED   
+//ACCORDION CODE FOR ANIMATION 
 export function accordion(event){
     let qparent = event.target.parentNode;
     let panel = qparent.nextElementSibling;
@@ -11,6 +11,7 @@ export function accordion(event){
     } 
 }
 
+//array that will store everything that will be deleted
 var contentToBeDeleted = [];
 
 //will return content that will be deleted once its posted on the backend
@@ -28,21 +29,34 @@ function question (id, answers){
 export function deleteQuestion(event){
     //answers tgat will be deleted when post request is made
     let answers = [];
+    let insert = true;
     //get parent where event was triggered
     let parent = event.target.parentNode; 
     let Qid = parent.getAttribute("name");  //get parent name
-
-    //get answers IDs since they will be deleted on database
+    let i =0;
+    for(i = 0; i < contentToBeDeleted.length; i++){
+        if(Qid == contentToBeDeleted[i].qid){
+            insert = false;
+            break;
+        }
+    }
     let temp = parent.nextElementSibling;
     temp = temp.childNodes;
     for(let i = 0; i < temp.length; i++){
         answers.push(temp[i].getAttribute("name"));
     }
+    //get answers IDs since they will be deleted on database
+    if(insert){
+        let question1 = new question(Qid, answers);
+        contentToBeDeleted.push(question1);
+    }
+    else{
+        for(let j = 0; j < contentToBeDeleted[i].answers.length; j++)
+            answers.push(contentToBeDeleted[i].answers[j]);
+        contentToBeDeleted[i].answers = answers;
+    }
 
-    let question1 = new question(Qid, answers);
-    contentToBeDeleted.push(question1);
-
-    // console.log("TO BE DELETED: ", contentToBeDeleted);
+    console.log("TO BE DELETED: ", contentToBeDeleted);
     
     //remove dom elements for question and answers
     parent.nextElementSibling.remove();     
@@ -68,7 +82,13 @@ export function deleteAnswer(event){
         contentToBeDeleted.push(question1);
     }
     else{
-        contentToBeDeleted[i].answers.push(ansID);
+        let push = true;
+        for(let j = 0; j < contentToBeDeleted[i].answers.length; j++){
+            if(contentToBeDeleted[i].answers[j] == ansID)
+                push = false;
+        }
+            if(push)
+                contentToBeDeleted[i].answers.push(ansID);
     }
     console.log("CONTENT TO BE DELETED: ", contentToBeDeleted);
     event.target.parentNode.remove();
