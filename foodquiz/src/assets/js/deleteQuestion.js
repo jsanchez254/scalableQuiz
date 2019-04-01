@@ -14,7 +14,7 @@ export function accordion(event){
 //array that will store everything that will be deleted
 var contentToBeDeleted = [];
 
-//will return content that will be deleted once its posted on the backend
+//RETURN ARRAY THAT WILL BE USED TO DELETE
 export function getDeleteContent(){
     return contentToBeDeleted;
 }
@@ -59,6 +59,7 @@ export function deleteQuestion(event){
     console.log("TO BE DELETED: ", contentToBeDeleted);
     
     //remove dom elements for question and answers
+    parent.parentNode.style.paddingBottom = "0px";
     parent.nextElementSibling.remove();     
     parent.remove();
 }
@@ -90,8 +91,15 @@ export function deleteAnswer(event){
             if(push)
                 contentToBeDeleted[i].answers.push(ansID);
     }
-    console.log("CONTENT TO BE DELETED: ", contentToBeDeleted);
+    console.log("TO BE DELETED: ", contentToBeDeleted);
+    let bigPAPA = event.target.parentNode.parentNode;
     event.target.parentNode.remove();
+    //if no more answers are left
+    if(bigPAPA.childNodes.length == 0){
+        bigPAPA.parentNode.style.paddingBottom = "0px";
+        bigPAPA.previousElementSibling.remove();
+        bigPAPA.remove();
+    }
 }
 
 

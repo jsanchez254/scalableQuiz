@@ -3,7 +3,7 @@ import axios from "axios";
 
 // import {deleteOptions} from "../assets/js/deleteQuestion";
 import {Icon} from "semantic-ui-react";
-import {deleteQuestion, deleteAnswer, accordion} from "../assets/js/deleteQuestion";
+import {deleteQuestion, deleteAnswer, accordion, getDeleteContent} from "../assets/js/deleteQuestion";
 class DeleteQuestion extends Component {
     state = {
         questions: [],
@@ -13,7 +13,8 @@ class DeleteQuestion extends Component {
 
     //WILL MAKE SUBMIT REQUEST WHEN WE DELETE WHAT WE WANT FROM QUESTIONS AND ANSWERS
     handleSubmit = () =>{
-        axios.post("http://localhost:5000/deleteQA")
+        const content = getDeleteContent();
+        axios.post("http://localhost:5000/deleteQA", {content})
         .then(res =>{
             console.log(res.data);
         })
@@ -28,20 +29,22 @@ class DeleteQuestion extends Component {
                 this.setState(answers);
                 console.log(questions);
                 const deleteSection = questions.map((value, index) => 
-                    <div id = "deleteParent">
-                        <div className = "questionsParent" name = {(index + 1)}>
-                            {value} 
-                            <Icon onClick = {(event) => accordion(event)}  className = "questionContent" name = "angle down"/>
-                            <Icon onClick = {(event) => deleteQuestion(event)} value = {index} id = "deleteIcon" name = "close icon"/>
+                    <React.Fragment>
+                        <div id = "deleteParent">
+                            <div className = "questionsParent" name = {(index + 1)}>
+                                {value} 
+                                <Icon onClick = {(event) => accordion(event)}  className = "questionContent" name = "angle down"/>
+                                <Icon onClick = {(event) => deleteQuestion(event)} value = {index} id = "deleteIcon" name = "close icon"/>
+                            </div>
+                            <ul className = "answersParent">
+                                {answers[index].map((avalue, index) =>
+                                <li className = "childElement" name = {index + 1}>
+                                        {avalue} <Icon onClick = {(event) => deleteAnswer(event)} value = {index} id = "deleteIconAns" name = "close icon"/>
+                                </li> 
+                                )}
+                            </ul>
                         </div>
-                        <ul className = "answersParent">
-                            {answers[index].map((avalue, index) =>
-                               <li className = "childElement" name = {index + 1}>
-                                    {avalue} <Icon onClick = {(event) => deleteAnswer(event)} value = {index} id = "deleteIconAns" name = "close icon"/>
-                               </li> 
-                            )}
-                        </ul>
-                    </div>
+                    </React.Fragment>
                 )
                 this.setState({deleteSection})
             }

@@ -15,6 +15,24 @@ arrangeID = 0
 @app.route("/deleteQA", methods = ["GET", "POST"])
 def deleteQA():
         if(request.method == "POST"):
+                store = json.loads(request.data)
+                store = store["content"]
+                connect = sql.connect("quiz.db")
+                cursor = connect.cursor()
+
+                indexAnswer = 0
+                for x in store:
+                        count = cursor.execute("SELECT COUNT(answer) FROM answers WHERE q_id = ?", (x["qid"],)).fetchall()
+                        for xx in x["answers"]:
+                                cursor.execute('''DELETE FROM answers WHERE q_id = ?
+                                                AND a_answerNumbers = ?''', (x["qid"], xx))
+                                connect.commit()
+                                indexAnswer += 1
+                                if(indexAnswer == count[0][0]):
+                                        #delete question
+                                        cursor.execute("DELETE FROM question WHERE q_id = ?", (x["qid"]))
+                                        connect.commit()
+                
                 return "DELETED SUCCESSFULLY"
 
 @app.route("/postArrangeID", methods = ["GET", "POST"])
