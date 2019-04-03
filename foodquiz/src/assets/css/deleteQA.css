@@ -1,0 +1,75 @@
+/* styling for the questions children */
+
+#deleteParent{
+    padding-bottom: 20px;
+}
+
+.questionsParent{
+    font-weight: bold;
+    font-size: 26px;
+    color: yellow;
+    border-radius: 5px;
+    background-color: rgba(133, 99, 99, 0.452);
+}
+
+#deleteIcon{
+    right: 0px;
+    position: absolute;
+    color: rgb(151, 62, 27);
+}
+
+#deleteIcon:hover{
+    color: rgb(241, 44, 9);
+    cursor:pointer;
+}
+
+.questionContent{
+    right: 35px;
+    position: absolute;
+    color: rgb(27, 27, 87);
+}
+
+.questionContent:hover{
+    color: rgb(74, 74, 238);
+    cursor: pointer;
+}
+
+/* styling for the answer children */
+
+.answersParent{
+    padding: 20px;
+    font-size: 20px;
+    padding-left: 30px;
+    display: none;
+    max-height: 0;
+    transition: max-height 0.1s ease-out;
+}
+
+/* for the li elements */
+.childElement{
+    background-color: grey;
+    padding-top: 10px;
+    color: white;
+    border: white 5px solid;
+    border-radius: 10px;
+}
+
+#deleteIconAns{
+    right: 30px;
+    position: absolute;
+    color: rgb(67, 119, 18);
+}
+
+#deleteIconAns:hover{
+    color: rgb(94, 216, 23);
+    cursor: pointer;
+}
+
+/* FOR ACCORDION */
+.panel {
+    padding: 0 18px;
+    background-color: rgba(0, 183, 255, 0.52);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
