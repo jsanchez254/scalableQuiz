@@ -10,6 +10,36 @@ CORS(app)
 #variables that will be used to make sure we fetch Q/A from section
 arrangeID = 0
 
+#NOTE data to be sent to deleting sections
+@app.route("/deleteSections", methods = ["GET", "POST"])
+def deleteSections():
+        if(request.method == "GET"):
+                cursor = sql.connect("quiz.db").cursor()
+                sec = cursor.execute("SELECT DISTINCT arr_name FROM arrange").fetchall()
+                sections = []
+                paths = []
+                description = []
+                wrapper = []
+                for x in sec:
+                        sections.append(x[0])
+                for i in range(len(sec)):
+                        #store paths
+                        pathT = []
+                        Tempaths = cursor.execute("SELECT p_path FROM paths WHERE sec_id = ?", (i + 1,))
+                        for temp in Tempaths:
+                                pathT.append(temp[0])
+                        #store descriptions
+                        descT = []
+                        TempDesc = cursor.execute("SELECT p_description FROM paths WHERE sec_id = ?", (i + 1,))
+                        for temp in TempDesc:
+                                descT.append(temp[0])
+                        paths.append(pathT)
+                        description.append(descT)
+                wrapper.append(sections)
+                wrapper.append(paths)
+                wrapper.append(description)
+                data = json.dumps(wrapper)
+                return data
 
 #NOTE Control DELETING OF ANSWERS, QUESTIONS, SECTIONS, AND PATHS!!
 @app.route("/deleteQA", methods = ["GET", "POST"])
