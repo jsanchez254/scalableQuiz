@@ -21,6 +21,7 @@ import currentInfo from './components/currentInfo';
 import QuestionOrder from "./components/arrangeQuestions";
 import Sections from "./components/sections";
 import DeleteQuestion from "./components/deleteQuestion";
+import DeleteSection from "./components/deleteSection";
 
 class App extends Component {
   render() {
@@ -38,6 +39,7 @@ class App extends Component {
                 <Route path = "/manageQuestion" component = {EditQuestion} />
                 <Route path = "/currentInfo" component = {currentInfo} />
                 <Route path = "/deleteQuestion" component = {DeleteQuestion}/>
+                <Route path = "/deleteSection" component = {DeleteSection}/>
               </Container>
             </div>
           </Router>

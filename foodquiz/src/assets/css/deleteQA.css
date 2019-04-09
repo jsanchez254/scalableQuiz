@@ -73,3 +73,15 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
+
+/* for delete component */
+#deleteOption{
+    background-color: yellowgreen;
+    color: white;
+    border-right: white 3px solid;
+    text-align: center;
+    font-size: 21px;
+}
+#deleteOption:hover{
+    background-color: rgba(220, 236, 77, 0.863);
+}

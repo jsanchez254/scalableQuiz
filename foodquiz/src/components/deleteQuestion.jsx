@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import {Link} from 'react-router-dom';
 
 // import {deleteOptions} from "../assets/js/deleteQuestion";
 import {Icon} from "semantic-ui-react";
@@ -53,7 +54,15 @@ class DeleteQuestion extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 className = "title">DELETE QUESTION:</h1>
+                <div className = "columns">
+                    <Link id = "deleteOption" to = "/deleteQuestion" className = "column is-6">
+                        <span>Delete Question Information</span>
+                    </Link>
+                    <Link id = "deleteOption" to = "/deleteSection" className = "column is-6">
+                        <span>Delete Section Information</span>
+                    </Link>
+
+                </div>
                 {this.state.deleteSection}
                 <hr/>
                 <button onClick =  {()=> {this.handleSubmit()}} className = "button is-danger">SUBMIT CHANGES</button>
