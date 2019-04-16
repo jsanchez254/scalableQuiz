@@ -42,7 +42,7 @@
     padding-left: 30px;
     display: none;
     max-height: 0;
-    transition: max-height 0.1s ease-out;
+    transition: max-height 0.2s ease-out;
 }
 
 /* for the li elements */
@@ -88,4 +88,19 @@
 
 .activeDelete{
     background-color: rgba(220, 236, 77, 0.863) !important;
+}
+
+
+/* HERE WE HAVE STYLING FOR DELETE SECTION COMPONENT ONLY!!!!! */
+#contentPath{
+    background-color: greenyellow;
+    border: solid black 3px;
+}
+
+#parentPath{
+    padding: 0 18px;
+    background-color: rgba(0, 183, 255, 0.52);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }

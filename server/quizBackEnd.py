@@ -16,9 +16,10 @@ def deleteSections():
         if(request.method == "GET"):
                 cursor = sql.connect("quiz.db").cursor()
                 sec = cursor.execute("SELECT DISTINCT arr_name FROM arrange").fetchall()
-                sections = []
+                sections = []   
                 paths = []
                 description = []
+                outcome = []
                 wrapper = []
                 for x in sec:
                         sections.append(x[0])
@@ -33,11 +34,18 @@ def deleteSections():
                         TempDesc = cursor.execute("SELECT p_description FROM paths WHERE sec_id = ?", (i + 1,))
                         for temp in TempDesc:
                                 descT.append(temp[0])
+                        #store outcomes
+                        outT = []
+                        TempDesc = cursor.execute("SELECT p_output FROM paths WHERE sec_id = ?", (i + 1,))
+                        for temp in TempDesc:
+                                outT.append(temp[0])
+                        outcome.append(outT)
                         paths.append(pathT)
                         description.append(descT)
                 wrapper.append(sections)
                 wrapper.append(paths)
                 wrapper.append(description)
+                wrapper.append(outcome)
                 data = json.dumps(wrapper)
                 return data
 

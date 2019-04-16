@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
 import {Icon} from "semantic-ui-react";
+import {accordion} from "../assets/js/deleteQuestion";
+
 class deleteSection extends Component {
     state = {
         paths: [],
-        descriptions: [],
+        comment: [],
         sections: [],
+        outcome: [],
         deleteSection: ""
       }
 
@@ -15,23 +18,37 @@ class deleteSection extends Component {
         .then(res =>{
             const sections = res.data[0];
             const paths = res.data[1];
-            const descriptions = res.data[2];
+            const comment = res.data[2];
+            const outcome = res.data[3];
             this.setState({sections});
+            this.setState({outcome});
             this.setState({paths});
-            this.setState({descriptions});
+            this.setState({comment});
 
-            const deleteSection = sections.map((value, index) => 
+            const deleteSection = sections.map((value, indexo) => 
                 <React.Fragment>
-                    <div name = {(index + 1)}>
-                        {value} 
+                    <div id = "deleteParent">
+                        <div className = "questionsParent" name = {(indexo + 1)}>
+                            {value} 
+                            <Icon onClick = {(e) => accordion(e)} className = "questionContent" name = "angle down"/>
+                            <Icon value = {indexo} id = "deleteIcon" name = "close icon"/>
+                        </div>
+                        <div id = "parentPath">
+                            {comment[indexo].map((value, index) =>
+                                <div id = "contentPath" >
+                                        <div className = "columns">                                            
+                                            <div className = "column is-6">
+                                                {paths[indexo][index]}
+                                            </div>                                    
+                                            <div className = "column is-6">
+                                                {outcome[indexo][index]}
+                                            </div>                                       
+                                        </div>                                
+                                    <span>{value}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <ul>
-                        {paths[index].map((avalue, index) =>
-                        <li>
-                                {avalue}
-                        </li> 
-                        )}
-                    </ul>
             </React.Fragment>
             )   
             this.setState({deleteSection});
