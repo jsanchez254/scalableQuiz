@@ -55,7 +55,7 @@ class DeleteQuestion extends Component {
         return (
             <React.Fragment>
                 <div className = "columns">
-                    <Link id = "deleteOption" to = "/deleteQuestion" className = "column is-6">
+                    <Link id = "deleteOption" to = "/deleteQuestion" className = "column is-6 activeDelete">
                         <span>Delete Question Information</span>
                     </Link>
                     <Link id = "deleteOption" to = "/deleteSection" className = "column is-6">

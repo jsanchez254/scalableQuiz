@@ -85,3 +85,7 @@
 #deleteOption:hover{
     background-color: rgba(220, 236, 77, 0.863);
 }
+
+.activeDelete{
+    background-color: rgba(220, 236, 77, 0.863) !important;
+}

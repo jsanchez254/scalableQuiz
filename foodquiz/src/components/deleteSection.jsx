@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
-
+import {Icon} from "semantic-ui-react";
 class deleteSection extends Component {
     state = {
         paths: [],
         descriptions: [],
-        sections: []
+        sections: [],
+        deleteSection: ""
       }
 
     componentDidMount (){
@@ -18,9 +19,22 @@ class deleteSection extends Component {
             this.setState({sections});
             this.setState({paths});
             this.setState({descriptions});
-            console.log(sections);
-            console.log(paths);
-            console.log(descriptions);
+
+            const deleteSection = sections.map((value, index) => 
+                <React.Fragment>
+                    <div name = {(index + 1)}>
+                        {value} 
+                    </div>
+                    <ul>
+                        {paths[index].map((avalue, index) =>
+                        <li>
+                                {avalue}
+                        </li> 
+                        )}
+                    </ul>
+            </React.Fragment>
+            )   
+            this.setState({deleteSection});
         })
     }
     
@@ -31,10 +45,13 @@ class deleteSection extends Component {
                     <Link id = "deleteOption" to = "/deleteQuestion" className = "column is-6">
                         <span>Delete Question Information</span>
                     </Link>
-                    <Link id = "deleteOption" to = "/deleteSection" className = "column is-6">
+                    <Link id = "deleteOption" to = "/deleteSection" className = "column is-6 activeDelete">
                         <span>Delete Section Information</span>
                     </Link>
                 </div>
+                {this.state.deleteSection}
+                <hr/>
+                <button className = "button is-danger">SUBMIT CHANGES</button>
             </React.Fragment>
           );
     }
