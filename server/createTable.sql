@@ -15,6 +15,7 @@ CREATE TABLE paths(
     p_id INTEGER PRIMARY KEY,
     p_path INTEGER,
     p_output varchar(2000),
+    p_description varchar(10000),
     sec_id INTEGER
 );
 

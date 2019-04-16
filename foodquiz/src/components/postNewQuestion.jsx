@@ -19,7 +19,8 @@ class newQuestion extends Component {
         postAnswersToQuestion: [], //array used to store direct to quetion ID
         indexAnswer: 1,
         sections: [], // SECTIONS TO BE DISPLAYED FOR PATHS
-        setToUpdate: "" //section to be updated for path
+        setToUpdate: "", //section to be updated for path
+        comment: "" //comment that will be posted along path
     }
 
     handleAnswersAndDirect = (name, value) =>{
@@ -71,7 +72,8 @@ class newQuestion extends Component {
         const newPath = {
             path: this.state.path,
             outcome: this.state.outcome,
-            section: this.state.setToUpdate
+            section: this.state.setToUpdate,
+            comment: this.state.comment
         }
         axios.post("http://localhost:5000/postPath" , {newPath})
         .then(res => {
@@ -205,14 +207,33 @@ class newQuestion extends Component {
                             </select>
                         </div>   
                     </div>
+                    <label className = "label">Comment:</label>
                     <div className = "field">
-                        <label className = "label"> Path </label>
-                        <input name = "path" className = "input"
-                        onChange = {this.handleChange} placeholder = "Enter Path EX: 223"/>
+                        <article className="media">
+                            <div className="media-content">
+                                <div className="field">
+                                    <p className="control">
+                                        <textarea type ="text" name = "comment" className="textarea"
+                                        onChange = {this.handleChange} placeholder="Add a comment..."/>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
 
-                        <label className = "label"> Outcome </label>
-                        <input name = "outcome" className = "input"
-                        onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                    <div className = "field">
+                        <div className = "columns">
+                            <div className = "column is-6">
+                                <label className = "label"> Path: </label>
+                                <input name = "path" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Path EX: 223"/>
+                            </div>
+                            <div className = "column is-6">
+                                <label className = "label"> Outcome: </label>
+                                <input name = "outcome" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                            </div>
+                        </div>
                     </div>
                     <div className = "field">
                     <button type = "submit" value = "Submit" className = "button is-info">

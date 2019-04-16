@@ -18,6 +18,9 @@ class deleteSection extends Component {
             this.setState({sections});
             this.setState({paths});
             this.setState({descriptions});
+            console.log(sections);
+            console.log(paths);
+            console.log(descriptions);
         })
     }
     

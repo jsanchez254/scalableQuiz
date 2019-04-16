@@ -47,15 +47,24 @@
     display: none;
 }
 
-#finalResult{
-    display: none;
-    font-size: 33px;
+#textOutput{
+    font-size: 32px;
     font-weight: bold;
-    color: rgb(233, 49, 17);
+    color: rgb(29, 5, 1);
 }
 
-#finalResult:hover{
+#finalResult{
+    display: none;
+}
+
+#linkOutput{
+    font-size: 33px;
     text-decoration: underline;
+    color: rgb(66, 66, 206);
+}
+
+#linkOutput:hover{
+    text-decoration: none;
 }
 
 #imagen{

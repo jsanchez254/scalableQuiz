@@ -11,7 +11,7 @@ CORS(app)
 arrangeID = 0
 
 #NOTE data to be sent to deleting sections
-@app.route("/deleteSections", methods = ["GET", "POST"])
+@app.route("/deleteSection", methods = ["GET", "POST"])
 def deleteSections():
         if(request.method == "GET"):
                 cursor = sql.connect("quiz.db").cursor()
@@ -214,14 +214,16 @@ def returnOutcome():
 def getOutcome(path):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
-        cursor.execute("SELECT p_output FROM paths WHERE p_path = ? AND sec_id = ?", (path, arrangeID))
-
-        outcome = cursor.fetchall()
+        outcome = cursor.execute('''SELECT p_output, p_description FROM paths 
+                WHERE p_path = ? AND sec_id = ?''', (path, arrangeID)).fetchall()
         try:
-                outcome = outcome[0][0]
+                temp = outcome[0][0]
         except IndexError:
                 return "PATH DOES NOT EXITS, SORRY :("
-
+        outcome1 = []
+        outcome1.append(outcome[0][0])
+        outcome1.append(outcome[0][1])
+        outcome = json.dumps(outcome1)
         return outcome
 
 #post new path and outcome
@@ -234,17 +236,18 @@ def postPath():
                 outcome = parse["outcome"]
                 path = parse["path"]
                 section = parse["section"]
+                comment = parse["comment"]
            
-                insertNewPath(outcome, path, section)
+                insertNewPath(outcome, path, section, comment)
         return "POSTED PATH SUCCESSFULLY"
 
-def insertNewPath(outcome, path, section):
+def insertNewPath(outcome, path, section, comment):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
         #GET SECTION ID
         secID = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (section,)).fetchall()
-        cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id)
-                        VALUES (?, ?, ?)''', (path, outcome, secID[0][0]))
+        cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id, p_description)
+                        VALUES (?, ?, ?, ?)''', (path, outcome, secID[0][0], comment))
         connect.commit()
 
         return "cool"
