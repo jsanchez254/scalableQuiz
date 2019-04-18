@@ -42,11 +42,7 @@
     padding-left: 30px;
     display: none;
     max-height: 0;
-<<<<<<< HEAD
-    transition: max-height 0.1s ease-out;
-=======
     transition: max-height 0.2s ease-out;
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 }
 
 /* for the li elements */
@@ -77,8 +73,6 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
-<<<<<<< HEAD
-=======
 
 /* for delete component */
 #deleteOption{
@@ -114,4 +108,3 @@
 .centerIt{
     text-align:center;
 }
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8

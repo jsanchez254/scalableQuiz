@@ -10,8 +10,6 @@ CORS(app)
 #variables that will be used to make sure we fetch Q/A from section
 arrangeID = 0
 
-<<<<<<< HEAD
-=======
 #NOTE data to be sent to deleting sections
 @app.route("/deleteSection", methods = ["GET", "POST"])
 def deleteSections():
@@ -50,7 +48,6 @@ def deleteSections():
                 wrapper.append(outcome)
                 data = json.dumps(wrapper)
                 return data
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 
 #NOTE Control DELETING OF ANSWERS, QUESTIONS, SECTIONS, AND PATHS!!
 @app.route("/deleteQA", methods = ["GET", "POST"])
@@ -60,10 +57,6 @@ def deleteQA():
                 store = store["content"]
                 connect = sql.connect("quiz.db")
                 cursor = connect.cursor()
-<<<<<<< HEAD
-
-=======
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
                 indexAnswer = 0
                 for x in store:
                         count = cursor.execute("SELECT COUNT(answer) FROM answers WHERE q_id = ?", (x["qid"],)).fetchall()
@@ -74,11 +67,6 @@ def deleteQA():
                                 indexAnswer += 1
                                 if(indexAnswer == count[0][0]):
                                         #delete question
-<<<<<<< HEAD
-                                        cursor.execute("DELETE FROM question WHERE q_id = ?", (x["qid"]))
-                                        connect.commit()
-                
-=======
                                         cursor.execute("DELETE FROM questions WHERE q_id = ?", (x["qid"],))
                                         connect.commit()
                         #restart answNum
@@ -89,7 +77,6 @@ def deleteQA():
                                 connect.commit()
                                 indexRem += 1
 
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
                 return "DELETED SUCCESSFULLY"
 
 @app.route("/postArrangeID", methods = ["GET", "POST"])
@@ -235,16 +222,6 @@ def returnOutcome():
 def getOutcome(path):
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
-<<<<<<< HEAD
-        cursor.execute("SELECT p_output FROM paths WHERE p_path = ? AND sec_id = ?", (path, arrangeID))
-
-        outcome = cursor.fetchall()
-        try:
-                outcome = outcome[0][0]
-        except IndexError:
-                return "PATH DOES NOT EXITS, SORRY :("
-
-=======
         outcome = cursor.execute('''SELECT p_output, p_description FROM paths 
                 WHERE p_path = ? AND sec_id = ?''', (path, arrangeID)).fetchall()
         try:
@@ -255,7 +232,6 @@ def getOutcome(path):
         outcome1.append(outcome[0][0])
         outcome1.append(outcome[0][1])
         outcome = json.dumps(outcome1)
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
         return outcome
 
 #post new path and outcome
@@ -268,31 +244,18 @@ def postPath():
                 outcome = parse["outcome"]
                 path = parse["path"]
                 section = parse["section"]
-<<<<<<< HEAD
-           
-                insertNewPath(outcome, path, section)
-        return "POSTED PATH SUCCESSFULLY"
-
-def insertNewPath(outcome, path, section):
-=======
                 comment = parse["comment"]
            
                 insertNewPath(outcome, path, section, comment)
         return "POSTED PATH SUCCESSFULLY"
 
 def insertNewPath(outcome, path, section, comment):
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
         connect = sql.connect("quiz.db")
         cursor  = connect.cursor()
         #GET SECTION ID
         secID = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (section,)).fetchall()
-<<<<<<< HEAD
-        cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id)
-                        VALUES (?, ?, ?)''', (path, outcome, secID[0][0]))
-=======
         cursor.execute('''INSERT INTO paths(p_path, p_output, sec_id, p_description)
                         VALUES (?, ?, ?, ?)''', (path, outcome, secID[0][0], comment))
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
         connect.commit()
 
         return "cool"

@@ -11,8 +11,6 @@ export function accordion(event){
     } 
 }
 
-<<<<<<< HEAD
-=======
 //DROP DOWN ANIMATION
 export function dropDown(){
     let drop = document.getElementById("dropMenu");
@@ -22,7 +20,6 @@ export function dropDown(){
         drop.style.display = "none";
 }
 
->>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 //array that will store everything that will be deleted
 var contentToBeDeleted = [];
 
