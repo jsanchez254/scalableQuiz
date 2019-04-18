@@ -55,6 +55,7 @@ def deleteQA():
         if(request.method == "POST"):
                 store = json.loads(request.data)
                 store = store["content"]
+                print "CONTENT!! ", store
                 connect = sql.connect("quiz.db")
                 cursor = connect.cursor()
                 indexAnswer = 0
@@ -63,6 +64,8 @@ def deleteQA():
                         for xx in x["answers"]:
                                 cursor.execute('''DELETE FROM answers WHERE q_id = ?
                                                 AND a_answerNumbers = ?''', (x["qid"], xx))
+                                print "QUESTION ID: ", x["qid"]
+                                print "ANSWER NUMBER: ", xx
                                 connect.commit()
                                 indexAnswer += 1
                                 if(indexAnswer == count[0][0]):
@@ -77,7 +80,7 @@ def deleteQA():
                                 connect.commit()
                                 indexRem += 1
 
-                return "DELETED SUCCESSFULLY"
+                return "DELETED SUCCESSFULLY111"
 
 @app.route("/postArrangeID", methods = ["GET", "POST"])
 def updateArrID():
@@ -278,6 +281,7 @@ def insertNewQuestion(question, answers, directTo):
         cursor  = connect.cursor()
 
         # get question id
+        #FIX wont insert if there are no questions at all!
         cursor.execute("SELECT MAX(q_id) FROM questions");
         questionID = cursor.fetchall()
         questionID = questionID[0][0] + 1
@@ -320,6 +324,7 @@ def fixFormat(arr, answersPerQuestion):
         moveNextSet = 0
         startNewSet = 0
         count = 0
+
         # print ("ANSWER PER QUESTION: ", arr)
         for x in arr:
                 if(x[0] not in questions):
@@ -342,6 +347,14 @@ def fixFormat(arr, answersPerQuestion):
         everything.append(questions)
         everything.append(answers)
         everything.append(directTo)
+        #get q_id from questions
+        q_ID = []
+        cursor = sql.connect("quiz.db").cursor()
+        for x in questions:
+                qID = cursor.execute("SELECT q_id FROM questions WHERE question = ?", (x,)).fetchall()
+                q_ID.append(qID[0][0])
+
+        everything.append(q_ID)
         print ("EVERYTHING: ", everything)
         return everything
 
