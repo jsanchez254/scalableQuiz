@@ -113,7 +113,14 @@ class questions extends Component {
                                   <div key = {index} className = "options" onClick = {()=>this.handleNextCounter(index + 1)}>{msg[0]}</div>)}
                               </div>
                               {/* OUTPUT OF PATH  */}
+<<<<<<< HEAD
                               <a href = "blank" id = "finalResult">{""}</a>
+=======
+                              <div id = "finalResult">
+                                <span id = "textOutput"></span><br/>
+                                <a href = "blank" id = "linkOutput">{""}</a>
+                              </div>
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
                           </div>
                           <div className = "column is-2 is-offset-10">
                               <div id = "again">                   

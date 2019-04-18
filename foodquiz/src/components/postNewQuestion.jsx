@@ -19,7 +19,12 @@ class newQuestion extends Component {
         postAnswersToQuestion: [], //array used to store direct to quetion ID
         indexAnswer: 1,
         sections: [], // SECTIONS TO BE DISPLAYED FOR PATHS
+<<<<<<< HEAD
         setToUpdate: "" //section to be updated for path
+=======
+        setToUpdate: "", //section to be updated for path
+        comment: "" //comment that will be posted along path
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
     }
 
     handleAnswersAndDirect = (name, value) =>{
@@ -71,7 +76,12 @@ class newQuestion extends Component {
         const newPath = {
             path: this.state.path,
             outcome: this.state.outcome,
+<<<<<<< HEAD
             section: this.state.setToUpdate
+=======
+            section: this.state.setToUpdate,
+            comment: this.state.comment
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
         }
         axios.post("http://localhost:5000/postPath" , {newPath})
         .then(res => {
@@ -205,6 +215,7 @@ class newQuestion extends Component {
                             </select>
                         </div>   
                     </div>
+<<<<<<< HEAD
                     <div className = "field">
                         <label className = "label"> Path </label>
                         <input name = "path" className = "input"
@@ -213,6 +224,35 @@ class newQuestion extends Component {
                         <label className = "label"> Outcome </label>
                         <input name = "outcome" className = "input"
                         onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+=======
+                    <label className = "label">Comment:</label>
+                    <div className = "field">
+                        <article className="media">
+                            <div className="media-content">
+                                <div className="field">
+                                    <p className="control">
+                                        <textarea type ="text" name = "comment" className="textarea"
+                                        onChange = {this.handleChange} placeholder="Add a comment..."/>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div className = "field">
+                        <div className = "columns">
+                            <div className = "column is-6">
+                                <label className = "label"> Path: </label>
+                                <input name = "path" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Path EX: 223"/>
+                            </div>
+                            <div className = "column is-6">
+                                <label className = "label"> Outcome: </label>
+                                <input name = "outcome" className = "input"
+                                onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                            </div>
+                        </div>
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
                     </div>
                     <div className = "field">
                     <button type = "submit" value = "Submit" className = "button is-info">

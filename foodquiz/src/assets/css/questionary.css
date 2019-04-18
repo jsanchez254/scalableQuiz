@@ -7,6 +7,13 @@
     font-weight: bold;
 }
 
+<<<<<<< HEAD
+=======
+#dropMenu{
+    display: none;
+}
+
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 .questionBox{
     padding-top: 20px;
     max-height: 400px !important;
@@ -43,6 +50,7 @@
     display: none;
 }
 
+<<<<<<< HEAD
 #finalResult{
     display: none;
     font-size: 33px;
@@ -52,6 +60,26 @@
 
 #finalResult:hover{
     text-decoration: underline;
+=======
+#textOutput{
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(29, 5, 1);
+}
+
+#finalResult{
+    display: none;
+}
+
+#linkOutput{
+    font-size: 33px;
+    text-decoration: underline;
+    color: rgb(66, 66, 206);
+}
+
+#linkOutput:hover{
+    text-decoration: none;
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 }
 
 #imagen{

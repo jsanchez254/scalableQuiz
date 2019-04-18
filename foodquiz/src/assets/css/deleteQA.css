@@ -42,7 +42,11 @@
     padding-left: 30px;
     display: none;
     max-height: 0;
+<<<<<<< HEAD
     transition: max-height 0.1s ease-out;
+=======
+    transition: max-height 0.2s ease-out;
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
 }
 
 /* for the li elements */
@@ -73,3 +77,41 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
+<<<<<<< HEAD
+=======
+
+/* for delete component */
+#deleteOption{
+    background-color: yellowgreen;
+    color: white;
+    border-right: white 3px solid;
+    text-align: center;
+    font-size: 21px;
+}
+#deleteOption:hover{
+    background-color: rgba(220, 236, 77, 0.863);
+}
+
+.activeDelete{
+    background-color: rgba(220, 236, 77, 0.863) !important;
+}
+
+
+/* HERE WE HAVE STYLING FOR DELETE SECTION COMPONENT ONLY!!!!! */
+#contentPath{
+    background-color: greenyellow;
+    border: solid black 3px;
+}
+
+#parentPath{
+    padding: 0 18px;
+    background-color: rgba(0, 183, 255, 0.52);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.centerIt{
+    text-align:center;
+}
+>>>>>>> b8d48936083b55f5a850ee79ee8db9edb6e11bd8
