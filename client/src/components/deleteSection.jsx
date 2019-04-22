@@ -3,6 +3,7 @@ import axios from "axios";
 import {Link} from 'react-router-dom';
 import {Icon} from "semantic-ui-react";
 import {accordion} from "../assets/js/deleteQuestion";
+import {deleteSec, deletePath} from "../assets/js/deleteSection";
 
 class deleteSection extends Component {
     state = {
@@ -31,24 +32,24 @@ class deleteSection extends Component {
                         <div className = "questionsParent" name = {(indexo + 1)}>
                             {value} 
                             <Icon onClick = {(e) => accordion(e)} className = "questionContent" name = "angle down"/>
-                            <Icon value = {indexo} id = "deleteIcon" name = "close icon"/>
+                            <Icon onClick = {(e) => deleteSec(e)} value = {indexo} id = "deleteIcon" name = "close icon"/>
                         </div>
                         <div id = "parentPath">
                             {comment[indexo].map((value, index) =>
-                                <div id = "contentPath" >
+                                <div id = "contentPath" name = {index + 1}>
                                         <div className = "columns">                                            
                                             <div className = "column is-5 is-offset-1">
                                                 {paths[indexo][index]}<br/>
                                                 <span>{value}</span>
                                             </div>                                    
                                             <div className = "column is-7">
-                                                {outcome[indexo][index]}<Icon value = {index} id = "deleteIconAns" name = "close icon"/>
+                                                {outcome[indexo][index]}<Icon onClick = {(e) => deletePath(e)} value = {index} id = "deleteIconAns" name = "close icon"/>
                                             </div>                                   
                                         </div>
                                                                                
                                 </div>
                             )}
-                            <br/>
+                    
                         </div>
                     </div>
             </React.Fragment>
