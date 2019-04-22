@@ -1,7 +1,7 @@
 /* styling for the questions children */
 
 #deleteParent{
-    padding-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 .questionsParent{
@@ -52,6 +52,8 @@
     color: white;
     border: white 5px solid;
     border-radius: 10px;
+    margin-top: 10px;
+    border: black solid 1px;
 }
 
 #deleteIconAns{
@@ -93,18 +95,29 @@
 
 /* HERE WE HAVE STYLING FOR DELETE SECTION COMPONENT ONLY!!!!! */
 #contentPath{
-    background-color: greenyellow;
-    border: solid black 3px;
+    background-color: grey;
+    padding-top: 10px !important;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: black solid 1px;
 }
 
 #parentPath{
+    font-size: 20px;
     padding: 0 18px;
-    background-color: rgba(0, 183, 255, 0.52);
     max-height: 0;
     overflow: hidden;
+    display:none;
     transition: max-height 0.2s ease-out;
 }
 
 .centerIt{
     text-align:center;
 }
+
+#deleteSection{
+    padding-bottom: 20px;
+}
+
+

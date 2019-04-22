@@ -27,7 +27,7 @@ class deleteSection extends Component {
 
             const deleteSection = sections.map((value, indexo) => 
                 <React.Fragment>
-                    <div id = "deleteParent">
+                    <div id = "deleteSection">
                         <div className = "questionsParent" name = {(indexo + 1)}>
                             {value} 
                             <Icon onClick = {(e) => accordion(e)} className = "questionContent" name = "angle down"/>
@@ -37,16 +37,18 @@ class deleteSection extends Component {
                             {comment[indexo].map((value, index) =>
                                 <div id = "contentPath" >
                                         <div className = "columns">                                            
-                                            <div className = "column is-6">
-                                                {paths[indexo][index]}
+                                            <div className = "column is-5 is-offset-1">
+                                                {paths[indexo][index]}<br/>
+                                                <span>{value}</span>
                                             </div>                                    
-                                            <div className = "column is-6">
-                                                {outcome[indexo][index]}
-                                            </div>                                       
-                                        </div>                                
-                                    <span>{value}</span>
+                                            <div className = "column is-7">
+                                                {outcome[indexo][index]}<Icon value = {index} id = "deleteIconAns" name = "close icon"/>
+                                            </div>                                   
+                                        </div>
+                                                                               
                                 </div>
                             )}
+                            <br/>
                         </div>
                     </div>
             </React.Fragment>

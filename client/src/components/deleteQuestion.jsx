@@ -9,6 +9,7 @@ class DeleteQuestion extends Component {
     state = {
         questions: [],
         answers: [],
+        qid: [],
         deleteSection: "please work"
       }
 
@@ -25,14 +26,16 @@ class DeleteQuestion extends Component {
         axios.get("http://localhost:5000/fetchEverything")
         .then(res => {
                 const questions = res.data[0];
-                const answers = res.data[1];
+                const answers = res.data[1];            
+                const q_id = res.data[3];
+                this.setState({q_id})
                 this.setState(questions);
                 this.setState(answers);
                 console.log(questions);
                 const deleteSection = questions.map((value, index) => 
                     <React.Fragment>
                         <div id = "deleteParent">
-                            <div className = "questionsParent" name = {(index + 1)}>
+                            <div className = "questionsParent" name = {q_id[index]}>
                                 {value} 
                                 <Icon onClick = {(event) => accordion(event)}  className = "questionContent" name = "angle down"/>
                                 <Icon onClick = {(event) => deleteQuestion(event)} value = {index} id = "deleteIcon" name = "close icon"/>

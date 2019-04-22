@@ -34,6 +34,7 @@ function question (id, answers){
     this.answers = answers;
 }
 
+//DELETE WHOLE QUESTION AND ANSWERS
 //used to delete elements that will later be posted on backend for changes
 export function deleteQuestion(event){
     //answers tgat will be deleted when post request is made
@@ -73,6 +74,8 @@ export function deleteQuestion(event){
     parent.remove();
 }
 
+
+//DELETE ANSWER
 export function deleteAnswer(event){
     let Qid = event.target.parentNode.parentNode.previousElementSibling.getAttribute("name");
     let ansID = event.target.parentNode.getAttribute("name");
