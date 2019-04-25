@@ -50,7 +50,7 @@ export function deleteSec(event){
         var newSection = new section(secID, paths, "yes");
         sectionDeleted.push(newSection);
     }
-
+    console.log(sectionDeleted);
     parent.parentNode.remove();
 }
 

@@ -67,10 +67,13 @@ def deleteSections():
                 return data
         if(request.method == "POST"):
                 store = (json.loads(request.data))["section"]
-                # for i in range(len(store)):
-                #         for x in store[i]["pathID"]:
-                #                 cursor.execute("DELETE FROM paths WHERE p_id = ?", (x,))
-                #                 connect.commit()
+                for i in range(len(store)):
+                        for x in store[i]["pathID"]:
+                                cursor.execute("DELETE FROM paths WHERE p_id = ?", (x,))
+                                connect.commit()
+                        if(store[i]["deleteSec"] == "yes"):
+                                cursor.execute("DELETE FROM arrange WHERE arr_id = ?", (store[i]["secID"],))
+                                connect.commit()
 
                 return "Deleted Successfully"
 
