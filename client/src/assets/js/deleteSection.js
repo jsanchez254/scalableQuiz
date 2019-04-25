@@ -87,3 +87,8 @@ export function deletePath(event){
 
     parent.remove();
 }
+
+//return section object array
+export function getSection(){
+    return sectionDeleted;
+}

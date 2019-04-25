@@ -13,41 +13,67 @@ arrangeID = 0
 #NOTE data to be sent to deleting sections
 @app.route("/deleteSection", methods = ["GET", "POST"])
 def deleteSections():
+        connect = sql.connect("quiz.db")
+        cursor = connect.cursor()
         if(request.method == "GET"):
-                cursor = sql.connect("quiz.db").cursor()
                 sec = cursor.execute("SELECT DISTINCT arr_name FROM arrange").fetchall()
                 sections = []   
                 paths = []
                 description = []
                 outcome = []
                 wrapper = []
+                sectionID = []
+                pathID = []
+                 #store section IDs
+                tempSecID = cursor.execute("SELECT arr_id FROM arrange").fetchall()
+                for temp in tempSecID:
+                        sectionID.append(temp[0]);
+                #store section names
                 for x in sec:
                         sections.append(x[0])
+                #NOTE store rest of data grouped by sections in array form`
                 for i in range(len(sec)):
-                        #store paths
+                        #store paths and pathIDs
                         pathT = []
-                        Tempaths = cursor.execute("SELECT p_path FROM paths WHERE sec_id = ?", (i + 1,))
+                        pathIDT = []
+                        Tempaths = cursor.execute("SELECT p_path FROM paths WHERE sec_id = ?", (i + 1,)).fetchall()
+                        tempPathID = cursor.execute("SELECT p_id FROM paths WHERE sec_id = ?", (i + 1,)).fetchall()
                         for temp in Tempaths:
                                 pathT.append(temp[0])
+                        for temp in tempPathID:
+                                pathIDT.append(temp[0])
                         #store descriptions
                         descT = []
-                        TempDesc = cursor.execute("SELECT p_description FROM paths WHERE sec_id = ?", (i + 1,))
+                        TempDesc = cursor.execute("SELECT p_description FROM paths WHERE sec_id = ?", (i + 1,)).fetchall()
                         for temp in TempDesc:
                                 descT.append(temp[0])
                         #store outcomes
                         outT = []
-                        TempDesc = cursor.execute("SELECT p_output FROM paths WHERE sec_id = ?", (i + 1,))
+                        TempDesc = cursor.execute("SELECT p_output FROM paths WHERE sec_id = ?", (i + 1,)).fetchall()
                         for temp in TempDesc:
                                 outT.append(temp[0])
                         outcome.append(outT)
                         paths.append(pathT)
                         description.append(descT)
+                        pathID.append(pathIDT)
+                #wrap all arrays into another array
                 wrapper.append(sections)
                 wrapper.append(paths)
                 wrapper.append(description)
                 wrapper.append(outcome)
+                wrapper.append(sectionID)
+                wrapper.append(pathID)
                 data = json.dumps(wrapper)
                 return data
+        if(request.method == "POST"):
+                store = (json.loads(request.data))["section"]
+                # for i in range(len(store)):
+                #         for x in store[i]["pathID"]:
+                #                 cursor.execute("DELETE FROM paths WHERE p_id = ?", (x,))
+                #                 connect.commit()
+
+                return "Deleted Successfully"
+
 
 #NOTE Control DELETING OF ANSWERS, QUESTIONS, SECTIONS, AND PATHS!!
 @app.route("/deleteQA", methods = ["GET", "POST"])
