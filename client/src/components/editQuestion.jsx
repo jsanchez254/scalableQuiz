@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
+//IMPORT THE EDIT SECTION COMPONENT
+import EditSection from "./editSection";
+
 //IMPORT JS
 import {createAnswerBoxes} from "../assets/js/addMoreAnswers";
 
@@ -144,7 +147,8 @@ class EditQuestion extends Component {
                         <button className = "button is-success">EDIT!</button>
                     </div>
                 </form>
-                <h1 className = "title">EDIT PATH:</h1>
+                <h1 className = "title">EDIT SECTION:</h1>
+                <EditSection/>
             </React.Fragment>
           );
     }
