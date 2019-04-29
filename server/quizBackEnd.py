@@ -6,9 +6,44 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-
 #variables that will be used to make sure we fetch Q/A from section
 arrangeID = 0
+
+#post section name here to fetch comments, paths,and links lists.
+@app.route("/postSection", methods = ["GET", "POST"])
+def postSection():
+        if(request.method == "POST"):
+                cursor = sql.connect("quiz.db").cursor()
+                store = json.loads(request.data)["section"]
+                section = store["section"]
+
+                paths = []
+                comments = []
+                links = []
+
+                secID = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (section,)).fetchall()[0][0]
+                info = cursor.execute('''SELECT p_path, p_description, p_output 
+                                        FROM paths WHERE sec_id = ?''', (secID,)).fetchall()
+
+                #catch error where sections have no info
+                try:
+                        temp = info[0][0]
+                except IndexError:
+                        return "FAIL"                
+
+                for i in range(len(info)):
+                        paths.append(info[i][0])
+                        comments.append(info[i][1])
+                        links.append(info[i][2])
+
+                #used to wrap all info into one array
+                wrapper = []
+                wrapper.append(paths)
+                wrapper.append(comments)
+                wrapper.append(links)
+                wrapper = json.dumps(wrapper)
+                return wrapper
+
 
 #NOTE data to be sent to deleting sections
 @app.route("/deleteSection", methods = ["GET", "POST"])
