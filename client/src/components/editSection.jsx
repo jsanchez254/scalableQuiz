@@ -65,10 +65,10 @@ class editPath extends Component {
 
                         <div className = "columns">
                             <br/>
-                            <div className = "column is-6">
+                            <div id = "pathParent" className = "column is-6">
                                 {/* PATH DOM GENERATION GOES HERE */}
                             </div>
-                            <div className = "column is-6">
+                            <div id = "outputParent" className = "column is-6">
                                 {/* LINK DOM GENERATION GOES HERE */}
 
                             </div>
