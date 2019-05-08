@@ -8,6 +8,7 @@ import {
 //IMPORT CSS
 import "./assets/css/questionary.css";
 import "./assets/css/deleteQA.css";
+import "./assets/css/sectionEdit.css";
 
 //IMPORT SEMANTIC UI
 import { Container } from 'semantic-ui-react'

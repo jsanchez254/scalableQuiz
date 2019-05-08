@@ -51,7 +51,6 @@ class EditQuestion extends Component {
         this.setState({[event.target.name] : event.target.value});
 
         //HANDLES QUESTION UPDATE
-        console.log(event.target.value);
         if(event.target.name === "question"){
             const actualQuestion = event.target.value;
             console.log(event.target.value);

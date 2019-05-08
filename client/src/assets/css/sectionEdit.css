@@ -1,0 +1,6 @@
+#sectionEdit{
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: inset rgb(209, 103, 32) 5px;
+}

@@ -4,12 +4,28 @@ import axios from "axios";
 class editPath extends Component {
     state = {
         sections: [],
-        section: ""
+        section: "",
+        actualSection: ""
       }
     
     handleChange = (event) =>{
         this.setState({[event.target.name]: event.target.value});
+        console.log(event.target.value);
+        if(event.target.name === "section"){
+            this.setState({actualSection: event.target.value});
+            this.handleFetchSectionData(event.target.value);
+        }
+    }
 
+    handleFetchSectionData = (sectionValue) =>{
+        const section = {
+            section : sectionValue
+        }
+        console.log(section.section);
+        axios.post("http://localhost:5000/postSection", {section})
+        .then(res =>{
+            console.log(res.data);
+        })
     }
 
     componentDidMount = () =>{
@@ -40,13 +56,24 @@ class editPath extends Component {
                     </div>
                     <div className = "field">
                         <label className = "label">Section:</label>
-                        <input name = "actualQuestion" value = {this.state.section} 
+                        <input name = "actualSection" value = {this.state.actualSection} 
                         onChange = {this.handleChange} className = "input"/>                         
-                    </div>
-                    <div className = "field">
-                        <center>SECTIONS:</center>
-                        
-                    </div>
+                    </div>            
+                    <center>SECTIONS:</center>
+                    <div id  = "sectionEdit">                            
+                        {/* COMMENT DOM GENERATION */}
+
+                        <div className = "columns">
+                            <br/>
+                            <div className = "column is-6">
+                                {/* PATH DOM GENERATION GOES HERE */}
+                            </div>
+                            <div className = "column is-6">
+                                {/* LINK DOM GENERATION GOES HERE */}
+
+                            </div>
+                        </div>
+                    </div>            
                 </form>
             </React.Fragment>
           );
