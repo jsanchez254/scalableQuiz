@@ -16,7 +16,6 @@ def postSection():
                 cursor = sql.connect("quiz.db").cursor()
                 store = json.loads(request.data)["section"]
                 section = store["section"]
-
                 paths = []
                 comments = []
                 links = []

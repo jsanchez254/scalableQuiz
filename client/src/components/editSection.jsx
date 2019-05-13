@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
+import {addSections} from "../assets/js/addMoreSections";
+
 class editPath extends Component {
     state = {
         sections: [],
@@ -13,18 +15,21 @@ class editPath extends Component {
         console.log(event.target.value);
         if(event.target.name === "section"){
             this.setState({actualSection: event.target.value});
-            this.handleFetchSectionData(event.target.value);
+            this.handleFetchSectionData(event.target.value, this.handleChange);
         }
     }
 
-    handleFetchSectionData = (sectionValue) =>{
+    handleFetchSectionData = (sectionValue, handleChange) =>{
         const section = {
             section : sectionValue
         }
         console.log(section.section);
         axios.post("http://localhost:5000/postSection", {section})
         .then(res =>{
-            console.log(res.data);
+            let paths = res.data[0];
+            let comments = res.data[1];
+            let outputs = res.data[2];    
+            addSections(comments, paths, outputs, handleChange);
         })
     }
 
@@ -60,19 +65,8 @@ class editPath extends Component {
                         onChange = {this.handleChange} className = "input"/>                         
                     </div>            
                     <center>SECTIONS:</center>
-                    <div id  = "sectionEdit">                            
-                        {/* COMMENT DOM GENERATION */}
-
-                        <div className = "columns">
-                            <br/>
-                            <div id = "pathParent" className = "column is-6">
-                                {/* PATH DOM GENERATION GOES HERE */}
-                            </div>
-                            <div id = "outputParent" className = "column is-6">
-                                {/* LINK DOM GENERATION GOES HERE */}
-
-                            </div>
-                        </div>
+                    <div id  = "sectionEdit">     
+               
                     </div>            
                 </form>
             </React.Fragment>
