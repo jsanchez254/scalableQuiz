@@ -9,6 +9,25 @@ CORS(app)
 #variables that will be used to make sure we fetch Q/A from section
 arrangeID = 0
 
+@app.route("/updateSection", methods = ["GET", "POST"])
+def postSectionInfo():
+        if(request.method == "POST"):
+                connect = sql.connect("quiz.db")  
+                cursor = connect.cursor()              
+                store = json.loads(request.data)["section"]
+                sectionName = store["sectionName"]
+                paths = store["path"]
+                comments = store["comment"]
+                outcomes = store["outcome"]
+                sectionID  = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (sectionName,)).fetchall()[0][0]
+                indexes = cursor.execute("SELECT p_id FROM paths WHERE sec_id = ?", (sectionID,)).fetchall()        
+                #UPDATE SECTION HERE
+                for i in range(len(indexes)):
+                        cursor.execute("UPDATE paths SET p_path = ?, p_output = ?, p_description = ? WHERE p_id = ?", 
+                                        (paths[i], outcomes[i] ,comments[i], indexes[i][0]))
+                        connect.commit()
+                return "Section Edited"
+
 #post section name here to fetch comments, paths,and links lists.
 @app.route("/postSection", methods = ["GET", "POST"])
 def postSection():

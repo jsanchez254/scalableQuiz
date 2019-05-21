@@ -14,7 +14,6 @@ class editPath extends Component {
       }
     
     handleAppendEdit = (result, name, value) =>{
-        let t = this.state.paths;
         //get index of input value based on its element name tag
         let index = name.substr((result.length), (name.length - 1));
         //check and see to which array value will be stored
@@ -72,7 +71,10 @@ class editPath extends Component {
         .then(res =>{
             let paths = res.data[0];
             let comments = res.data[1];
-            let outputs = res.data[2];  
+            let outputs = res.data[2];
+            this.setState({paths: paths});
+            this.setState({comments: comments});
+            this.setState({outcomes: outputs});
             if(res.data !== "FAIL")  
                 addSections(comments, paths, outputs, handleChange);
         })
@@ -88,6 +90,16 @@ class editPath extends Component {
     
     handleSubmit = (event) =>{
         event.preventDefault();
+        const section = {
+            comment: this.state.comments,
+            path: this.state.paths,
+            outcome: this.state.outcomes,
+            sectionName: this.state.actualSection
+        }
+        axios.post( "http://localhost:5000/updateSection" , {section})
+        .then(res =>{
+            console.log(res.data);
+        })
     }
     render() { 
         return (
