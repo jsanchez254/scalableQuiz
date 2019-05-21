@@ -13,9 +13,50 @@ class editPath extends Component {
         comments: [] //will store all comments that are edited on edit section option
       }
     
+    handleAppendEdit = (result, name, value) =>{
+        let t = this.state.paths;
+        //get index of input value based on its element name tag
+        let index = name.substr((result.length), (name.length - 1));
+        //check and see to which array value will be stored
+        if(result === "outcome"){
+            let outcomes = this.state.outcomes;
+            if(typeof outcomes[index] === "undefined")
+                outcomes.push(value);
+            else
+                outcomes[index] = value;
+            this.setState({outcomes: outcomes});
+        }
+        else if(result === "comment"){
+            let comments = this.state.comments;
+            if(typeof comments[index] === "undefined")
+                comments.push(value);
+            else
+                comments[index] = value;
+            this.setState({comments: comments});
+        }
+        else if(result === "path"){
+            let paths = this.state.paths;
+            if(typeof paths[index] === "undefined")
+                paths.push(value);
+            else
+                paths[index] = value;
+            this.setState({paths: paths});
+        }
+        console.log("PATHS AQUI: ", this.state.paths);
+        
+    }
+    
     handleChange = (event) =>{
-        this.setState({[event.target.name]: event.target.value});
-        console.log(event.target.name);
+        this.setState({[event.target.name]: event.target.value});    
+        //check what kind of input we are doing so we can save input into the right array
+        let str = event.target.name;
+        if(str.search("outcome") !== -1)
+            this.handleAppendEdit("outcome", event.target.name, event.target.value);
+        else if(str.search("path") !== -1)
+            this.handleAppendEdit("path", event.target.name, event.target.value);
+        else if(str.search("comment") !== -1)
+            this.handleAppendEdit("comment", event.target.name, event.target.value);
+        //check to see if change sections so we can render its data into DOM elements
         if(event.target.name === "section"){
             this.setState({actualSection: event.target.value});
             this.handleFetchSectionData(event.target.value, this.handleChange);
