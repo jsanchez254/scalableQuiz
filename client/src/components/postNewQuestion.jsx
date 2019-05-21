@@ -20,7 +20,8 @@ class newQuestion extends Component {
         indexAnswer: 1,
         sections: [], // SECTIONS TO BE DISPLAYED FOR PATHS
         setToUpdate: "", //section to be updated for path
-        comment: "" //comment that will be posted along path
+        comment: "", //comment that will be posted along path
+        createQSubmission: ""
     }
 
     handleAnswersAndDirect = (name, value) =>{
@@ -91,7 +92,7 @@ class newQuestion extends Component {
         };
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
         .then(res => {
-            console.log(res.data)
+            this.setState({createQSubmission: res.data});
         })
     }
 
@@ -191,6 +192,7 @@ class newQuestion extends Component {
                             CREATE QUESTION
                         </button>
                     </div>
+                    {this.state.createQSubmission}
                 </form>
 
                 <br/>

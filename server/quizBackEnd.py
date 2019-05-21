@@ -27,7 +27,7 @@ def postSection():
                 #catch error where sections have no info
                 try:
                         temp = info[0][0]
-                except IndexError:
+                except IndexError:                
                         return "FAIL"                
 
                 for i in range(len(info)):
@@ -335,9 +335,8 @@ def postQuestion():
                 parse = parse["newQuestion"]
                 question = parse["postQuestion"]
                 directTo = parse["postDirection"]
-                answers = parse["postAnswers"]
-                insertNewQuestion(question, answers, directTo)
-                return "INSERTED SUCCESSFULLY"
+                answers = parse["postAnswers"]                
+                return insertNewQuestion(question, answers, directTo)
 
 def insertNewQuestion(question, answers, directTo):
         connect = sql.connect("quiz.db")
@@ -357,7 +356,7 @@ def insertNewQuestion(question, answers, directTo):
                                 VALUES(?,?,?,?)''', (questionID, answers[i], i + 1, directTo[i]))
         connect.commit()
 
-        return "popo"
+        return "QUESTION CREATED"
 
 #NOTE fetch all answers
 @app.route("/fetchEverything")

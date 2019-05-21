@@ -97,7 +97,9 @@
     color: white;
     font-weight: bold;
     text-align: center;
+    padding-top: 8px;
     vertical-align: center;
+    border-radius: 4px;
 }
 
 .addMoreAnswers:hover{
@@ -114,6 +116,8 @@
     font-weight: bold;
     text-align: center;
     vertical-align: center;
+    padding-top: 8px;
+    border-radius: 4px;
 }
 
 .deleteAnswer:hover{

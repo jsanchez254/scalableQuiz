@@ -7,12 +7,15 @@ class editPath extends Component {
     state = {
         sections: [],
         section: "",
-        actualSection: ""
+        actualSection: "",
+        paths: [], //will store all paths that are edited on edit section option
+        outcomes: [], //will store all outcomes that are edited on edit section option
+        comments: [] //will store all comments that are edited on edit section option
       }
     
     handleChange = (event) =>{
         this.setState({[event.target.name]: event.target.value});
-        console.log(event.target.value);
+        console.log(event.target.name);
         if(event.target.name === "section"){
             this.setState({actualSection: event.target.value});
             this.handleFetchSectionData(event.target.value, this.handleChange);
@@ -28,8 +31,9 @@ class editPath extends Component {
         .then(res =>{
             let paths = res.data[0];
             let comments = res.data[1];
-            let outputs = res.data[2];    
-            addSections(comments, paths, outputs, handleChange);
+            let outputs = res.data[2];  
+            if(res.data !== "FAIL")  
+                addSections(comments, paths, outputs, handleChange);
         })
     }
 
@@ -52,7 +56,7 @@ class editPath extends Component {
                         <label className = "label">Pick Section to Edit: </label>
                         <div className = "select">
                             <select name = "section" onChange = {this.handleChange}>
-                                <option>Edit Question</option>
+                                <option>Edit Section</option>
                                 {this.state.sections.map((msg, index) => 
                                     <option id = {index + 1} value = {msg[0]} key = {index}>{msg[0]}</option>  
                                 )}
@@ -64,10 +68,14 @@ class editPath extends Component {
                         <input name = "actualSection" value = {this.state.actualSection} 
                         onChange = {this.handleChange} className = "input"/>                         
                     </div>            
-                    <center>SECTIONS:</center>
+                    <center>SECTIONS...</center>
                     <div id  = "sectionEdit">     
-               
-                    </div>            
+                    <br/>
+                    </div> 
+                    <br/>
+                    <div className = "field">
+                        <button className = "button is-success">EDIT</button>
+                    </div>           
                 </form>
             </React.Fragment>
           );
