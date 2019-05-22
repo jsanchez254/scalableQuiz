@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import {Table} from "semantic-ui-react";
 class currentInfo extends Component {
     state = {  
         questions: [],
@@ -15,7 +16,7 @@ class currentInfo extends Component {
             const questions = temp[0];
             const answers = temp[1];
             const directTo = temp[2];
-            console.log(answers);
+            console.log("AQUI ", res.data);
             const created = 1;
             this.setState({created});
             this.setState({questions});
@@ -23,23 +24,23 @@ class currentInfo extends Component {
             this.setState({directTo});
             const info =  this.state.questions.map((msg, index) => 
                 <React.Fragment>
-                    <tr>
-                        <td><span className = "questions1"><span className = "index1">{index + 1} -</span>{msg}</span></td>
-                        <td>
+                    <Table.Row>
+                        <Table.Cell><span className = "questions1"><span className = "index1">{index + 1} -</span>{msg}</span></Table.Cell>
+                        <Table.Cell>
                             {this.state.answers[index].map((answer, index) =>
                                 <React.Fragment>
-                                    <span className = "index1">{index + 1} -</span> <span className = "answers1">{answer} <br/></span>  
+                                    <span className = "index1"></span> <span className = "answers1">{answer} <br/></span>  
                                 </React.Fragment>
                             )}
-                        </td>
-                        <td>
+                        </Table.Cell>
+                        <Table.Cell>
                             {this.state.directTo[index].map((answer, index) =>
                                 <React.Fragment>
                                     <span className = "answers2">{answer} <br/></span>  
                                 </React.Fragment>
                             )}
-                        </td>
-                    </tr>
+                        </Table.Cell>
+                    </Table.Row>
                 
                 </React.Fragment>
             )
@@ -50,18 +51,18 @@ class currentInfo extends Component {
         return ( 
             <React.Fragment>
                 <div class="block">
-                    <table class="table is-striped is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th className = "title1">QUESTIONS</th>
-                                <th className = "title1">ANSWERS</th>
-                                <th className = "title1">DIRECT TO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <Table celled inverted selectable>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>QUESTIONS</Table.HeaderCell>
+                                <Table.HeaderCell>ANSWERS</Table.HeaderCell>
+                                <Table.HeaderCell>DIRECT TO</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
                             {this.state.info}
-                        </tbody>
-                    </table>
+                        </Table.Body>
+                    </Table>
                 </div>                             
             </React.Fragment>
          );

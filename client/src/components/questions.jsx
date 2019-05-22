@@ -79,6 +79,7 @@ class questions extends Component {
 
     axios.post("http://localhost:5000/returnOutcome", {path})
     .then(res => {
+      console.log("DATA AQUI: ", res.data);
       finalResults(res.data);
       //RESTART PATH VALUE
       this.setState({path: ""});

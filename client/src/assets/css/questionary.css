@@ -19,19 +19,19 @@
 }
 
 .options{
-    color: rgb(219, 231, 40);
-    background-color: rgb(53, 124, 12);
+    color: rgb(214, 214, 31);
+    background-color: #333;
     font-weight: bold;
     height: 50px;
     font-size: 20px;
     border-radius: 30px;
-    border: black solid 1px;
     margin: 30px;
+    padding-top: 8px;
 }
 
 .options:hover{
-    background-color: rgb(219, 231, 40);
-    color: rgb(53, 124, 12);
+    background-color: rgb(214, 214, 31);
+    color:#333;
     cursor: pointer;
 }
 
@@ -141,25 +141,25 @@
 }
 
 .answers1{
-    font-size:22px;
-    color: rgb(233, 35, 35);
+    font-size:16px;
+    color: rgb(226, 216, 216);
     font-weight: bold;
 }
 
 .answers2{
-    font-size:22px;
-    color: rgb(82, 133, 35);
+    font-size:16px;
+    color: rgb(189, 53, 29);
     font-weight: bold;
 }
 
 .questions1{
-    font-size:22px;
-    color: rgb(83, 14, 243);
+    font-size:17px;
+    color: rgb(214, 214, 31);
     font-weight: bold;
 }
 
 .index1{
-    font-size: 24px;
+    font-size: 16px;
 }
 
 #editQuestion{
@@ -171,7 +171,8 @@
 
 /* sections css!! */
 .sections{
-    background-color: rgb(52, 52, 151);
+    background-color: #333;
+    border-radius: 12px;
     color:white;
     width: 200px;
     font-size: 30px;
@@ -181,6 +182,6 @@
 
 .sections:hover{
     cursor: pointer;
-    background-color: rgb(53, 221, 221);
-    color: rgb(52, 52, 151);
+    background-color: rgb(133, 125, 125);
+    color: white(52, 52, 151);
 }

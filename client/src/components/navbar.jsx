@@ -8,24 +8,36 @@ class NavBar extends Component {
     render() { 
         return (
             <React.Fragment>
-                <nav className = "navbar is-success">
+                <nav className = "navbar is-dark">
                     <div className = "navbar-end">
                         <Link  className = "navbar-item" to = "/sections">
                             <Icon name='book'  size = "large"/> <span>Sections</span>
-                        </Link>
-                        <Link  className = "navbar-item" to = "/currentInfo">
-                            <Icon name='info circle'  size = "large"/> <span>Current Info</span>
-                        </Link>
+                        </Link>                    
                         <Link  className = "navbar-item" to = "/questionOrder">
                             <Icon name='exchange'  size = "large"/><span>Manage Sections</span>
-                        </Link>
+                        </Link>                    
 
-                        <div className = "navbar-item has-dropdown is-hoverable" size = "2x" onClick = {() => dropDown()} >
+                        <div className = "navbar-item has-dropdown is-hoverable" size = "2x">
+                            <div className = "navbar-link">
+                                <span id = "underline"><Icon name='info circle'  size = "large"/> <span>Current Information</span></span>
+                            </div>
+
+                            <div className = "navbar-dropdown">
+                                <Link className = "navbar-item" to = "/currentInfo">
+                                    <Icon name='question circle'  size = "large"/><span>Display Question</span>
+                                </Link>
+                                <Link className = "navbar-item" to = "/currentSection">
+                                    <Icon name='object ungroup'  size = "large"/><span>Display Sections</span>
+                                </Link>                               
+                            </div>
+                        </div>
+
+                        <div className = "navbar-item has-dropdown is-hoverable" size = "2x" >
                             <div className = "navbar-link">
                                 <span id = "underline"><Icon name='sitemap'  size = "large"/><span>Manage Questions/Paths</span></span>
                             </div>
 
-                            <div className = "navbar-dropdown" id = "dropMenu">
+                            <div className = "navbar-dropdown">
                                 <Link className = "navbar-item" to = "/manageQuestion">
                                     <Icon name='edit'  size = "large"/><span>Edit Question/Path</span>
                                 </Link>
