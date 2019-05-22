@@ -11,7 +11,7 @@ class NavBar extends Component {
                 <nav className = "navbar is-dark">
                     <div className = "navbar-end">
                         <Link  className = "navbar-item" to = "/sections">
-                            <Icon name='book'  size = "large"/> <span>Sections</span>
+                            <Icon name='object ungroup'  size = "large"/> <span>Sections</span>
                         </Link>                    
                         <Link  className = "navbar-item" to = "/questionOrder">
                             <Icon name='exchange'  size = "large"/><span>Manage Sections</span>

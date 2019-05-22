@@ -2,5 +2,18 @@
     max-height: 500px;
     overflow-y: scroll;
     overflow-x: hidden;
-    border: inset rgb(209, 103, 32) 5px;
+    border: inset rgb(214, 214, 31) 5px;
+}
+
+/* styling used for titles throughout app */
+.titles{
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 5px;
+}
+
+#subheader{
+    font-size: 18px;
+    padding-bottom: 10px;
 }

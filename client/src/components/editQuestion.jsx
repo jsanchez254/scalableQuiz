@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-
+import {Header, Icon} from "semantic-ui-react";
 //IMPORT THE EDIT SECTION COMPONENT
 import EditSection from "./editSection";
 
@@ -110,7 +110,13 @@ class EditQuestion extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 className = "title">EDIT QUESTION:</h1>
+                <center>
+                    <Icon name = "question circle" size = "huge"/>
+                </center>
+                <center>
+                    <h1 className = "titles">EDIT QUESTION</h1>
+                    <span id = "subheader">Select Question to edit names of questions, answers, and to change direction of answer</span>
+                </center>
                 <form onSubmit = {this.handleSubmit} className = "box">  
                     <div className = "field">            
                         <label className = "label">Pick Question to Edit: </label>
@@ -146,7 +152,13 @@ class EditQuestion extends Component {
                         <button className = "button is-success">EDIT!</button>
                     </div>
                 </form>
-                <h1 className = "title">EDIT SECTION:</h1>
+                <center><Icon name = "object ungroup" size = "huge"/></center>
+                <center>
+                    <h1 className = "titles">
+                        EDIT SECTION
+                    </h1>
+                    <span id = "subheader">Select section to edit names of sections, comments, links, and paths</span>
+                </center>
                 <EditSection/>
             </React.Fragment>
           );

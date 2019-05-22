@@ -117,7 +117,11 @@ class newQuestion extends Component {
     render() { 
         return (
             <React.Fragment>
-                <h1 className = "title">POST NEW QUESTION: </h1>                                        
+                <center>
+                    <Icon name = "question circle" size = "huge"/>
+                    <h1 className = "titles">POST NEW QUESTION</h1>
+                    <span id = "subheader">Create a new question followed by 1 to many answers, and a direction attached for each answer</span>   
+                </center>                                     
                 <form className = "box">
                     <div className = "columns" id = "postQuestion">
                         <div className = "column is-6">
@@ -196,7 +200,11 @@ class newQuestion extends Component {
                 </form>
 
                 <br/>
-                <h1 className = "title">POST NEW PATH AND OUTCOME: </h1>   
+                <center>
+                    <Icon name = "road" size = "huge"/>
+                    <h1 className = "titles">POST NEW PATH</h1>
+                    <span id = "subheader">Create a path in selected section, followed by a comment and a link outcome</span>
+                </center>   
                 <form onSubmit = {this.handleSubmit1} className = "box">
                     <div className = "field">            
                         <label className = "label">Pick Section For Path: </label>
@@ -231,9 +239,9 @@ class newQuestion extends Component {
                                 onChange = {this.handleChange} placeholder = "Enter Path EX: 223"/>
                             </div>
                             <div className = "column is-6">
-                                <label className = "label"> Outcome: </label>
+                                <label className = "label"> Link: </label>
                                 <input name = "outcome" className = "input"
-                                onChange = {this.handleChange} placeholder = "Enter Outcome of Path"/>
+                                onChange = {this.handleChange} placeholder = "Enter URL of Path"/>
                             </div>
                         </div>
                     </div>
