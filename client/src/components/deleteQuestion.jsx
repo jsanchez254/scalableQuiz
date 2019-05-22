@@ -18,7 +18,6 @@ class DeleteQuestion extends Component {
         const content = getDeleteContent();
         axios.post("http://localhost:5000/deleteQA", {content})
         .then(res =>{
-            console.log(res.data);
         })
     }
     
@@ -31,7 +30,6 @@ class DeleteQuestion extends Component {
                 this.setState({q_id})
                 this.setState(questions);
                 this.setState(answers);
-                console.log(questions);
                 const deleteSection = questions.map((value, index) => 
                     <React.Fragment>
                         <div id = "deleteParent">

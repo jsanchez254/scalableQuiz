@@ -14,8 +14,7 @@ class Sections extends Component {
         axios.get("http://localhost:5000/fetchSectionNames")
         .then(res =>{
             const sections = res.data;
-            this.setState({sections});
-            console.log(this.state.sections);
+            this.setState({sections});            
         })
     }
       
@@ -30,8 +29,7 @@ class Sections extends Component {
             // const section = <Section secID = {index} secName = {this.state.sections[index-1]}/>
             // this.setState({section});
             const Link = (<Redirect to = "/quizQuestions"/>)
-            this.setState({Link});
-            console.log(res.data);
+            this.setState({Link});            
         })
     }
 

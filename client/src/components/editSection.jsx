@@ -40,8 +40,7 @@ class editPath extends Component {
             else
                 paths[index] = value;
             this.setState({paths: paths});
-        }
-        console.log("PATHS AQUI: ", this.state.paths);
+        }        
         
     }
     
@@ -65,8 +64,7 @@ class editPath extends Component {
     handleFetchSectionData = (sectionValue, handleChange) =>{
         const section = {
             section : sectionValue
-        }
-        console.log(section.section);
+        }        
         axios.post("http://localhost:5000/postSection", {section})
         .then(res =>{
             let paths = res.data[0];
@@ -97,8 +95,7 @@ class editPath extends Component {
             sectionName: this.state.actualSection
         }
         axios.post( "http://localhost:5000/updateSection" , {section})
-        .then(res =>{
-            console.log(res.data);
+        .then(res =>{            
         })
     }
     render() { 

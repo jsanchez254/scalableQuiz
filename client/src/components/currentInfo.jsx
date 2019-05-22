@@ -16,7 +16,6 @@ class currentInfo extends Component {
             const questions = temp[0];
             const answers = temp[1];
             const directTo = temp[2];
-            console.log("AQUI ", res.data);
             const created = 1;
             this.setState({created});
             this.setState({questions});

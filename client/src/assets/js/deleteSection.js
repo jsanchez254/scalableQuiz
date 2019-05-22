@@ -49,8 +49,7 @@ export function deleteSec(event){
     else{
         var newSection = new section(secID, paths, "yes");
         sectionDeleted.push(newSection);
-    }
-    console.log(sectionDeleted);
+    }    
     parent.parentNode.remove();
 }
 
@@ -82,8 +81,7 @@ export function deletePath(event){
         var newSection = new section(secID, paths, "no");
         sectionDeleted.push(newSection);
     }
-
-    console.log(sectionDeleted);
+    
 
     parent.remove();
 }

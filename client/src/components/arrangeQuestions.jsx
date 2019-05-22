@@ -14,14 +14,12 @@ class arrangeQuestion extends Component {
           axios.get("http://localhost:5000/fetchSectionNames")
           .then(res =>{
               const sets = res.data;
-              console.log(sets);
               this.setState({sets});
           })
       }
 
     handleChange = (event) =>{
         this.setState({[event.target.name] : event.target.value});
-        console.log(event.target.value);
     }
 
     //HANDLE SUBMIT WHEN UPDATING CURRENT SECTION
@@ -33,7 +31,6 @@ class arrangeQuestion extends Component {
         }
         axios.post("http://localhost:5000/arrangeQuestion", {newOrder})
         .then(res =>{
-            console.log(res.data);
         })
     }
 
@@ -46,7 +43,6 @@ class arrangeQuestion extends Component {
         }
         axios.post("http://localhost:5000/postNewSection", {newOrder})
         .then(res =>{
-            console.log(res.data);
         })
     }
 

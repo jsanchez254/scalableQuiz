@@ -11,8 +11,7 @@ class DisplaySection extends Component {
                 let sections = res.data[0];
                 let paths = res.data[1];
                 let comments = res.data[2];
-                let links = res.data[3];
-                console.log(links);
+                let links = res.data[3];                
                 const info = sections.map((value, index) => 
                     <React.Fragment>
                     <Table.Row>

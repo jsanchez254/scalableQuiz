@@ -20,7 +20,6 @@ class deleteSection extends Component {
        const section = getSection();
        axios.post("http://localhost:5000/deleteSection", {section})
        .then(res => {
-           console.log(res.data);
        })
     }
 
@@ -33,7 +32,6 @@ class deleteSection extends Component {
             const outcome = res.data[3];
             const sectionID = res.data[4];
             const pathID = res.data[5];
-            console.log("PATHS: ", pathID);
             this.setState({pathID});
             this.setState({sectionID});
             this.setState({sections});

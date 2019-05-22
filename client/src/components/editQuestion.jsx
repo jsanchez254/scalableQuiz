@@ -52,8 +52,7 @@ class EditQuestion extends Component {
 
         //HANDLES QUESTION UPDATE
         if(event.target.name === "question"){
-            const actualQuestion = event.target.value;
-            console.log(event.target.value);
+            const actualQuestion = event.target.value;            
             this.setState({actualQuestion});
             this.handleQuestion(event.target.value);
         }
@@ -72,8 +71,7 @@ class EditQuestion extends Component {
                 //FETCH Q_ID AND ANSWERS
                 const q_id = res.data[1];
                 const answers = res.data[0];
-                const directTo = res.data[2];
-                console.log(res.data);
+                const directTo = res.data[2];                
                 answers.pop();
                 this.setState({directTo});
                 this.setState({answers});
@@ -92,8 +90,7 @@ class EditQuestion extends Component {
             q_id : this.state.q_id
         }
         axios.post("http://localhost:5000/updateQuestion", {post})
-        .then(res => {
-            console.log("COOL AID! ", res.data);
+        .then(res => {            
         })
     }
 
@@ -101,9 +98,7 @@ class EditQuestion extends Component {
         axios.get("http://localhost:5000/getAllQuestions" )
         .then(res => {
             const questions = res.data;
-            this.setState({questions});
-            console.log("do something!");
-            console.log(res.data);
+            this.setState({questions});                        
         })
     }
       

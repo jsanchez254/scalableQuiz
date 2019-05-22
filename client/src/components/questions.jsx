@@ -16,8 +16,7 @@ class questions extends Component {
     ///********MOUNT YET AGAIN************/
   moungAgain = () => {
     axios.get("http://localhost:5000/fetchAnswerAndQuestion")
-      .then(res => {
-        console.log(res.data);
+      .then(res => {        
         const answers = res.data[1];
         this.setState({answers});
         const question = res.data[0];
@@ -28,8 +27,7 @@ class questions extends Component {
 
   componentDidMount(){
       axios.get("http://localhost:5000/fetchAnswerAndQuestion")
-      .then(res => {
-        console.log(res.data);
+      .then(res => {        
         const answers = res.data[1];
         this.setState({answers});
         const question = res.data[0];
@@ -43,8 +41,7 @@ class questions extends Component {
         //UPDATE PATH
         const path = this.state.path + value;
         this.setState({path});
-
-        console.log("THIS PATH WORKS!! ", path);
+        
 
         this.handleOption(value);
         const counter1 = this.state.counter1 + 1;
@@ -55,8 +52,7 @@ class questions extends Component {
         };
 
         axios.post("http://localhost:5000/fetchAnswerAndQuestion", {counter})
-        .then(res =>{
-          console.log(res.data);
+        .then(res =>{          
           const answers = res.data[1];
           this.setState({answers});
           const question = res.data[0];
@@ -78,8 +74,7 @@ class questions extends Component {
     const path = this.state.path;
 
     axios.post("http://localhost:5000/returnOutcome", {path})
-    .then(res => {
-      console.log("DATA AQUI: ", res.data);
+    .then(res => {      
       finalResults(res.data);
       //RESTART PATH VALUE
       this.setState({path: ""});

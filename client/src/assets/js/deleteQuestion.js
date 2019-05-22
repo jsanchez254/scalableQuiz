@@ -65,8 +65,7 @@ export function deleteQuestion(event){
             answers.push(contentToBeDeleted[i].answers[j]);
         contentToBeDeleted[i].answers = answers;
     }
-
-    console.log("TO BE DELETED: ", contentToBeDeleted);
+    
     
     //remove dom elements for question and answers
     parent.parentNode.style.paddingBottom = "0px";
@@ -102,8 +101,7 @@ export function deleteAnswer(event){
         }
             if(push)
                 contentToBeDeleted[i].answers.push(ansID);
-    }
-    console.log("TO BE DELETED: ", contentToBeDeleted);
+    }    
     let bigPAPA = event.target.parentNode.parentNode;
     event.target.parentNode.remove();
     //if no more answers are left

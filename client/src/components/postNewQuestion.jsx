@@ -52,14 +52,7 @@ class newQuestion extends Component {
                 }
             }
             this.setState({postAnswers});
-            this.setState({postAnswersToQuestion});
-            
-            // if(option == 1){
-            //     console.log("ANSWERS:\n", this.state.postAnswers);
-            // }
-            // else{
-            //     console.log("DIRECT T0:\n", this.state.postAnswersToQuestion);
-            // }
+            this.setState({postAnswersToQuestion});        
     }
 
     handleChange = (event) => {
@@ -77,8 +70,7 @@ class newQuestion extends Component {
             comment: this.state.comment
         }
         axios.post("http://localhost:5000/postPath" , {newPath})
-        .then(res => {
-            console.log(res.data);
+        .then(res => {            
         })
     }
 
@@ -101,16 +93,14 @@ class newQuestion extends Component {
         .then(res => {
             let temp = res.data;
             const questions = temp[0];
-            const answers = temp[1];
-            console.log(answers);
+            const answers = temp[1];            
             this.setState({questions});
             this.setState({answers});
         })
         axios.get("http://localhost:5000/fetchSectionNames")
         .then(res =>{
             const sections = res.data;
-            this.setState({sections});
-            console.log(this.state.sections);
+            this.setState({sections});            
         })
     }
     
