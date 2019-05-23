@@ -8,6 +8,7 @@ class editPath extends Component {
         sections: [],
         section: "",
         actualSection: "",
+        sectionIDAid: "",
         paths: [], //will store all paths that are edited on edit section option
         outcomes: [], //will store all outcomes that are edited on edit section option
         comments: [] //will store all comments that are edited on edit section option
@@ -64,7 +65,10 @@ class editPath extends Component {
     handleFetchSectionData = (sectionValue, handleChange) =>{
         const section = {
             section : sectionValue
-        }        
+        }  
+        //another copy of section name to so we can fetch section ID once we post to backEnd 
+        //in handleSubmit
+        this.setState({sectionIDAid: sectionValue});
         axios.post("http://localhost:5000/postSection", {section})
         .then(res =>{
             let paths = res.data[0];
@@ -89,6 +93,7 @@ class editPath extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         const section = {
+            sectionIDAid: this.state.sectionIDAid,
             comment: this.state.comments,
             path: this.state.paths,
             outcome: this.state.outcomes,

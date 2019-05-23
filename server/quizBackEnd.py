@@ -17,9 +17,11 @@ def postSectionInfo():
                 store = json.loads(request.data)["section"]
                 sectionName = store["sectionName"]
                 paths = store["path"]
+                sectionIDAid = store["sectionIDAid"]
                 comments = store["comment"]
                 outcomes = store["outcome"]
-                sectionID  = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (sectionName,)).fetchall()[0][0]
+                sectionID  = cursor.execute("SELECT arr_id FROM arrange WHERE arr_name = ?", (sectionIDAid,)).fetchall()[0][0]
+                cursor.execute("UPDATE arrange SET arr_name = ? WHERE arr_id = ?", (sectionName, sectionID))
                 indexes = cursor.execute("SELECT p_id FROM paths WHERE sec_id = ?", (sectionID,)).fetchall()        
                 #UPDATE SECTION HERE
                 for i in range(len(indexes)):
