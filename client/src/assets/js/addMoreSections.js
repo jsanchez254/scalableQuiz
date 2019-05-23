@@ -27,7 +27,14 @@ export function addSections(comments, paths, outputs, handleChange){
         let column2Wrapper = document.createElement("div");
         column1Wrapper.className = "column is-6";
         column2Wrapper.className = "column is-6";
-        columnWrapper.append(breako);        
+        columnWrapper.append(breako);
+        //create fields for both columns
+        let field1 = document.createElement("div");
+        field1.className = "field1";  
+        let field2 = document.createElement("div");
+        field2.className = "field2";  
+        let field3 = document.createElement("div");
+        field3.className = "field3";        
         columnWrapper.append(column1Wrapper);
         columnWrapper.append(column2Wrapper);
         mainDivWrapper.append(columnWrapper);
@@ -37,29 +44,31 @@ export function addSections(comments, paths, outputs, handleChange){
         label1.className = "label";
         let input1 = document.createElement("input");
         input1.addEventListener("change", handleChange);
-        label1.innerHTML = "Path " + i;
+        label1.innerHTML = "Path " + (i  + 1) + ":";
         input1.className = "input";
         input1.name = "path" + i;
         input1.value = paths[i];
-        column1Wrapper.append(label1);
-        column1Wrapper.append(input1);
+        field1.append(label1);
+        field1.append(input1);
+        column1Wrapper.append(field1);
 
         //CREATE OUTPUT INPUT ELEMENT
         let label2 = document.createElement("label");
         label2.className = "label";
         let input2 = document.createElement("input");
         input2.addEventListener("change", handleChange);
-        label2.innerHTML = "Outcome " + i;
+        label2.innerHTML = "Outcome " + (i + 1) + ":";
         input2.className = "input";
         input2.name = "outcome" + i;
         input2.value = outputs[i];
-        column2Wrapper.append(label2);
-        column2Wrapper.append(input2);
+        field2.append(label2);
+        field2.append(input2);
+        column2Wrapper.append(field2);
 
          //CREATE COMMENT HTML
          let label = document.createElement("label");
          label.className = "label";
-         label.innerHTML = "Comment " + i;
+         label.innerHTML = "Comment " + (i + 1) + ":";
          let article = document.createElement("article");
          article.className = "media";
          let divComment = document.createElement("div");
@@ -78,8 +87,10 @@ export function addSections(comments, paths, outputs, handleChange){
          divField.append(pComment);
          divComment.append(divField);
          article.append(divComment);
-         mainDivWrapper.append(label);
-         mainDivWrapper.append(article);
+
+         field3.append(label);
+         field3.append(article);
+         mainDivWrapper.append(field3);
 
         //LAST WRAPPER
 

@@ -130,17 +130,19 @@ class EditQuestion extends Component {
                         onChange = {this.handleChange} className = "input"/> 
                         
                     </div>
-                    <center><h1>ANSWERS...</h1></center><br/>
-                    <div className = "columns" id = "editQuestion">
-                        <div className = "column is-6">
-                            <div id = "answerBox" className = "field">
-                                {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                    <center><h1>ANSWERS...</h1></center>
+                    <div id = "editQuestion" className = "field">
+                        <div className = "columns">
+                            <div className = "column is-6">
+                                <div id = "answerBox" className = "field3">
+                                    {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                                </div>
                             </div>
-                        </div>
-                        <div className = "column is-6">
-                            <div id = "directToBox" className = "field">
-                                {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
-                            </div>           
+                            <div className = "column is-6">
+                                <div id = "directToBox" className = "field3">
+                                    {/* HERE A BUNCH OF ELEMENTS WILL BE CREATED WITH DOM MANIPULATION */}
+                                </div>           
+                            </div>
                         </div>
                     </div>
                     <div className = "field">

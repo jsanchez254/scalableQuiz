@@ -89,7 +89,6 @@ class editPath extends Component {
             this.setState({sections});
         })
     }
-    
     handleSubmit = (event) =>{
         event.preventDefault();
         const section = {
@@ -122,10 +121,11 @@ class editPath extends Component {
                         <label className = "label">Section:</label>
                         <input name = "actualSection" value = {this.state.actualSection} 
                         onChange = {this.handleChange} className = "input"/>                         
-                    </div>            
+                    </div>                     
                     <center>SECTIONS...</center>
-                    <div id  = "sectionEdit">     
-                    <br/>
+                    <div id  = "sectionEdit">  
+                    {/* here DOM section elements are rendered*/}   
+                    
                     </div> 
                     <br/>
                     <div className = "field">

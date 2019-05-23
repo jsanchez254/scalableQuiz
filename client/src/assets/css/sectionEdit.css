@@ -17,3 +17,18 @@
     font-size: 18px;
     padding-bottom: 10px;
 }
+
+.field1{
+    padding-top: 12px;
+    padding-left: 12px;
+}
+
+.field2{
+    padding-top: 12px;
+    padding-right: 12px;
+}
+
+.field3{
+    padding-left: 12px;
+    padding-right: 12px;
+}
