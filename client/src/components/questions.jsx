@@ -11,7 +11,9 @@ class questions extends Component {
         question: "",
         answers: [],
         counter1: 1,
-        path: ""
+        path: "",
+        //helper variable for checking if question exists
+        questionDirection: false
       }
     ///********MOUNT YET AGAIN************/
   moungAgain = () => {
@@ -28,12 +30,17 @@ class questions extends Component {
   componentDidMount(){
       axios.get("http://localhost:5000/fetchAnswerAndQuestion")
       .then(res => {        
-        const answers = res.data[1];
-        this.setState({answers});
-        const question = res.data[0];
-        this.setState({question});
+        if(res.data[0] === 'Q'){
+          this.setState({question: res.data})
+          this.setState({questionDirection: true});
+        }
+        else{
+          const answers = res.data[1];
+          this.setState({answers});
+          const question = res.data[0];
+          this.setState({question});
+        }
       })
-
     }
 
     //will be triggered everytime we click next
@@ -52,11 +59,18 @@ class questions extends Component {
         };
 
         axios.post("http://localhost:5000/fetchAnswerAndQuestion", {counter})
-        .then(res =>{          
-          const answers = res.data[1];
-          this.setState({answers});
-          const question = res.data[0];
-          this.setState({question});
+        .then(res =>{
+          if(res.data[0] === 'Q'){
+            this.setState({question: res.data})
+            this.setState({questionDirection: true});
+            this.setState({answers: []});
+          }
+          else{
+            const answers = res.data[1];
+            this.setState({answers});
+            const question = res.data[0];
+            this.setState({question});
+          }
         })
 
         if(this.state.counter1 === 1){
@@ -102,7 +116,7 @@ class questions extends Component {
                       <div className = "column is-8 is-offset-2">
                         <div className = "box has-text-centered">
                           <div className = "questionBox">
-                              {/* RENDERED AS COUNTER PROCEEDS AND FETCHES DIFFERENT QUESTIOS AND ANSWERS FROM BACKEND */}
+                              {/* RENDERED AS COUNTER PROCEEDS AND FETCHES DIFFERENT QUESTIONS AND ANSWERS FROM BACKEND */}
                               <div id = "temp">
                                   <span className = "question">{this.state.question}</span>
                                   {this.state.answers.map((msg, index) => 

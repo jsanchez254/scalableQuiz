@@ -478,9 +478,15 @@ def fetchAnswerAndQuestion():
                 data = []
                 tempAnswers = cursor.execute('''select answer from answers where q_id = ?;''', (index,)).fetchall()
                 tempQuestion = cursor.execute('''select question from questions where q_id = ?;''', (index,)).fetchall()
-                data.append(tempQuestion[0][0])
-                data.append(tempAnswers)
-                data = json.dumps(data)
+                
+                
+                try:
+                        data.append(tempQuestion[0][0])
+                        data.append(tempAnswers)
+                        data = json.dumps(data)
+                except IndexError:
+                        data = "Question was either deleted or never created!"
+                print "DATA HERE", data
                 return data
                 
         if request.method == "POST":
@@ -501,14 +507,17 @@ def fetchAnswerAndQuestion():
                         WHERE q_id = (SELECT a_directTo FROM answers WHERE a_answerNumbers = ?
                         AND q_id = ?)''', (answerNum, questionID)).fetchall()
                 
-                data.append(tempQuestion[0][0])
-                data.append(tempAnswers)
+                try:
+                        data.append(tempQuestion[0][0])
+                        data.append(tempAnswers)
 
-                #UPDATE QUESTION ID HERE!!!
-                global questionID
-                questionID = tempQuestion[0][1]
+                        #UPDATE QUESTION ID HERE!!!
+                        global questionID
+                        questionID = tempQuestion[0][1]
 
-                data = json.dumps(data)
+                        data = json.dumps(data)
+                except IndexError:
+                        data = "Question was either deleted or never created!"
 
                 return data
 
