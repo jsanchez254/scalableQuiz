@@ -28,7 +28,7 @@ def postSectionInfo():
                         cursor.execute("UPDATE paths SET p_path = ?, p_output = ?, p_description = ? WHERE p_id = ?", 
                                         (paths[i], outcomes[i] ,comments[i], indexes[i][0]))
                         connect.commit()
-                return "Section Edited"
+                return "SECTION EDITED"
 
 #post section name here to fetch comments, paths,and links lists.
 @app.route("/postSection", methods = ["GET", "POST"])
@@ -130,7 +130,7 @@ def deleteSections():
                                 cursor.execute("DELETE FROM arrange WHERE arr_id = ?", (store[i]["secID"],))
                                 connect.commit()
 
-                return "Deleted Successfully"
+                return "DELETED SUCCESSFULLY"
 
 
 #NOTE Control DELETING OF ANSWERS, QUESTIONS, SECTIONS, AND PATHS!!
@@ -164,7 +164,7 @@ def deleteQA():
                                 connect.commit()
                                 indexRem += 1
 
-                return "DELETED SUCCESSFULLY111"
+                return "DELETED SUCCESSFULLY"
 
 @app.route("/postArrangeID", methods = ["GET", "POST"])
 def updateArrID():
@@ -272,7 +272,7 @@ def updateQuestion():
                 directTo = parse["directTo"]
                 update(question, answers, q_id, directTo)
 
-        return "cool"
+        return "EDITED QUESTION"
 
 def update(question, answers, q_id, directTo):
         connect = sql.connect("quiz.db")

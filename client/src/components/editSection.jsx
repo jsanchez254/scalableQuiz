@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 import {addSections} from "../assets/js/addMoreSections";
+import {Transition} from "semantic-ui-react";
 
 class editPath extends Component {
     state = {
@@ -11,9 +12,12 @@ class editPath extends Component {
         sectionIDAid: "",
         paths: [], //will store all paths that are edited on edit section option
         outcomes: [], //will store all outcomes that are edited on edit section option
-        comments: [] //will store all comments that are edited on edit section option
+        comments: [], //will store all comments that are edited on edit section option
+        editedSection: "",
+        visible: true
       }
-    
+    toggleVisibility = () => this.setState(prevState => ({visible: !prevState.visible}))
+
     handleAppendEdit = (result, name, value) =>{
         //get index of input value based on its element name tag
         let index = name.substr((result.length), (name.length - 1));
@@ -99,7 +103,9 @@ class editPath extends Component {
             sectionName: this.state.actualSection
         }
         axios.post( "http://localhost:5000/updateSection" , {section})
-        .then(res =>{            
+        .then(res =>{  
+            this.setState({editedSection:res.data});   
+            this.toggleVisibility();       
         })
     }
     render() { 
@@ -132,6 +138,10 @@ class editPath extends Component {
                         <button className = "button is-success">EDIT</button>
                     </div>           
                 </form>
+                <Transition animation = "flash" duration = "1000" visible = {this.state.visible}>
+                        <h1 id = "postNewQuestion"><br/>{this.state.editedSection}<br/></h1>
+                </Transition>
+                <br/>
             </React.Fragment>
           );
     }

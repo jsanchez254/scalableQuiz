@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
-import {Icon} from "semantic-ui-react";
+import {Icon, Transition} from "semantic-ui-react";
 import {accordion} from "../assets/js/deleteQuestion";
 import {deleteSec, deletePath, getSection} from "../assets/js/deleteSection";
 
@@ -13,13 +13,19 @@ class deleteSection extends Component {
         outcome: [],
         sectionID: [],
         pathID: [],
-        deleteSection: ""
+        deleteSection: "",
+        visible: true,
+        sectionDeleted: ""
       }
+
+    toggleVisibility = () => this.setState(prevState => ({visible: !prevState.visible}))
 
     handleDeleteSection = () => {
        const section = getSection();
        axios.post("http://localhost:5000/deleteSection", {section})
        .then(res => {
+            this.setState({sectionDeleted:res.data});
+            this.toggleVisibility();
        })
     }
 
@@ -61,8 +67,7 @@ class deleteSection extends Component {
                                         </div>
                                                                                
                                 </div>
-                            )}
-                    
+                            )}                    
                         </div>
                     </div>
             </React.Fragment>
@@ -85,6 +90,10 @@ class deleteSection extends Component {
                 {this.state.deleteSection}
                 <hr/>
                 <button onClick = {() => this.handleDeleteSection()} className = "button is-danger">SUBMIT CHANGES</button>
+
+                <Transition animation = "pulse" duration = "1000" visible = {this.state.visible}>
+                        <h1 id = "postNewQuestion"><br/>{this.state.sectionDeleted}</h1>
+                </Transition>
             </React.Fragment>
           );
     }

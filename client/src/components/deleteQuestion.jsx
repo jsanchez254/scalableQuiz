@@ -3,21 +3,27 @@ import axios from "axios";
 import {Link} from 'react-router-dom';
 
 // import {deleteOptions} from "../assets/js/deleteQuestion";
-import {Icon} from "semantic-ui-react";
+import {Icon, Transition} from "semantic-ui-react";
 import {deleteQuestion, deleteAnswer, accordion, getDeleteContent} from "../assets/js/deleteQuestion";
 class DeleteQuestion extends Component {
     state = {
         questions: [],
         answers: [],
         qid: [],
-        deleteSection: "please work"
+        deleteSection: "please work",
+        visible: true,
+        questionDeleted: ""
       }
+
+    toggleVisibility = () => this.setState(prevState => ({visible: !prevState.visible}))
 
     //WILL MAKE SUBMIT REQUEST WHEN WE DELETE WHAT WE WANT FROM QUESTIONS AND ANSWERS
     handleSubmit = () =>{
         const content = getDeleteContent();
         axios.post("http://localhost:5000/deleteQA", {content})
         .then(res =>{
+            this.setState({questionDeleted: res.data});
+            this.toggleVisibility();
         })
     }
     
@@ -67,6 +73,9 @@ class DeleteQuestion extends Component {
                 {this.state.deleteSection}
                 <hr/>
                 <button onClick =  {()=> {this.handleSubmit()}} className = "button is-danger">SUBMIT CHANGES</button>
+                <Transition animation = "pulse" duration = "1000" visible = {this.state.visible}>
+                        <h1 id = "postNewQuestion"><br/>{this.state.questionDeleted}</h1>
+                </Transition>
             </React.Fragment>
           );
     }

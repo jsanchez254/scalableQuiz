@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {Header, Icon} from "semantic-ui-react";
+import {Icon, Transition} from "semantic-ui-react";
 //IMPORT THE EDIT SECTION COMPONENT
 import EditSection from "./editSection";
 
@@ -13,8 +13,13 @@ class EditQuestion extends Component {
         answers: [],    //will store answers that are fetched when questions is selected
         directTo: [], //will store directTo paths to be edited
         actualQuestion: "", //will store question selected from dropdown menu
-        q_id: ""    //will store id of question selected
+        q_id: "",    //will store id of question selected
+        //for animation use when edit clicked
+        editedQuestion: "",
+        visible: true
       }
+
+    toggleVisibility = () => this.setState(prevState => ({visible: !prevState.visible}))
     
     handleAnswersAndDirect = (name, value) =>{
         //handle whether we are talking about direct to input or answer input
@@ -90,7 +95,9 @@ class EditQuestion extends Component {
             q_id : this.state.q_id
         }
         axios.post("http://localhost:5000/updateQuestion", {post})
-        .then(res => {            
+        .then(res => {  
+            this.setState({editedQuestion: res.data});  
+            this.toggleVisibility();        
         })
     }
 
@@ -146,9 +153,12 @@ class EditQuestion extends Component {
                         </div>
                     </div>
                     <div className = "field">
-                        <button className = "button is-success">EDIT!</button>
+                        <button className = "button is-success">EDIT</button>
                     </div>
                 </form>
+                <Transition animation = "flash" duration = "1000" visible = {this.state.visible}>
+                        <h1 id = "postNewQuestion"><br/>{this.state.editedQuestion}</h1>
+                </Transition>
                 <center><Icon name = "object ungroup" size = "huge"/></center>
                 <center>
                     <h1 className = "titles">
