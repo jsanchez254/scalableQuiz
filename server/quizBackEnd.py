@@ -334,7 +334,7 @@ def postPath():
                 comment = parse["comment"]
            
                 insertNewPath(outcome, path, section, comment)
-        return "POSTED PATH SUCCESSFULLY"
+        return "PATH CREATED"
 
 def insertNewPath(outcome, path, section, comment):
         connect = sql.connect("quiz.db")
@@ -372,6 +372,9 @@ def insertNewQuestion(question, answers, directTo):
         cursor.execute('''INSERT INTO  questions (question) VALUES (?)''' , (question,))
 
         #insert all answers from answers array posted by front end
+        print "LENGTH OF ANSWERS: ", len(answers)
+        print "ANSWERS ", answers
+        print "directTo ", directTo
         for i in range(len(answers)):
                 cursor.execute('''INSERT INTO answers (q_id, answer, a_answerNumbers, a_directTo)
                                 VALUES(?,?,?,?)''', (questionID, answers[i], i + 1, directTo[i]))

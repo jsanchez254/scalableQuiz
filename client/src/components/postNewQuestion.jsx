@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 //IMPORT SEMANTIC
-import {Icon} from "semantic-ui-react";
+import {Transition, Icon} from "semantic-ui-react";
 
 //IMPORT JS
 import {addMoreAnswers, deleteAnswer} from "../assets/js/addMoreAnswers.js";
+import {dissapear} from "../assets/js/dissapearAnimation";
 
 class newQuestion extends Component {
     state = {
@@ -21,8 +22,14 @@ class newQuestion extends Component {
         sections: [], // SECTIONS TO BE DISPLAYED FOR PATHS
         setToUpdate: "", //section to be updated for path
         comment: "", //comment that will be posted along path
-        createQSubmission: ""
+        createQSubmission: "", //get comment from backEnd to see if question was created
+        createPathSubmission: "", //get comment from backEnd to see if path was created
+        visible: true, // animation
+        visible1: true // animation2
     }
+
+    toggleVisibility = () => this.setState(prevState => ({visible: !prevState.visible}))
+    toggleVisibility1 = () => this.setState(prevState => ({visible1: !prevState.visible1}))
 
     handleAnswersAndDirect = (name, value) =>{
         //handle whether we are talking about direct to input or answer input
@@ -57,7 +64,9 @@ class newQuestion extends Component {
 
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
-        this.handleAnswersAndDirect(event.target.name, event.target.value);
+        //prevent path form from updating questions
+        if(event.target.name !== "outcome" && event.target.name !== "path" && event.target.name !== "comment" )
+            this.handleAnswersAndDirect(event.target.name, event.target.value);
     }
 
     //handle submit for creating a new path with outcome
@@ -70,7 +79,9 @@ class newQuestion extends Component {
             comment: this.state.comment
         }
         axios.post("http://localhost:5000/postPath" , {newPath})
-        .then(res => {            
+        .then(res => {   
+            this.setState({createPathSubmission: res.data});    
+            this.toggleVisibility1();     
         })
     }
 
@@ -85,6 +96,9 @@ class newQuestion extends Component {
         axios.post("http://localhost:5000/postQuestion", {newQuestion})
         .then(res => {
             this.setState({createQSubmission: res.data});
+            //animation here
+            this.toggleVisibility();
+            // dissapear("postNewQuestion");
         })
     }
 
@@ -186,9 +200,11 @@ class newQuestion extends Component {
                             CREATE QUESTION
                         </button>
                     </div>
-                    {this.state.createQSubmission}
                 </form>
-
+                     {/* ANIMATION HERE */}
+                    <Transition animation = "jiggle" duration = "1000" visible = {this.state.visible}>
+                        <h1 id = "postNewQuestion">{this.state.createQSubmission}</h1>
+                    </Transition>
                 <br/>
                 <center>
                     <Icon name = "road" size = "huge"/>
@@ -241,6 +257,9 @@ class newQuestion extends Component {
                     </button>
                     </div>
                 </form>
+                <Transition animation = "jiggle" duration = "1000" visible = {this.state.visible1}>
+                        <h1 id = "postNewQuestion">{this.state.createPathSubmission}</h1>
+                </Transition>
                 <br/>
             </React.Fragment>
           );
